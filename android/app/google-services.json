@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "916384246833",
+    "project_id": "taskerpage-2dd15",
+    "storage_bucket": "taskerpage-2dd15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916384246833:android:aaddeb760c7faf30473910",
+        "android_client_info": {
+          "package_name": "com.exondigital.taskerpage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916384246833-6uogdu5i20f34u33gcqfg9aviuss3jnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2PnDB5VBY7Lyt0yhk5DHOVOVpsRoBtYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916384246833-6uogdu5i20f34u33gcqfg9aviuss3jnq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "916384246833-ad7vv3ihlkjfkun44ikjebfij1cu4cd9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.exondigital.taskerpage"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

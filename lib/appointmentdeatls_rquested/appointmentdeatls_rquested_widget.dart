@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/bottom_sheet_appointment_widget.dart';
 import '../components/drawwerright_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -9,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AppointmentdeatlsWidget extends StatefulWidget {
-  const AppointmentdeatlsWidget({
+class AppointmentdeatlsRquestedWidget extends StatefulWidget {
+  const AppointmentdeatlsRquestedWidget({
     Key? key,
     this.appiontmentdeatls,
     this.acceptInlistappointment,
@@ -20,11 +21,12 @@ class AppointmentdeatlsWidget extends StatefulWidget {
   final bool? acceptInlistappointment;
 
   @override
-  _AppointmentdeatlsWidgetState createState() =>
-      _AppointmentdeatlsWidgetState();
+  _AppointmentdeatlsRquestedWidgetState createState() =>
+      _AppointmentdeatlsRquestedWidgetState();
 }
 
-class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
+class _AppointmentdeatlsRquestedWidgetState
+    extends State<AppointmentdeatlsRquestedWidget> {
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -60,9 +62,9 @@ class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
             ),
           );
         }
-        final appointmentdeatlsAppointmentRecord = snapshot.data!;
+        final appointmentdeatlsRquestedAppointmentRecord = snapshot.data!;
         return Title(
-            title: 'appointmentdeatls',
+            title: 'appointmentdeatlsRquested',
             color: FlutterFlowTheme.of(context).primaryColor,
             child: Scaffold(
               key: scaffoldKey,
@@ -191,7 +193,7 @@ class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
                                                                       FFLocalizations.of(
                                                                               context)
                                                                           .getText(
-                                                                        '4f0dy8xy' /* Lesson Name */,
+                                                                        'we1ng545' /* Lesson Name */,
                                                                       ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -239,7 +241,7 @@ class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
                                                                           Text(
                                                                         dateTimeFormat(
                                                                           'yMMMd',
-                                                                          appointmentdeatlsAppointmentRecord
+                                                                          appointmentdeatlsRquestedAppointmentRecord
                                                                               .dateTime!,
                                                                           locale:
                                                                               FFLocalizations.of(context).languageCode,
@@ -312,25 +314,37 @@ class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              final appointmentUpdateData =
-                                                  createAppointmentRecordData(
-                                                accepted: true,
-                                              );
-                                              await columnAppointmentRecord
-                                                  .reference
-                                                  .update(
-                                                      appointmentUpdateData);
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding:
+                                                        MediaQuery.of(context)
+                                                            .viewInsets,
+                                                    child:
+                                                        BottomSheetAppointmentWidget(
+                                                      ediAppointment:
+                                                          columnAppointmentRecord
+                                                              .reference,
+                                                    ),
+                                                  );
+                                                },
+                                              ).then(
+                                                  (value) => setState(() {}));
                                             },
-                                            text: columnAppointmentRecord
-                                                        .typeAppointment ==
-                                                    'In Person'
-                                                ? 'accept and share your address'
-                                                : 'accept and share your phone',
+                                            text: FFLocalizations.of(context)
+                                                .getText(
+                                              'i0cbrhp6' /* edit deatls appointment */,
+                                            ),
                                             options: FFButtonOptions(
                                               height: 35,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(15, 0, 15, 0),
-                                              color: Colors.white,
+                                              color: Color(0x00FFFFFF),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .subtitle2
@@ -374,7 +388,7 @@ class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
                                           },
                                           text: FFLocalizations.of(context)
                                               .getText(
-                                            'bu9twkxj' /* don't  accept */,
+                                            'nbo0iac6' /* cancel */,
                                           ),
                                           options: FFButtonOptions(
                                             height: 35,
@@ -394,7 +408,9 @@ class _AppointmentdeatlsWidgetState extends State<AppointmentdeatlsWidget> {
                                                           FontWeight.normal,
                                                     ),
                                             borderSide: BorderSide(
-                                              color: Colors.transparent,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               width: 1,
                                             ),
                                             borderRadius:

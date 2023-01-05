@@ -333,6 +333,10 @@ class _SerachResultWidgetState extends State<SerachResultWidget> {
                                         true,
                                         ParamType.bool,
                                       ),
+                                      'task': serializeParam(
+                                        listViewTaskRecord.reference,
+                                        ParamType.DocumentReference,
+                                      ),
                                     }.withoutNulls,
                                   );
                                 },
@@ -896,11 +900,12 @@ bike Kew t... */
                                                             .fromSTEB(
                                                                 10, 0, 55, 0),
                                                     child: StreamBuilder<
-                                                        AddressRecord>(
-                                                      stream: AddressRecord
-                                                          .getDocument(
-                                                              listViewTaskRecord
-                                                                  .selectedAddress!),
+                                                        List<
+                                                            TaskAddressRecord>>(
+                                                      stream:
+                                                          queryTaskAddressRecord(
+                                                        singleRecord: true,
+                                                      ),
                                                       builder:
                                                           (context, snapshot) {
                                                         // Customize what your widget looks like when it's loading.
@@ -918,11 +923,22 @@ bike Kew t... */
                                                             ),
                                                           );
                                                         }
-                                                        final textAddressRecord =
+                                                        List<TaskAddressRecord>
+                                                            textTaskAddressRecordList =
                                                             snapshot.data!;
+                                                        // Return an empty Container when the item does not exist.
+                                                        if (snapshot
+                                                            .data!.isEmpty) {
+                                                          return Container();
+                                                        }
+                                                        final textTaskAddressRecord =
+                                                            textTaskAddressRecordList
+                                                                    .isNotEmpty
+                                                                ? textTaskAddressRecordList
+                                                                    .first
+                                                                : null;
                                                         return Text(
-                                                          textAddressRecord
-                                                              .address.street!,
+                                                          '${textTaskAddressRecord!.defaultAddress?.toString()}| ${listViewTaskRecord.languages!.toList().length.toString()}',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: FlutterFlowTheme

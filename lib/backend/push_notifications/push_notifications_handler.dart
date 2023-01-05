@@ -99,12 +99,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'KnowU': (data) async => KnowUWidget(
         editKnowU: getParameter(data, 'editKnowU'),
       ),
-  'CONTACTDATA2-M-145': (data) async => Contactdata2M145Widget(
-        editAddress: getParameter(data, 'editAddress'),
-      ),
-  'CONTACTDATA2-M-144': (data) async => Contactdata2M144Widget(
-        editAddress1: getParameter(data, 'editAddress1'),
-      ),
+  'CONTACTDATA2-M-144': (data) async => Contactdata2M144Widget(),
+  'CONTACTDATA2-M-145': (data) async => Contactdata2M145Widget(),
   'WhatAreYouInterestedIn': (data) async => WhatAreYouInterestedInWidget(),
   'Skills': (data) async => NavBarPage(initialPage: 'Skills'),
   'ProfileView': (data) async => NavBarPage(initialPage: 'ProfileView'),
@@ -163,17 +159,21 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         chatUserRef: getParameter(data, 'chatUserRef'),
       ),
   'TASK-M-199': (data) async => TaskM199Widget(),
-  'appointment': (data) async => NavBarPage(initialPage: 'appointment'),
+  'appointment': (data) async => AppointmentWidget(),
   'TaskPubish': (data) async => TaskPubishWidget(
         messagePoster: getParameter(data, 'messagePoster'),
-      ),
-  'appointmentlist': (data) async => AppointmentlistWidget(
         task: getParameter(data, 'task'),
       ),
+  'appointmentlist': (data) async => NavBarPage(initialPage: 'appointmentlist'),
   'appointmentdeatls': (data) async => AppointmentdeatlsWidget(
         appiontmentdeatls: getParameter(data, 'appiontmentdeatls'),
+        acceptInlistappointment: getParameter(data, 'acceptInlistappointment'),
       ),
   'Howitworks': (data) async => HowitworksWidget(),
+  'appointmentdeatlsRquested': (data) async => AppointmentdeatlsRquestedWidget(
+        appiontmentdeatls: getParameter(data, 'appiontmentdeatls'),
+        acceptInlistappointment: getParameter(data, 'acceptInlistappointment'),
+      ),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

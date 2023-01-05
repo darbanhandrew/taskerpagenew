@@ -9,7 +9,6 @@ import 'schema/user_record.dart';
 import 'schema/country_record.dart';
 import 'schema/language_record.dart';
 import 'schema/role_record.dart';
-import 'schema/address_record.dart';
 import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
 import 'schema/education_degree_record.dart';
@@ -17,10 +16,15 @@ import 'schema/education_record.dart';
 import 'schema/skill_category_record.dart';
 import 'schema/skill_record.dart';
 import 'schema/skill_level_record.dart';
-import 'schema/user_skill_record.dart';
 import 'schema/task_record.dart';
 import 'schema/tasker_age_type_record.dart';
 import 'schema/appointment_record.dart';
+import 'schema/define_message_record.dart';
+import 'schema/user_address_record.dart';
+import 'schema/task_address_record.dart';
+import 'schema/appointment_address_record.dart';
+import 'schema/user_skill_record.dart';
+import 'schema/fild_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -32,7 +36,6 @@ export 'schema/user_record.dart';
 export 'schema/country_record.dart';
 export 'schema/language_record.dart';
 export 'schema/role_record.dart';
-export 'schema/address_record.dart';
 export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
 export 'schema/education_degree_record.dart';
@@ -40,10 +43,15 @@ export 'schema/education_record.dart';
 export 'schema/skill_category_record.dart';
 export 'schema/skill_record.dart';
 export 'schema/skill_level_record.dart';
-export 'schema/user_skill_record.dart';
 export 'schema/task_record.dart';
 export 'schema/tasker_age_type_record.dart';
 export 'schema/appointment_record.dart';
+export 'schema/define_message_record.dart';
+export 'schema/user_address_record.dart';
+export 'schema/task_address_record.dart';
+export 'schema/appointment_address_record.dart';
+export 'schema/user_skill_record.dart';
+export 'schema/fild_record.dart';
 
 /// Functions to query UserRecords (as a Stream and as a Future).
 Stream<List<UserRecord>> queryUserRecord({
@@ -207,48 +215,6 @@ Future<FFFirestorePage<RoleRecord>> queryRoleRecordPage({
     queryCollectionPage(
       RoleRecord.collection,
       RoleRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query AddressRecords (as a Stream and as a Future).
-Stream<List<AddressRecord>> queryAddressRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      AddressRecord.collection,
-      AddressRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<AddressRecord>> queryAddressRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      AddressRecord.collection,
-      AddressRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<AddressRecord>> queryAddressRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      AddressRecord.collection,
-      AddressRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -552,48 +518,6 @@ Future<FFFirestorePage<SkillLevelRecord>> querySkillLevelRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query UserSkillRecords (as a Stream and as a Future).
-Stream<List<UserSkillRecord>> queryUserSkillRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      UserSkillRecord.collection,
-      UserSkillRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<UserSkillRecord>> queryUserSkillRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      UserSkillRecord.collection,
-      UserSkillRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<UserSkillRecord>> queryUserSkillRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      UserSkillRecord.collection,
-      UserSkillRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
 /// Functions to query TaskRecords (as a Stream and as a Future).
 Stream<List<TaskRecord>> queryTaskRecord({
   Query Function(Query)? queryBuilder,
@@ -714,6 +638,271 @@ Future<FFFirestorePage<AppointmentRecord>> queryAppointmentRecordPage({
     queryCollectionPage(
       AppointmentRecord.collection,
       AppointmentRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query DefineMessageRecords (as a Stream and as a Future).
+Stream<List<DefineMessageRecord>> queryDefineMessageRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      DefineMessageRecord.collection,
+      DefineMessageRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<DefineMessageRecord>> queryDefineMessageRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      DefineMessageRecord.collection,
+      DefineMessageRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<DefineMessageRecord>> queryDefineMessageRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      DefineMessageRecord.collection,
+      DefineMessageRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query UserAddressRecords (as a Stream and as a Future).
+Stream<List<UserAddressRecord>> queryUserAddressRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UserAddressRecord.collection(parent),
+      UserAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UserAddressRecord>> queryUserAddressRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UserAddressRecord.collection(parent),
+      UserAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<UserAddressRecord>> queryUserAddressRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      UserAddressRecord.collection(parent),
+      UserAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query TaskAddressRecords (as a Stream and as a Future).
+Stream<List<TaskAddressRecord>> queryTaskAddressRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TaskAddressRecord.collection(parent),
+      TaskAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<TaskAddressRecord>> queryTaskAddressRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TaskAddressRecord.collection(parent),
+      TaskAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<TaskAddressRecord>> queryTaskAddressRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      TaskAddressRecord.collection(parent),
+      TaskAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query AppointmentAddressRecords (as a Stream and as a Future).
+Stream<List<AppointmentAddressRecord>> queryAppointmentAddressRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      AppointmentAddressRecord.collection(parent),
+      AppointmentAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<AppointmentAddressRecord>> queryAppointmentAddressRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      AppointmentAddressRecord.collection(parent),
+      AppointmentAddressRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<AppointmentAddressRecord>>
+    queryAppointmentAddressRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+        queryCollectionPage(
+          AppointmentAddressRecord.collection(parent),
+          AppointmentAddressRecord.serializer,
+          queryBuilder: queryBuilder,
+          nextPageMarker: nextPageMarker,
+          pageSize: pageSize,
+          isStream: isStream,
+        );
+
+/// Functions to query UserSkillRecords (as a Stream and as a Future).
+Stream<List<UserSkillRecord>> queryUserSkillRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UserSkillRecord.collection(parent),
+      UserSkillRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UserSkillRecord>> queryUserSkillRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UserSkillRecord.collection(parent),
+      UserSkillRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<UserSkillRecord>> queryUserSkillRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      UserSkillRecord.collection(parent),
+      UserSkillRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query FildRecords (as a Stream and as a Future).
+Stream<List<FildRecord>> queryFildRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      FildRecord.collection,
+      FildRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<FildRecord>> queryFildRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      FildRecord.collection,
+      FildRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<FildRecord>> queryFildRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      FildRecord.collection,
+      FildRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

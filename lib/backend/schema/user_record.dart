@@ -58,9 +58,6 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
   @BuiltValueField(wireName: 'verification_code')
   String? get verificationCode;
 
-  @BuiltValueField(wireName: 'main_address')
-  DocumentReference? get mainAddress;
-
   String? get description;
 
   @BuiltValueField(wireName: 'years_of_experience')
@@ -69,6 +66,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
   BuiltList<String>? get languages;
 
   bool? get insurance;
+
+  LatLng? get location;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -142,11 +141,14 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
           ..hasMainAddress = snapshot.data['has_main_address']
           ..periodic = snapshot.data['periodic']
           ..verificationCode = snapshot.data['verification_code']
-          ..mainAddress = safeGet(() => toRef(snapshot.data['main_address']))
           ..description = snapshot.data['description']
           ..yearsOfExperience = snapshot.data['years_of_experience']?.round()
           ..languages = safeGet(() => ListBuilder(snapshot.data['languages']))
           ..insurance = snapshot.data['insurance']
+          ..location = safeGet(() => LatLng(
+                snapshot.data['_geoloc']['lat'],
+                snapshot.data['_geoloc']['lng'],
+              ))
           ..ffRef = UserRecord.collection.doc(snapshot.objectID),
       );
 
@@ -193,10 +195,10 @@ Map<String, dynamic> createUserRecordData({
   bool? hasMainAddress,
   bool? periodic,
   String? verificationCode,
-  DocumentReference? mainAddress,
   String? description,
   int? yearsOfExperience,
   bool? insurance,
+  LatLng? location,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -220,11 +222,11 @@ Map<String, dynamic> createUserRecordData({
         ..hasMainAddress = hasMainAddress
         ..periodic = periodic
         ..verificationCode = verificationCode
-        ..mainAddress = mainAddress
         ..description = description
         ..yearsOfExperience = yearsOfExperience
         ..languages = null
-        ..insurance = insurance,
+        ..insurance = insurance
+        ..location = location,
     ),
   );
 

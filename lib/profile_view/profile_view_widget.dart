@@ -395,13 +395,9 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                             5),
                                                                     child: StreamBuilder<
                                                                         List<
-                                                                            AddressRecord>>(
+                                                                            UserAddressRecord>>(
                                                                       stream:
-                                                                          queryAddressRecord(
-                                                                        queryBuilder: (addressRecord) => addressRecord.where(
-                                                                            'owner',
-                                                                            isEqualTo:
-                                                                                currentUserReference),
+                                                                          queryUserAddressRecord(
                                                                         singleRecord:
                                                                             true,
                                                                       ),
@@ -422,8 +418,8 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                             ),
                                                                           );
                                                                         }
-                                                                        List<AddressRecord>
-                                                                            textAddressRecordList =
+                                                                        List<UserAddressRecord>
+                                                                            textUserAddressRecordList =
                                                                             snapshot.data!;
                                                                         // Return an empty Container when the item does not exist.
                                                                         if (snapshot
@@ -431,15 +427,13 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                             .isEmpty) {
                                                                           return Container();
                                                                         }
-                                                                        final textAddressRecord = textAddressRecordList.isNotEmpty
-                                                                            ? textAddressRecordList.first
+                                                                        final textUserAddressRecord = textUserAddressRecordList.isNotEmpty
+                                                                            ? textUserAddressRecordList.first
                                                                             : null;
                                                                         return SelectionArea(
                                                                             child:
                                                                                 Text(
-                                                                          textAddressRecord!
-                                                                              .address
-                                                                              .street!
+                                                                          '${textUserAddressRecord!.defaultAddress?.toString()}| ${profileViewUserRecord.languages!.toList().length.toString()}'
                                                                               .maybeHandleOverflow(maxChars: 20),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyText1

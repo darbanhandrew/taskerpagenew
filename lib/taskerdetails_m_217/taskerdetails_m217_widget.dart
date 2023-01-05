@@ -353,7 +353,8 @@ class _TaskerdetailsM217WidgetState extends State<TaskerdetailsM217Widget> {
                                                   .taskerType.languages
                                                   ?.toList(),
                                           options: choiceChipsLanguageRecordList
-                                              .map((e) => e.displayName!)
+                                              .map((e) => e.displayName)
+                                              .withoutNulls
                                               .toList()
                                               .map((label) => ChipData(label))
                                               .toList(),

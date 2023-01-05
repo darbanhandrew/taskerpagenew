@@ -268,7 +268,8 @@ class _Details1M152WidgetState extends State<Details1M152Widget> {
                                           return FlutterFlowChoiceChips(
                                             options:
                                                 choiceChipsLanguageRecordList
-                                                    .map((e) => e.displayName!)
+                                                    .map((e) => e.displayName)
+                                                    .withoutNulls
                                                     .toList()
                                                     .map((label) =>
                                                         ChipData(label))

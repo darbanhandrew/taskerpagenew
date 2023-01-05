@@ -396,15 +396,7 @@ class _ContactDataWidgetState extends State<ContactDataWidget> {
                                             InkWell(
                                               onTap: () async {
                                                 context.pushNamed(
-                                                  'CONTACTDATA2-M-144',
-                                                  queryParams: {
-                                                    'editAddress1':
-                                                        serializeParam(
-                                                      false,
-                                                      ParamType.bool,
-                                                    ),
-                                                  }.withoutNulls,
-                                                );
+                                                    'CONTACTDATA2-M-144');
                                               },
                                               child: Image.asset(
                                                 'assets/images/Mask_Group_140.png',

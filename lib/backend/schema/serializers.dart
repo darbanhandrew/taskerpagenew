@@ -5,7 +5,6 @@ import 'user_record.dart';
 import 'country_record.dart';
 import 'language_record.dart';
 import 'role_record.dart';
-import 'address_record.dart';
 import 'chats_record.dart';
 import 'chat_messages_record.dart';
 import 'education_degree_record.dart';
@@ -13,10 +12,15 @@ import 'education_record.dart';
 import 'skill_category_record.dart';
 import 'skill_record.dart';
 import 'skill_level_record.dart';
-import 'user_skill_record.dart';
 import 'task_record.dart';
 import 'tasker_age_type_record.dart';
 import 'appointment_record.dart';
+import 'define_message_record.dart';
+import 'user_address_record.dart';
+import 'task_address_record.dart';
+import 'appointment_address_record.dart';
+import 'user_skill_record.dart';
+import 'fild_record.dart';
 
 import 'index.dart';
 
@@ -32,7 +36,6 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   CountryRecord,
   LanguageRecord,
   RoleRecord,
-  AddressRecord,
   ChatsRecord,
   ChatMessagesRecord,
   EducationDegreeRecord,
@@ -40,10 +43,15 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   SkillCategoryRecord,
   SkillRecord,
   SkillLevelRecord,
-  UserSkillRecord,
   TaskRecord,
   TaskerAgeTypeRecord,
   AppointmentRecord,
+  DefineMessageRecord,
+  UserAddressRecord,
+  TaskAddressRecord,
+  AppointmentAddressRecord,
+  UserSkillRecord,
+  FildRecord,
   CompanyStruct,
   TranslatableStringStruct,
   AddressStruct,

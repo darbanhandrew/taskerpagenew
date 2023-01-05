@@ -285,7 +285,7 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                                     .center,
                                                             children: [
                                                               AuthUserStreamWidget(
-                                                                child:
+                                                                builder: (context) =>
                                                                     SelectionArea(
                                                                         child:
                                                                             Text(
@@ -326,7 +326,8 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                                   16, 0, 16, 0),
                                                       child:
                                                           AuthUserStreamWidget(
-                                                        child: InkWell(
+                                                        builder: (context) =>
+                                                            InkWell(
                                                           onTap: () async {
                                                             final userUpdateData =
                                                                 createUserRecordData(
@@ -497,7 +498,9 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                                         0),
                                                             child:
                                                                 AuthUserStreamWidget(
-                                                              child: InkWell(
+                                                              builder:
+                                                                  (context) =>
+                                                                      InkWell(
                                                                 onTap:
                                                                     () async {
                                                                   final userUpdateData =
@@ -608,8 +611,9 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                                           .center,
                                                                   children: [
                                                                     AuthUserStreamWidget(
-                                                                      child: SelectionArea(
-                                                                          child: Text(
+                                                                      builder: (context) =>
+                                                                          SelectionArea(
+                                                                              child: Text(
                                                                         FFLocalizations.of(context)
                                                                             .getText(
                                                                           '0sb0rjet' /* Mr */,
@@ -653,7 +657,8 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 0, 0, 10),
                                                 child: AuthUserStreamWidget(
-                                                  child: TextFormField(
+                                                  builder: (context) =>
+                                                      TextFormField(
                                                     controller: textController1,
                                                     autofocus: true,
                                                     obscureText: false,
@@ -932,7 +937,8 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                   options:
                                                       dropDownCountryRecordList
                                                           .map((e) =>
-                                                              e.phoneCode!)
+                                                              e.phoneCode)
+                                                          .withoutNulls
                                                           .toList()
                                                           .toList(),
                                                   optionLabels: functions
@@ -1130,44 +1136,27 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                       0, 0, 24, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (widget.editKnowU!) {
-                                        final userUpdateData =
-                                            createUserRecordData(
-                                          displayName: '',
-                                          firstName: textController2!.text,
-                                          lastName: textController3!.text,
-                                          phoneNumber:
-                                              '${dropDownValue}${textController4!.text}',
-                                          company: createCompanyStruct(
-                                            name: textController1!.text,
-                                            clearUnsetFields: false,
-                                          ),
-                                        );
-                                        await currentUserReference!
-                                            .update(userUpdateData);
+                                      final userUpdateData =
+                                          createUserRecordData(
+                                        displayName: '',
+                                        firstName: textController2!.text,
+                                        lastName: textController3!.text,
+                                        phoneNumber:
+                                            '${dropDownValue}${textController4!.text}',
+                                        company: createCompanyStruct(
+                                          name: textController1!.text,
+                                          clearUnsetFields: false,
+                                        ),
+                                      );
+                                      await currentUserReference!
+                                          .update(userUpdateData);
 
-                                        context.pushNamed(
-                                            'WhatAreYouInterestedIn');
-                                      } else {
-                                        final userUpdateData =
-                                            createUserRecordData(
-                                          displayName: '',
-                                          firstName: textController2!.text,
-                                          lastName: textController3!.text,
-                                          phoneNumber:
-                                              '${dropDownValue}${textController4!.text}',
-                                          company: createCompanyStruct(
-                                            name: textController1!.text,
-                                            clearUnsetFields: false,
-                                          ),
-                                        );
-                                        await currentUserReference!
-                                            .update(userUpdateData);
-                                        context.pop();
-                                      }
+                                      context
+                                          .pushNamed('WhatAreYouInterestedIn');
                                     },
-                                    text:
-                                        widget.editKnowU! ? 'Next   >' : 'Save',
+                                    text: FFLocalizations.of(context).getText(
+                                      'ifn2m4jr' /* Next   > */,
+                                    ),
                                     options: FFButtonOptions(
                                       width: 96,
                                       height: 40,

@@ -49,14 +49,6 @@ class _$UserSkillRecordSerializer
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
-    value = object.user;
-    if (value != null) {
-      result
-        ..add('user')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                DocumentReference, const [const FullType.nullable(Object)])));
-    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -100,12 +92,6 @@ class _$UserSkillRecordSerializer
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
-        case 'user':
-          result.user = serializers.deserialize(value,
-              specifiedType: const FullType(DocumentReference, const [
-                const FullType.nullable(Object)
-              ])) as DocumentReference<Object?>?;
-          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -127,19 +113,13 @@ class _$UserSkillRecord extends UserSkillRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? skillLevels;
   @override
-  final DocumentReference<Object?>? user;
-  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserSkillRecord([void Function(UserSkillRecordBuilder)? updates]) =>
       (new UserSkillRecordBuilder()..update(updates))._build();
 
   _$UserSkillRecord._(
-      {this.skillCategoryRef,
-      this.skillRefs,
-      this.skillLevels,
-      this.user,
-      this.ffRef})
+      {this.skillCategoryRef, this.skillRefs, this.skillLevels, this.ffRef})
       : super._();
 
   @override
@@ -157,17 +137,14 @@ class _$UserSkillRecord extends UserSkillRecord {
         skillCategoryRef == other.skillCategoryRef &&
         skillRefs == other.skillRefs &&
         skillLevels == other.skillLevels &&
-        user == other.user &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc(
-            $jc($jc($jc(0, skillCategoryRef.hashCode), skillRefs.hashCode),
-                skillLevels.hashCode),
-            user.hashCode),
+        $jc($jc($jc(0, skillCategoryRef.hashCode), skillRefs.hashCode),
+            skillLevels.hashCode),
         ffRef.hashCode));
   }
 
@@ -177,7 +154,6 @@ class _$UserSkillRecord extends UserSkillRecord {
           ..add('skillCategoryRef', skillCategoryRef)
           ..add('skillRefs', skillRefs)
           ..add('skillLevels', skillLevels)
-          ..add('user', user)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -204,10 +180,6 @@ class UserSkillRecordBuilder
   set skillLevels(ListBuilder<DocumentReference<Object?>>? skillLevels) =>
       _$this._skillLevels = skillLevels;
 
-  DocumentReference<Object?>? _user;
-  DocumentReference<Object?>? get user => _$this._user;
-  set user(DocumentReference<Object?>? user) => _$this._user = user;
-
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -222,7 +194,6 @@ class UserSkillRecordBuilder
       _skillCategoryRef = $v.skillCategoryRef;
       _skillRefs = $v.skillRefs?.toBuilder();
       _skillLevels = $v.skillLevels?.toBuilder();
-      _user = $v.user;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -251,7 +222,6 @@ class UserSkillRecordBuilder
               skillCategoryRef: skillCategoryRef,
               skillRefs: _skillRefs?.build(),
               skillLevels: _skillLevels?.build(),
-              user: user,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

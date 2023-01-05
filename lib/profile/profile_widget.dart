@@ -293,7 +293,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                   15, 0, 15, 0),
                                                       child:
                                                           AuthUserStreamWidget(
-                                                        child: Text(
+                                                        builder: (context) =>
+                                                            Text(
                                                           valueOrDefault(
                                                               currentUserDocument
                                                                   ?.accountType,
@@ -380,7 +381,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                   15, 0, 0, 0),
                                                       child:
                                                           AuthUserStreamWidget(
-                                                        child: Text(
+                                                        builder: (context) =>
+                                                            Text(
                                                           valueOrDefault(
                                                               currentUserDocument
                                                                   ?.firstName,
@@ -439,7 +441,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(15, 0, 0, 0),
                                                   child: AuthUserStreamWidget(
-                                                    child: Text(
+                                                    builder: (context) => Text(
                                                       dateTimeFormat(
                                                         'yMMMd',
                                                         currentUserDocument!

@@ -1510,7 +1510,7 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 50, 0, 50),
                                       child: AuthUserStreamWidget(
-                                        child: Text(
+                                        builder: (context) => Text(
                                           valueOrDefault(
                                                       currentUserDocument
                                                           ?.accountType,
@@ -1568,10 +1568,8 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                         child: StreamBuilder<
                                             List<UserSkillRecord>>(
                                           stream: queryUserSkillRecord(
-                                            queryBuilder: (userSkillRecord) =>
-                                                userSkillRecord.where('user',
-                                                    isEqualTo:
-                                                        currentUserReference),
+                                            parent: chooseSkilllsM146UserRecord
+                                                .reference,
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -1779,13 +1777,11 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                                         skillCategoryRef:
                                                             gridViewSkillCategoryRecord
                                                                 .reference,
-                                                        user:
-                                                            currentUserReference,
                                                       );
                                                       var userSkillRecordReference =
-                                                          UserSkillRecord
-                                                              .collection
-                                                              .doc();
+                                                          UserSkillRecord.createDoc(
+                                                              chooseSkilllsM146UserRecord
+                                                                  .reference);
                                                       await userSkillRecordReference
                                                           .set(
                                                               userSkillCreateData);
@@ -1793,7 +1789,7 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                                           .getDocumentFromData(
                                                               userSkillCreateData,
                                                               userSkillRecordReference);
-                                                      FFAppState().update(() {
+                                                      setState(() {
                                                         FFAppState()
                                                             .addToChosenCategories(
                                                                 gridViewSkillCategoryRecord
@@ -1807,7 +1803,6 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                                                     context)
                                                                 .alternate,
                                                         isDismissible: false,
-                                                        enableDrag: false,
                                                         context: context,
                                                         builder: (context) {
                                                           return Padding(

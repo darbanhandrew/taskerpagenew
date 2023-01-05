@@ -112,18 +112,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'CONTACTDATA2-M-145',
-              path: 'contactdata2M145',
-              builder: (context, params) => Contactdata2M145Widget(
-                editAddress: params.getParam('editAddress', ParamType.bool),
-              ),
-            ),
-            FFRoute(
               name: 'CONTACTDATA2-M-144',
               path: 'contactdata2M144',
-              builder: (context, params) => Contactdata2M144Widget(
-                editAddress1: params.getParam('editAddress1', ParamType.bool),
-              ),
+              builder: (context, params) => Contactdata2M144Widget(),
+            ),
+            FFRoute(
+              name: 'CONTACTDATA2-M-145',
+              path: 'contactdata2M145',
+              builder: (context, params) => Contactdata2M145Widget(),
             ),
             FFRoute(
               name: 'WhatAreYouInterestedIn',
@@ -416,24 +412,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'appointment',
               path: 'appointment',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'appointment')
-                  : AppointmentWidget(),
+              builder: (context, params) => AppointmentWidget(),
             ),
             FFRoute(
               name: 'TaskPubish',
               path: 'taskPubish',
               builder: (context, params) => TaskPubishWidget(
                 messagePoster: params.getParam('messagePoster', ParamType.bool),
+                task: params.getParam(
+                    'task', ParamType.DocumentReference, false, ['task']),
               ),
             ),
             FFRoute(
               name: 'appointmentlist',
               path: 'appointmentlist',
-              builder: (context, params) => AppointmentlistWidget(
-                task: params.getParam(
-                    'task', ParamType.DocumentReference, false, ['task']),
-              ),
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'appointmentlist')
+                  : AppointmentlistWidget(),
             ),
             FFRoute(
               name: 'appointmentdeatls',
@@ -441,12 +436,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => AppointmentdeatlsWidget(
                 appiontmentdeatls: params.getParam('appiontmentdeatls',
                     ParamType.DocumentReference, false, ['appointment']),
+                acceptInlistappointment:
+                    params.getParam('acceptInlistappointment', ParamType.bool),
               ),
             ),
             FFRoute(
               name: 'Howitworks',
               path: 'howitworks',
               builder: (context, params) => HowitworksWidget(),
+            ),
+            FFRoute(
+              name: 'appointmentdeatlsRquested',
+              path: 'appointmentdeatlsRquested',
+              builder: (context, params) => AppointmentdeatlsRquestedWidget(
+                appiontmentdeatls: params.getParam('appiontmentdeatls',
+                    ParamType.DocumentReference, false, ['appointment']),
+                acceptInlistappointment:
+                    params.getParam('acceptInlistappointment', ParamType.bool),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

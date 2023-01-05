@@ -102,14 +102,6 @@ class _$TaskRecordSerializer implements StructuredSerializer<TaskRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.selectedAddress;
-    if (value != null) {
-      result
-        ..add('selected_address')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                DocumentReference, const [const FullType.nullable(Object)])));
-    }
     value = object.owner;
     if (value != null) {
       result
@@ -206,12 +198,6 @@ class _$TaskRecordSerializer implements StructuredSerializer<TaskRecord> {
           result.archived = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'selected_address':
-          result.selectedAddress = serializers.deserialize(value,
-              specifiedType: const FullType(DocumentReference, const [
-                const FullType.nullable(Object)
-              ])) as DocumentReference<Object?>?;
-          break;
         case 'owner':
           result.owner = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -274,8 +260,6 @@ class _$TaskRecord extends TaskRecord {
   @override
   final bool? archived;
   @override
-  final DocumentReference<Object?>? selectedAddress;
-  @override
   final DocumentReference<Object?>? owner;
   @override
   final TaskDateTimeStruct taskTime;
@@ -302,7 +286,6 @@ class _$TaskRecord extends TaskRecord {
       this.modifiedTime,
       this.published,
       this.archived,
-      this.selectedAddress,
       this.owner,
       required this.taskTime,
       required this.taskerType,
@@ -336,7 +319,6 @@ class _$TaskRecord extends TaskRecord {
         modifiedTime == other.modifiedTime &&
         published == other.published &&
         archived == other.archived &&
-        selectedAddress == other.selectedAddress &&
         owner == other.owner &&
         taskTime == other.taskTime &&
         taskerType == other.taskerType &&
@@ -363,22 +345,19 @@ class _$TaskRecord extends TaskRecord {
                                                         $jc(
                                                             $jc(
                                                                 $jc(
-                                                                    $jc(
-                                                                        0,
-                                                                        category
-                                                                            .hashCode),
-                                                                    skill
+                                                                    0,
+                                                                    category
                                                                         .hashCode),
-                                                                skillLevels
-                                                                    .hashCode),
-                                                            languages.hashCode),
-                                                        description.hashCode),
-                                                    file.hashCode),
-                                                createdTime.hashCode),
-                                            modifiedTime.hashCode),
-                                        published.hashCode),
-                                    archived.hashCode),
-                                selectedAddress.hashCode),
+                                                                skill.hashCode),
+                                                            skillLevels
+                                                                .hashCode),
+                                                        languages.hashCode),
+                                                    description.hashCode),
+                                                file.hashCode),
+                                            createdTime.hashCode),
+                                        modifiedTime.hashCode),
+                                    published.hashCode),
+                                archived.hashCode),
                             owner.hashCode),
                         taskTime.hashCode),
                     taskerType.hashCode),
@@ -400,7 +379,6 @@ class _$TaskRecord extends TaskRecord {
           ..add('modifiedTime', modifiedTime)
           ..add('published', published)
           ..add('archived', archived)
-          ..add('selectedAddress', selectedAddress)
           ..add('owner', owner)
           ..add('taskTime', taskTime)
           ..add('taskerType', taskerType)
@@ -460,11 +438,6 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
   bool? get archived => _$this._archived;
   set archived(bool? archived) => _$this._archived = archived;
 
-  DocumentReference<Object?>? _selectedAddress;
-  DocumentReference<Object?>? get selectedAddress => _$this._selectedAddress;
-  set selectedAddress(DocumentReference<Object?>? selectedAddress) =>
-      _$this._selectedAddress = selectedAddress;
-
   DocumentReference<Object?>? _owner;
   DocumentReference<Object?>? get owner => _$this._owner;
   set owner(DocumentReference<Object?>? owner) => _$this._owner = owner;
@@ -512,7 +485,6 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
       _modifiedTime = $v.modifiedTime;
       _published = $v.published;
       _archived = $v.archived;
-      _selectedAddress = $v.selectedAddress;
       _owner = $v.owner;
       _taskTime = $v.taskTime.toBuilder();
       _taskerType = $v.taskerType.toBuilder();
@@ -553,7 +525,6 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
               modifiedTime: modifiedTime,
               published: published,
               archived: archived,
-              selectedAddress: selectedAddress,
               owner: owner,
               taskTime: taskTime.build(),
               taskerType: taskerType.build(),

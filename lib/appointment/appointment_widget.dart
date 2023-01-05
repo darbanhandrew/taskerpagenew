@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/drawwerright_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -94,108 +93,147 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       15, 0, 15, 20),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: 72,
-                                        height: 72,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.network(
-                                          'https://picsum.photos/seed/269/600',
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 0, 0, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 2),
-                                                  child: SelectionArea(
-                                                      child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      's78fy41e' /* Katrin Smith */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          fontSize: 16,
-                                                        ),
-                                                  )),
-                                                ),
-                                              ],
+                                  child: StreamBuilder<List<UserRecord>>(
+                                    stream: queryUserRecord(
+                                      singleRecord: true,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: CircularProgressIndicator(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                             ),
-                                            Row(
+                                          ),
+                                        );
+                                      }
+                                      List<UserRecord> rowUserRecordList =
+                                          snapshot.data!;
+                                      // Return an empty Container when the item does not exist.
+                                      if (snapshot.data!.isEmpty) {
+                                        return Container();
+                                      }
+                                      final rowUserRecord =
+                                          rowUserRecordList.isNotEmpty
+                                              ? rowUserRecordList.first
+                                              : null;
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 72,
+                                            height: 72,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.network(
+                                              'https://picsum.photos/seed/269/600',
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12, 0, 0, 0),
+                                            child: Column(
                                               mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 5),
-                                                  child: StreamBuilder<
-                                                      List<AddressRecord>>(
-                                                    stream: queryAddressRecord(
-                                                      queryBuilder: (addressRecord) =>
-                                                          addressRecord.where(
-                                                              'owner',
-                                                              isEqualTo:
-                                                                  currentUserReference),
-                                                      singleRecord: true,
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryColor,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      List<AddressRecord>
-                                                          textAddressRecordList =
-                                                          snapshot.data!;
-                                                      // Return an empty Container when the item does not exist.
-                                                      if (snapshot
-                                                          .data!.isEmpty) {
-                                                        return Container();
-                                                      }
-                                                      final textAddressRecord =
-                                                          textAddressRecordList
-                                                                  .isNotEmpty
-                                                              ? textAddressRecordList
-                                                                  .first
-                                                              : null;
-                                                      return SelectionArea(
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 2),
+                                                      child: SelectionArea(
                                                           child: Text(
-                                                        textAddressRecord!
-                                                            .address.street!
-                                                            .maybeHandleOverflow(
-                                                                maxChars: 20),
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          's78fy41e' /* Katrin Smith */,
+                                                        ),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  fontSize: 16,
+                                                                ),
+                                                      )),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
+                                                      child: StreamBuilder<
+                                                          List<
+                                                              UserAddressRecord>>(
+                                                        stream:
+                                                            queryUserAddressRecord(
+                                                          parent: rowUserRecord!
+                                                              .reference,
+                                                          singleRecord: true,
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50,
+                                                                height: 50,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<UserAddressRecord>
+                                                              textUserAddressRecordList =
+                                                              snapshot.data!;
+                                                          // Return an empty Container when the item does not exist.
+                                                          if (snapshot
+                                                              .data!.isEmpty) {
+                                                            return Container();
+                                                          }
+                                                          final textUserAddressRecord =
+                                                              textUserAddressRecordList
+                                                                      .isNotEmpty
+                                                                  ? textUserAddressRecordList
+                                                                      .first
+                                                                  : null;
+                                                          return SelectionArea(
+                                                              child: Text(
+                                                            '${textUserAddressRecord!.address.city} |${rowUserRecord!.languages!.toList().length.toString()}'
+                                                                .maybeHandleOverflow(
+                                                                    maxChars:
+                                                                        20),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyText1
                                                                 .override(
                                                                   fontFamily:
@@ -204,16 +242,18 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                                       FontWeight
                                                                           .w500,
                                                                 ),
-                                                      ));
-                                                    },
-                                                  ),
+                                                          ));
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ),
                                 Padding(

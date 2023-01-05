@@ -13,15 +13,18 @@ class TaskPubishWidget extends StatefulWidget {
   const TaskPubishWidget({
     Key? key,
     this.messagePoster,
+    this.task,
   }) : super(key: key);
 
   final bool? messagePoster;
+  final DocumentReference? task;
 
   @override
   _TaskPubishWidgetState createState() => _TaskPubishWidgetState();
 }
 
 class _TaskPubishWidgetState extends State<TaskPubishWidget> {
+  ChatsRecord? aovn;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,7 +46,8 @@ class _TaskPubishWidgetState extends State<TaskPubishWidget> {
     context.watch<FFAppState>();
 
     return StreamBuilder<TaskRecord>(
-      stream: TaskRecord.getDocument(FFAppState().createdTask!),
+      stream: TaskRecord.getDocument(
+          widget.task == null ? FFAppState().createdTask! : widget.task!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -212,7 +216,7 @@ class _TaskPubishWidgetState extends State<TaskPubishWidget> {
                                                             MainAxisSize.max,
                                                         children: [
                                                           AuthUserStreamWidget(
-                                                            child:
+                                                            builder: (context) =>
                                                                 Image.network(
                                                               currentUserPhoto,
                                                               width: 50,
@@ -1089,34 +1093,45 @@ class _TaskPubishWidgetState extends State<TaskPubishWidget> {
                                       InkWell(
                                         onTap: () async {
                                           if (widget.messagePoster!) {
-                                            final taskUpdateData = {
-                                              ...createTaskRecordData(
-                                                published: true,
-                                                archived: false,
+                                            final chatsCreateData = {
+                                              ...createChatsRecordData(
+                                                userA: currentUserReference,
+                                                userB:
+                                                    taskPubishTaskRecord.owner,
                                               ),
+                                              'users': [
+                                                taskPubishTaskRecord.owner
+                                              ],
+                                            };
+                                            var chatsRecordReference =
+                                                ChatsRecord.collection.doc();
+                                            await chatsRecordReference
+                                                .set(chatsCreateData);
+                                            aovn =
+                                                ChatsRecord.getDocumentFromData(
+                                                    chatsCreateData,
+                                                    chatsRecordReference);
+
+                                            final taskUpdateData = {
                                               'users': FieldValue.arrayUnion(
                                                   [currentUserReference]),
                                             };
                                             await taskPubishTaskRecord.reference
                                                 .update(taskUpdateData);
-                                            FFAppState().update(() {
-                                              FFAppState().createdTask = null;
-                                            });
 
-                                            context.pushNamed('tasks');
-
-                                            triggerPushNotification(
-                                              notificationTitle:
-                                                  'Task is published',
-                                              notificationText:
-                                                  'your task is now published',
-                                              notificationSound: 'default',
-                                              userRefs: [currentUserReference!],
-                                              initialPageName: 'homePage-M-03',
-                                              parameterData: {},
+                                            context.pushNamed(
+                                              'chat',
+                                              queryParams: {
+                                                'chatUserRef': serializeParam(
+                                                  currentUserReference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                                'chatRef': serializeParam(
+                                                  aovn!.reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
                                             );
-
-                                            context.pushNamed('chat');
                                           } else {
                                             final taskUpdateData = {
                                               ...createTaskRecordData(
@@ -1145,6 +1160,8 @@ class _TaskPubishWidgetState extends State<TaskPubishWidget> {
                                               parameterData: {},
                                             );
                                           }
+
+                                          setState(() {});
                                         },
                                         child: Container(
                                           width: 140,

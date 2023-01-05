@@ -149,7 +149,7 @@ class _DateofBirthM173WidgetState extends State<DateofBirthM173Widget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   15, 40, 15, 15),
                               child: AuthUserStreamWidget(
-                                child: TextFormField(
+                                builder: (context) => TextFormField(
                                   controller: textController1,
                                   autofocus: true,
                                   obscureText: false,
@@ -206,7 +206,7 @@ class _DateofBirthM173WidgetState extends State<DateofBirthM173Widget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
                               child: AuthUserStreamWidget(
-                                child: TextFormField(
+                                builder: (context) => TextFormField(
                                   controller: textController2,
                                   autofocus: true,
                                   obscureText: false,
@@ -283,7 +283,7 @@ class _DateofBirthM173WidgetState extends State<DateofBirthM173Widget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     AuthUserStreamWidget(
-                                      child: Text(
+                                      builder: (context) => Text(
                                         datePicked == null
                                             ? currentUserDocument!.birthDate!
                                                 .toString()

@@ -68,6 +68,20 @@ class _$AppointmentRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.typeAppointment;
+    if (value != null) {
+      result
+        ..add('type_appointment')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.phone;
+    if (value != null) {
+      result
+        ..add('phone')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -122,6 +136,14 @@ class _$AppointmentRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'type_appointment':
+          result.typeAppointment = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'phone':
+          result.phone = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -149,6 +171,10 @@ class _$AppointmentRecord extends AppointmentRecord {
   @override
   final DocumentReference<Object?>? invited;
   @override
+  final String? typeAppointment;
+  @override
+  final String? phone;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$AppointmentRecord(
@@ -162,6 +188,8 @@ class _$AppointmentRecord extends AppointmentRecord {
       this.createdAt,
       this.createdBy,
       this.invited,
+      this.typeAppointment,
+      this.phone,
       this.ffRef})
       : super._();
 
@@ -183,6 +211,8 @@ class _$AppointmentRecord extends AppointmentRecord {
         createdAt == other.createdAt &&
         createdBy == other.createdBy &&
         invited == other.invited &&
+        typeAppointment == other.typeAppointment &&
+        phone == other.phone &&
         ffRef == other.ffRef;
   }
 
@@ -192,11 +222,15 @@ class _$AppointmentRecord extends AppointmentRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, users.hashCode), dateTime.hashCode),
-                        accepted.hashCode),
-                    createdAt.hashCode),
-                createdBy.hashCode),
-            invited.hashCode),
+                    $jc(
+                        $jc(
+                            $jc($jc($jc(0, users.hashCode), dateTime.hashCode),
+                                accepted.hashCode),
+                            createdAt.hashCode),
+                        createdBy.hashCode),
+                    invited.hashCode),
+                typeAppointment.hashCode),
+            phone.hashCode),
         ffRef.hashCode));
   }
 
@@ -209,6 +243,8 @@ class _$AppointmentRecord extends AppointmentRecord {
           ..add('createdAt', createdAt)
           ..add('createdBy', createdBy)
           ..add('invited', invited)
+          ..add('typeAppointment', typeAppointment)
+          ..add('phone', phone)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -245,6 +281,15 @@ class AppointmentRecordBuilder
   DocumentReference<Object?>? get invited => _$this._invited;
   set invited(DocumentReference<Object?>? invited) => _$this._invited = invited;
 
+  String? _typeAppointment;
+  String? get typeAppointment => _$this._typeAppointment;
+  set typeAppointment(String? typeAppointment) =>
+      _$this._typeAppointment = typeAppointment;
+
+  String? _phone;
+  String? get phone => _$this._phone;
+  set phone(String? phone) => _$this._phone = phone;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -262,6 +307,8 @@ class AppointmentRecordBuilder
       _createdAt = $v.createdAt;
       _createdBy = $v.createdBy;
       _invited = $v.invited;
+      _typeAppointment = $v.typeAppointment;
+      _phone = $v.phone;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -293,6 +340,8 @@ class AppointmentRecordBuilder
               createdAt: createdAt,
               createdBy: createdBy,
               invited: invited,
+              typeAppointment: typeAppointment,
+              phone: phone,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

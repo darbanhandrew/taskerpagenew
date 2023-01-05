@@ -7,15 +7,17 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(AddressRecord.serializer)
       ..add(AddressStruct.serializer)
+      ..add(AppointmentAddressRecord.serializer)
       ..add(AppointmentRecord.serializer)
       ..add(ChatMessagesRecord.serializer)
       ..add(ChatsRecord.serializer)
       ..add(CompanyStruct.serializer)
       ..add(CountryRecord.serializer)
+      ..add(DefineMessageRecord.serializer)
       ..add(EducationDegreeRecord.serializer)
       ..add(EducationRecord.serializer)
+      ..add(FildRecord.serializer)
       ..add(LanguageRecord.serializer)
       ..add(OptionStruct.serializer)
       ..add(RoleRecord.serializer)
@@ -23,13 +25,27 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(SkillDetailStruct.serializer)
       ..add(SkillLevelRecord.serializer)
       ..add(SkillRecord.serializer)
+      ..add(TaskAddressRecord.serializer)
       ..add(TaskDateTimeStruct.serializer)
       ..add(TaskRecord.serializer)
       ..add(TaskerAgeTypeRecord.serializer)
       ..add(TaskerTypeStruct.serializer)
       ..add(TranslatableStringStruct.serializer)
+      ..add(UserAddressRecord.serializer)
       ..add(UserRecord.serializer)
       ..add(UserSkillRecord.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])
+          ]),
+          () => new ListBuilder<DocumentReference<Object?>>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])
+          ]),
+          () => new ListBuilder<DocumentReference<Object?>>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(

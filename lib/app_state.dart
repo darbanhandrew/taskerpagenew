@@ -77,6 +77,54 @@ class FFAppState extends ChangeNotifier {
         ? prefs.setString('ff_createdTask', _value.path)
         : prefs.remove('ff_createdTask');
   }
+
+  int _OrderDefineMessages = 0;
+  int get OrderDefineMessages => _OrderDefineMessages;
+  set OrderDefineMessages(int _value) {
+    _OrderDefineMessages = _value;
+  }
+
+  bool _phoneAppointment = false;
+  bool get phoneAppointment => _phoneAppointment;
+  set phoneAppointment(bool _value) {
+    _phoneAppointment = _value;
+  }
+
+  String _AddressAppointment = '';
+  String get AddressAppointment => _AddressAppointment;
+  set AddressAppointment(String _value) {
+    _AddressAppointment = _value;
+  }
+
+  bool _typeAppointment = false;
+  bool get typeAppointment => _typeAppointment;
+  set typeAppointment(bool _value) {
+    _typeAppointment = _value;
+  }
+
+  DocumentReference? _addresAppointtment;
+  DocumentReference? get addresAppointtment => _addresAppointtment;
+  set addresAppointtment(DocumentReference? _value) {
+    _addresAppointtment = _value;
+  }
+
+  bool _acceptPhone = false;
+  bool get acceptPhone => _acceptPhone;
+  set acceptPhone(bool _value) {
+    _acceptPhone = _value;
+  }
+
+  String _filds = '';
+  String get filds => _filds;
+  set filds(String _value) {
+    _filds = _value;
+  }
+
+  bool _field = false;
+  bool get field => _field;
+  set field(bool _value) {
+    _field = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

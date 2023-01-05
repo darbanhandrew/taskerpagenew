@@ -1,22 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'address_record.dart';
+part of 'appointment_address_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<AddressRecord> _$addressRecordSerializer =
-    new _$AddressRecordSerializer();
+Serializer<AppointmentAddressRecord> _$appointmentAddressRecordSerializer =
+    new _$AppointmentAddressRecordSerializer();
 
-class _$AddressRecordSerializer implements StructuredSerializer<AddressRecord> {
+class _$AppointmentAddressRecordSerializer
+    implements StructuredSerializer<AppointmentAddressRecord> {
   @override
-  final Iterable<Type> types = const [AddressRecord, _$AddressRecord];
+  final Iterable<Type> types = const [
+    AppointmentAddressRecord,
+    _$AppointmentAddressRecord
+  ];
   @override
-  final String wireName = 'AddressRecord';
+  final String wireName = 'AppointmentAddressRecord';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, AddressRecord object,
+  Iterable<Object?> serialize(
+      Serializers serializers, AppointmentAddressRecord object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'address',
@@ -72,10 +77,10 @@ class _$AddressRecordSerializer implements StructuredSerializer<AddressRecord> {
   }
 
   @override
-  AddressRecord deserialize(
+  AppointmentAddressRecord deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new AddressRecordBuilder();
+    final result = new AppointmentAddressRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -122,7 +127,7 @@ class _$AddressRecordSerializer implements StructuredSerializer<AddressRecord> {
   }
 }
 
-class _$AddressRecord extends AddressRecord {
+class _$AppointmentAddressRecord extends AppointmentAddressRecord {
   @override
   final AddressStruct address;
   @override
@@ -138,10 +143,11 @@ class _$AddressRecord extends AddressRecord {
   @override
   final DocumentReference<Object?>? ffRef;
 
-  factory _$AddressRecord([void Function(AddressRecordBuilder)? updates]) =>
-      (new AddressRecordBuilder()..update(updates))._build();
+  factory _$AppointmentAddressRecord(
+          [void Function(AppointmentAddressRecordBuilder)? updates]) =>
+      (new AppointmentAddressRecordBuilder()..update(updates))._build();
 
-  _$AddressRecord._(
+  _$AppointmentAddressRecord._(
       {required this.address,
       this.owner,
       this.createdAt,
@@ -150,20 +156,23 @@ class _$AddressRecord extends AddressRecord {
       this.defaultAddress,
       this.ffRef})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(address, r'AddressRecord', 'address');
+    BuiltValueNullFieldError.checkNotNull(
+        address, r'AppointmentAddressRecord', 'address');
   }
 
   @override
-  AddressRecord rebuild(void Function(AddressRecordBuilder) updates) =>
+  AppointmentAddressRecord rebuild(
+          void Function(AppointmentAddressRecordBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AddressRecordBuilder toBuilder() => new AddressRecordBuilder()..replace(this);
+  AppointmentAddressRecordBuilder toBuilder() =>
+      new AppointmentAddressRecordBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AddressRecord &&
+    return other is AppointmentAddressRecord &&
         address == other.address &&
         owner == other.owner &&
         createdAt == other.createdAt &&
@@ -189,7 +198,7 @@ class _$AddressRecord extends AddressRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'AddressRecord')
+    return (newBuiltValueToStringHelper(r'AppointmentAddressRecord')
           ..add('address', address)
           ..add('owner', owner)
           ..add('createdAt', createdAt)
@@ -201,9 +210,10 @@ class _$AddressRecord extends AddressRecord {
   }
 }
 
-class AddressRecordBuilder
-    implements Builder<AddressRecord, AddressRecordBuilder> {
-  _$AddressRecord? _$v;
+class AppointmentAddressRecordBuilder
+    implements
+        Builder<AppointmentAddressRecord, AppointmentAddressRecordBuilder> {
+  _$AppointmentAddressRecord? _$v;
 
   AddressStructBuilder? _address;
   AddressStructBuilder get address =>
@@ -235,11 +245,11 @@ class AddressRecordBuilder
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
-  AddressRecordBuilder() {
-    AddressRecord._initializeBuilder(this);
+  AppointmentAddressRecordBuilder() {
+    AppointmentAddressRecord._initializeBuilder(this);
   }
 
-  AddressRecordBuilder get _$this {
+  AppointmentAddressRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _address = $v.address.toBuilder();
@@ -255,24 +265,24 @@ class AddressRecordBuilder
   }
 
   @override
-  void replace(AddressRecord other) {
+  void replace(AppointmentAddressRecord other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$AddressRecord;
+    _$v = other as _$AppointmentAddressRecord;
   }
 
   @override
-  void update(void Function(AddressRecordBuilder)? updates) {
+  void update(void Function(AppointmentAddressRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  AddressRecord build() => _build();
+  AppointmentAddressRecord build() => _build();
 
-  _$AddressRecord _build() {
-    _$AddressRecord _$result;
+  _$AppointmentAddressRecord _build() {
+    _$AppointmentAddressRecord _$result;
     try {
       _$result = _$v ??
-          new _$AddressRecord._(
+          new _$AppointmentAddressRecord._(
               address: address.build(),
               owner: owner,
               createdAt: createdAt,
@@ -287,7 +297,7 @@ class AddressRecordBuilder
         address.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'AddressRecord', _$failedField, e.toString());
+            r'AppointmentAddressRecord', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -441,35 +441,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': '< Zurück',
       'sv': '< Tillbaka',
     },
+    'ifn2m4jr': {
+      'en': 'Next   >',
+      'de': 'Weiter >',
+      'sv': 'Nästa >',
+    },
     'e96hq98w': {
-      'en': 'Home',
-      'de': 'Zuhause',
-      'sv': 'Hem',
-    },
-  },
-  // CONTACTDATA2-M-145
-  {
-    'le5cl6g3': {
-      'en': 'Main address',
-      'de': 'Hauptadresse',
-      'sv': 'Huvudadress',
-    },
-    'z33vh65q': {
-      'en': 'Other addresses',
-      'de': 'Andere Adressen',
-      'sv': 'Andra adresser',
-    },
-    'yil9lu03': {
-      'en': 'Set to main',
-      'de': 'Auf Haupt stellen',
-      'sv': 'Ställ in på main',
-    },
-    'dfwn5p5w': {
-      'en': '+ Add another addresses',
-      'de': '+ Fügen Sie weitere Adressen hinzu',
-      'sv': '+ Lägg till ytterligare adresser',
-    },
-    'h94mm6d7': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
@@ -533,6 +510,39 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': '+Lägg till',
     },
     '5kild8c7': {
+      'en': 'Home',
+      'de': 'Zuhause',
+      'sv': 'Hem',
+    },
+  },
+  // CONTACTDATA2-M-145
+  {
+    'le5cl6g3': {
+      'en': 'Main address',
+      'de': 'Hauptadresse',
+      'sv': 'Huvudadress',
+    },
+    'z33vh65q': {
+      'en': 'Other addresses',
+      'de': 'Andere Adressen',
+      'sv': 'Andra adresser',
+    },
+    'yil9lu03': {
+      'en': 'Set to main',
+      'de': 'Auf Haupt stellen',
+      'sv': 'Ställ in på main',
+    },
+    'dfwn5p5w': {
+      'en': '+ Add another addresses',
+      'de': '+ Fügen Sie weitere Adressen hinzu',
+      'sv': '+ Lägg till ytterligare adresser',
+    },
+    'w7swi2of': {
+      'en': 'Next   >',
+      'de': 'Weiter >',
+      'sv': 'Nästa >',
+    },
+    'h94mm6d7': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
@@ -4553,22 +4563,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // chat
   {
-    '1bner0bw': {
-      'en': 'send location',
-      'de': 'Übermittle Standort',
-      'sv': 'skicka plats',
-    },
-    '8pfdhqzr': {
-      'en': 'HI !',
-      'de': 'HALLO !',
-      'sv': 'HEJ !',
-    },
-    'd9sbo1qx': {
-      'en': 'whats Up ?',
-      'de': 'Was geht ?',
-      'sv': 'vad händer ?',
-    },
-    'mexrc0tz': {
+    'oh12onby': {
       'en': 'Write a message...',
       'de': 'Eine Nachricht schreiben...',
       'sv': 'Skriv ett meddelande...',
@@ -4720,31 +4715,41 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // appointmentlist
   {
-    '09a6onhl': {
-      'en': 'Lesson Name',
+    'nriwnspk': {
+      'en': 'Appointment Requests from',
       'de': '',
       'sv': '',
     },
-    '99dlv1zp': {
-      'en': 'Lesson Name',
+    'l662b8al': {
+      'en': 'accept',
+      'de': '',
+      'sv': '',
+    },
+    'bm4998tk': {
+      'en': 'Appointment Requests for',
+      'de': '',
+      'sv': '',
+    },
+    'rm5kx13u': {
+      'en': 'requested',
       'de': '',
       'sv': '',
     },
     '1wh19r07': {
-      'en': 'Messaging',
+      'en': 'Appointment',
       'de': 'Nachrichten',
       'sv': 'Meddelanden',
     },
   },
   // appointmentdeatls
   {
-    '1nmspiov': {
+    '4f0dy8xy': {
       'en': 'Lesson Name',
       'de': '',
       'sv': '',
     },
-    '4no8zqus': {
-      'en': 'Lesson Name',
+    'bu9twkxj': {
+      'en': 'don\'t  accept',
       'de': '',
       'sv': '',
     },
@@ -4807,6 +4812,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Mitt nätverk',
     },
   },
+  // appointmentdeatlsRquested
+  {
+    'we1ng545': {
+      'en': 'Lesson Name',
+      'de': '',
+      'sv': '',
+    },
+    'i0cbrhp6': {
+      'en': 'edit deatls appointment',
+      'de': '',
+      'sv': '',
+    },
+    'nbo0iac6': {
+      'en': 'cancel',
+      'de': '',
+      'sv': '',
+    },
+    'qbwarb5p': {
+      'en': 'Messaging',
+      'de': 'Nachrichten',
+      'sv': 'Meddelanden',
+    },
+  },
   // TaskCreationDrawerContent
   {
     '0974kgsg': {
@@ -4845,17 +4873,55 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Förhandsgranska och publicera',
     },
   },
-  // bottomSheet
+  // bottomSheet_appointment
   {
-    'ssp8nhfe': {
-      'en': 'Hello World',
-      'de': 'Hallo Welt',
-      'sv': 'Hej världen',
+    'ttaczirq': {
+      'en': 'Set Aoppointment',
+      'de': '',
+      'sv': '',
     },
-    '5oyob3f9': {
-      'en': 'Hello World',
-      'de': 'Hallo Welt',
-      'sv': 'Hej världen',
+    'bzn01qim': {
+      'en': 'Type Appointment',
+      'de': '',
+      'sv': '',
+    },
+    'imc1k1fo': {
+      'en': 'In Person',
+      'de': '',
+      'sv': '',
+    },
+    'ni47bthy': {
+      'en': 'By Phone',
+      'de': '',
+      'sv': '',
+    },
+    'jxyllw7l': {
+      'en': 'time stamp',
+      'de': '',
+      'sv': '',
+    },
+    'xccefah1': {
+      'en': 'cancel',
+      'de': '',
+      'sv': '',
+    },
+  },
+  // BtnSH_byPhone
+  {
+    '4o965zhe': {
+      'en': 'Do you want to share your phone number ?',
+      'de': '',
+      'sv': '',
+    },
+    'gekrbt45': {
+      'en': 'accepted',
+      'de': '',
+      'sv': '',
+    },
+    'z9fmvssj': {
+      'en': 'NO',
+      'de': '',
+      'sv': '',
     },
   },
   // bottomSheetHI
@@ -4892,37 +4958,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Whats UP 3',
       'de': 'Was geht 3',
       'sv': 'Vad händer 3',
-    },
-  },
-  // chooseSkillBottomSheet
-  {
-    '82qlc2lk': {
-      'en': 'Choose Your Skills',
-      'de': 'Wählen Sie Ihre Fähigkeiten',
-      'sv': 'Välj dina färdigheter',
-    },
-    'q2nn8pun': {
-      'en': 'Skill Level',
-      'de': 'Fähigkeits Level',
-      'sv': 'Skicklighetsnivå',
-    },
-    'pf2w40og': {
-      'en': 'Add Skills',
-      'de': 'Fähigkeiten hinzufügen',
-      'sv': 'Lägg till färdigheter',
-    },
-  },
-  // test
-  {
-    'oppaz55a': {
-      'en': 'Title',
-      'de': 'Titel',
-      'sv': 'Titel',
-    },
-    'lsdq5gw1': {
-      'en': 'Subtitle',
-      'de': 'Untertitel',
-      'sv': 'Texta',
     },
   },
   // drawwerright
@@ -4966,6 +5001,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'language',
       'de': 'Sprache',
       'sv': 'språk',
+    },
+  },
+  // chooseSkillBottomSheet
+  {
+    '82qlc2lk': {
+      'en': 'Choose Your Skills',
+      'de': 'Wählen Sie Ihre Fähigkeiten',
+      'sv': 'Välj dina färdigheter',
+    },
+    'q2nn8pun': {
+      'en': 'Skill Level',
+      'de': 'Fähigkeits Level',
+      'sv': 'Skicklighetsnivå',
+    },
+    't9brcqzx': {
+      'en': 'fields skill',
+      'de': 'Fähigkeits Level',
+      'sv': 'Skicklighetsnivå',
+    },
+    '84ey9pxv': {
+      'en': 'Add Skills',
+      'de': 'Fähigkeiten hinzufügen',
+      'sv': 'Lägg till färdigheter',
     },
   },
   // Miscellaneous

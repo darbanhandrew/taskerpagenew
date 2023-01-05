@@ -79,7 +79,7 @@ class _HomePageM03WidgetState extends State<HomePageM03Widget> {
                   children: [
                     InkWell(
                       onTap: () async {
-                        context.pushNamed('SignUp');
+                        context.pushNamed('ChooseLanguage');
                       },
                       child: Text(
                         FFLocalizations.of(context).getText(
@@ -2977,9 +2977,11 @@ bike Kew t... */
                                                                               55,
                                                                               0),
                                                                           child:
-                                                                              StreamBuilder<AddressRecord>(
+                                                                              StreamBuilder<List<TaskAddressRecord>>(
                                                                             stream:
-                                                                                AddressRecord.getDocument(listViewTaskRecord.selectedAddress!),
+                                                                                queryTaskAddressRecord(
+                                                                              singleRecord: true,
+                                                                            ),
                                                                             builder:
                                                                                 (context, snapshot) {
                                                                               // Customize what your widget looks like when it's loading.
@@ -2994,9 +2996,14 @@ bike Kew t... */
                                                                                   ),
                                                                                 );
                                                                               }
-                                                                              final textAddressRecord = snapshot.data!;
+                                                                              List<TaskAddressRecord> textTaskAddressRecordList = snapshot.data!;
+                                                                              // Return an empty Container when the item does not exist.
+                                                                              if (snapshot.data!.isEmpty) {
+                                                                                return Container();
+                                                                              }
+                                                                              final textTaskAddressRecord = textTaskAddressRecordList.isNotEmpty ? textTaskAddressRecordList.first : null;
                                                                               return Text(
-                                                                                textAddressRecord.address.street!,
+                                                                                '${textTaskAddressRecord!.defaultAddress?.toString()}| ${listViewTaskRecord.languages!.toList().length.toString()}',
                                                                                 textAlign: TextAlign.center,
                                                                                 style: FlutterFlowTheme.of(context).title3.override(
                                                                                       fontFamily: 'Poppins',

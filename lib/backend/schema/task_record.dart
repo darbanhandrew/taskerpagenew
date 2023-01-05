@@ -34,9 +34,6 @@ abstract class TaskRecord implements Built<TaskRecord, TaskRecordBuilder> {
 
   bool? get archived;
 
-  @BuiltValueField(wireName: 'selected_address')
-  DocumentReference? get selectedAddress;
-
   DocumentReference? get owner;
 
   @BuiltValueField(wireName: 'task_time')
@@ -91,8 +88,6 @@ abstract class TaskRecord implements Built<TaskRecord, TaskRecordBuilder> {
               snapshot.data['modified_time']))
           ..published = snapshot.data['published']
           ..archived = snapshot.data['archived']
-          ..selectedAddress =
-              safeGet(() => toRef(snapshot.data['selected_address']))
           ..owner = safeGet(() => toRef(snapshot.data['owner']))
           ..taskTime = createTaskDateTimeStruct(
             periodic: (snapshot.data['task_time'] ?? {})['periodic'],
@@ -170,7 +165,6 @@ Map<String, dynamic> createTaskRecordData({
   DateTime? modifiedTime,
   bool? published,
   bool? archived,
-  DocumentReference? selectedAddress,
   DocumentReference? owner,
   TaskDateTimeStruct? taskTime,
   TaskerTypeStruct? taskerType,
@@ -190,7 +184,6 @@ Map<String, dynamic> createTaskRecordData({
         ..modifiedTime = modifiedTime
         ..published = published
         ..archived = archived
-        ..selectedAddress = selectedAddress
         ..owner = owner
         ..taskTime = TaskDateTimeStructBuilder()
         ..taskerType = TaskerTypeStructBuilder()

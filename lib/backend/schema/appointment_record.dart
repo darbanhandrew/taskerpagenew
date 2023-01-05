@@ -26,13 +26,20 @@ abstract class AppointmentRecord
 
   DocumentReference? get invited;
 
+  @BuiltValueField(wireName: 'type_appointment')
+  String? get typeAppointment;
+
+  String? get phone;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(AppointmentRecordBuilder builder) => builder
     ..users = ListBuilder()
-    ..accepted = false;
+    ..accepted = false
+    ..typeAppointment = ''
+    ..phone = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('appointment');
@@ -61,6 +68,8 @@ Map<String, dynamic> createAppointmentRecordData({
   DateTime? createdAt,
   DocumentReference? createdBy,
   DocumentReference? invited,
+  String? typeAppointment,
+  String? phone,
 }) {
   final firestoreData = serializers.toFirestore(
     AppointmentRecord.serializer,
@@ -71,7 +80,9 @@ Map<String, dynamic> createAppointmentRecordData({
         ..accepted = accepted
         ..createdAt = createdAt
         ..createdBy = createdBy
-        ..invited = invited,
+        ..invited = invited
+        ..typeAppointment = typeAppointment
+        ..phone = phone,
     ),
   );
 

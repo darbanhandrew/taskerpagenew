@@ -136,7 +136,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'homePage-M-03': HomePageM03Widget(),
       'Education': EducationWidget(),
       'tasks': TasksWidget(),
-      'appointment': AppointmentWidget(),
+      'appointmentlist': AppointmentlistWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -206,11 +206,11 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.event_available,
+              Icons.date_range_rounded,
               size: 24,
             ),
             label: FFLocalizations.of(context).getText(
-              '4o8ip07o' /* Appointments */,
+              '1wh19r07' /* Appointment */,
             ),
             tooltip: '',
           )

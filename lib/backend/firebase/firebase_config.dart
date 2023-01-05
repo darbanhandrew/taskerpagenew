@@ -10,8 +10,8 @@ Future initFirebase() async {
             projectId: "taskerpage-2dd15",
             storageBucket: "taskerpage-2dd15.appspot.com",
             messagingSenderId: "916384246833",
-            appId: "1:916384246833:web:216157fb13c11c85473910",
-            measurementId: "G-ENLWCM4164"));
+            appId: "1:916384246833:web:ff0c7f939ded8e1d473910",
+            measurementId: "G-BGL1D5YS87"));
   } else {
     await Firebase.initializeApp();
   }

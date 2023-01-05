@@ -592,7 +592,8 @@ class _TaskM199WidgetState extends State<TaskM199Widget> {
                                           return FlutterFlowChoiceChips(
                                             options:
                                                 choiceChipsLanguageRecordList
-                                                    .map((e) => e.displayName!)
+                                                    .map((e) => e.displayName)
+                                                    .withoutNulls
                                                     .toList()
                                                     .map((label) =>
                                                         ChipData(label))

@@ -1,13 +1,12 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/bottom_sheet_h_i_widget.dart';
-import '../components/bottom_sheet_widget.dart';
-import '../components/bottom_sheetwhatsup_widget.dart';
+import '../components/bottom_sheet_appointment_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -26,13 +25,31 @@ class ChatWidget extends StatefulWidget {
 }
 
 class _ChatWidgetState extends State<ChatWidget> {
+  AppointmentRecord? createdAppointment;
+  ScrollController? listViewController2;
+  ScrollController? rowController;
   TextEditingController? textController;
+  ScrollController? columnController;
+  ScrollController? listViewController1;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await columnController?.animateTo(
+        columnController!.position.maxScrollExtent,
+        duration: Duration(milliseconds: 100),
+        curve: Curves.ease,
+      );
+    });
+
+    columnController = ScrollController();
+    listViewController1 = ScrollController();
+    listViewController2 = ScrollController();
+    rowController = ScrollController();
     textController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -40,6 +57,10 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   void dispose() {
     _unfocusNode.dispose();
+    columnController?.dispose();
+    listViewController1?.dispose();
+    listViewController2?.dispose();
+    rowController?.dispose();
     textController?.dispose();
     super.dispose();
   }
@@ -49,7 +70,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     context.watch<FFAppState>();
 
     return StreamBuilder<UserRecord>(
-      stream: UserRecord.getDocument(widget.chatUserRef!),
+      stream: UserRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -103,6 +124,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
+                          controller: columnController,
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -192,7 +214,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(10,
-                                                                      0, 0, 0),
+                                                                      0, 10, 0),
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -489,24 +511,31 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                     MainAxisAlignment
                                                                         .end,
                                                                 children: [
-                                                                  Text(
-                                                                    dateTimeFormat(
-                                                                      'relative',
-                                                                      listViewChatMessagesRecord
-                                                                          .timestamp!,
-                                                                      locale: FFLocalizations.of(
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            8,
+                                                                            0),
+                                                                    child: Text(
+                                                                      dateTimeFormat(
+                                                                        'relative',
+                                                                        listViewChatMessagesRecord
+                                                                            .timestamp!,
+                                                                        locale:
+                                                                            FFLocalizations.of(context).languageCode,
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .languageCode,
+                                                                          .bodyText2
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            fontSize:
+                                                                                12,
+                                                                          ),
                                                                     ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText2
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Poppins',
-                                                                          fontSize:
-                                                                              12,
-                                                                        ),
                                                                   ),
                                                                 ],
                                                               ),
@@ -521,6 +550,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           ],
                                         );
                                       },
+                                      controller: listViewController1,
                                     );
                                   },
                                 ),
@@ -529,192 +559,278 @@ class _ChatWidgetState extends State<ChatWidget> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 0, 15, 8),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 4, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: Container(
-                                                    height: 300,
-                                                    child: BottomSheetWidget(),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            '1bner0bw' /* send location */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: 120,
-                                            height: 25,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15, 8, 0, 8),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    controller: rowController,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          height: 30,
+                                          decoration: BoxDecoration(),
+                                          child: StreamBuilder<
+                                              List<DefineMessageRecord>>(
+                                            stream: queryDefineMessageRecord(
+                                              queryBuilder: (defineMessageRecord) =>
+                                                  defineMessageRecord.where(
+                                                      'order',
+                                                      isEqualTo: FFAppState()
+                                                          .OrderDefineMessages),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 4, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: Container(
-                                                    height: 300,
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50,
+                                                    height: 50,
                                                     child:
-                                                        BottomSheetHIWidget(),
+                                                        CircularProgressIndicator(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                    ),
                                                   ),
                                                 );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            '8pfdhqzr' /* HI ! */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: 80,
-                                            height: 25,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w300,
+                                              }
+                                              List<DefineMessageRecord>
+                                                  listViewDefineMessageRecordList =
+                                                  snapshot.data!;
+                                              return ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                primary: false,
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount:
+                                                    listViewDefineMessageRecordList
+                                                        .length,
+                                                itemBuilder:
+                                                    (context, listViewIndex) {
+                                                  final listViewDefineMessageRecord =
+                                                      listViewDefineMessageRecordList[
+                                                          listViewIndex];
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 5, 0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        if (listViewDefineMessageRecord
+                                                                .type ==
+                                                            'appointment') {
+                                                          final appointmentCreateData =
+                                                              {
+                                                            ...createAppointmentRecordData(
+                                                              typeAppointment:
+                                                                  FFAppState().typeAppointment ==
+                                                                          false
+                                                                      ? 'In Person'
+                                                                      : 'By Phone',
+                                                              createdBy:
+                                                                  currentUserReference,
+                                                              createdAt:
+                                                                  getCurrentTimestamp,
+                                                              phone:
+                                                                  currentPhoneNumber,
+                                                              invited: widget
+                                                                  .chatUserRef,
+                                                            ),
+                                                            'users': [
+                                                              currentUserReference
+                                                            ],
+                                                          };
+                                                          var appointmentRecordReference =
+                                                              AppointmentRecord
+                                                                  .collection
+                                                                  .doc();
+                                                          await appointmentRecordReference
+                                                              .set(
+                                                                  appointmentCreateData);
+                                                          createdAppointment =
+                                                              AppointmentRecord
+                                                                  .getDocumentFromData(
+                                                                      appointmentCreateData,
+                                                                      appointmentRecordReference);
+
+                                                          final appointmentAddressCreateData =
+                                                              createAppointmentAddressRecordData(
+                                                            address:
+                                                                createAddressStruct(
+                                                              city: FFAppState()
+                                                                  .AddressAppointment,
+                                                              clearUnsetFields:
+                                                                  false,
+                                                              create: true,
+                                                            ),
+                                                          );
+                                                          await AppointmentAddressRecord
+                                                                  .createDoc(
+                                                                      createdAppointment!
+                                                                          .reference)
+                                                              .set(
+                                                                  appointmentAddressCreateData);
+
+                                                          final appointmentUpdateData =
+                                                              {
+                                                            'users': FieldValue
+                                                                .arrayUnion([
+                                                              widget.chatUserRef
+                                                            ]),
+                                                          };
+                                                          await createdAppointment!
+                                                              .reference
+                                                              .update(
+                                                                  appointmentUpdateData);
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            isDismissible:
+                                                                false,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return Padding(
+                                                                padding: MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
+                                                                child:
+                                                                    Container(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.5,
+                                                                  child:
+                                                                      BottomSheetAppointmentWidget(
+                                                                    ediAppointment:
+                                                                        createdAppointment!
+                                                                            .reference,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              setState(() {}));
+                                                        } else {
+                                                          final chatMessagesCreateData =
+                                                              createChatMessagesRecordData(
+                                                            user:
+                                                                currentUserReference,
+                                                            text:
+                                                                listViewDefineMessageRecord
+                                                                    .messages,
+                                                            timestamp:
+                                                                getCurrentTimestamp,
+                                                            chat:
+                                                                widget.chatRef,
+                                                          );
+                                                          await ChatMessagesRecord
+                                                              .collection
+                                                              .doc()
+                                                              .set(
+                                                                  chatMessagesCreateData);
+
+                                                          final chatsUpdateData =
+                                                              createChatsRecordData(
+                                                            lastMessage:
+                                                                listViewDefineMessageRecord
+                                                                    .messages,
+                                                            lastMessageTime:
+                                                                getCurrentTimestamp,
+                                                            lastMessageSentBy:
+                                                                currentUserReference,
+                                                          );
+                                                          await widget.chatRef!
+                                                              .update(
+                                                                  chatsUpdateData);
+                                                          await columnController
+                                                              ?.animateTo(
+                                                            columnController!
+                                                                .position
+                                                                .maxScrollExtent,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    100),
+                                                            curve: Curves.ease,
+                                                          );
+                                                          FFAppState()
+                                                              .update(() {
+                                                            FFAppState()
+                                                                    .OrderDefineMessages =
+                                                                FFAppState()
+                                                                        .OrderDefineMessages +
+                                                                    1;
+                                                          });
+                                                        }
+
+                                                        setState(() {});
+                                                      },
+                                                      text:
+                                                          listViewDefineMessageRecord
+                                                              .displayName!,
+                                                      options: FFButtonOptions(
+                                                        height: 40,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5, 0, 5, 0),
+                                                        color: Colors.white,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                        borderSide: BorderSide(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
                                                     ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      FFButtonWidget(
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
-                                                child: Container(
-                                                  height: 300,
-                                                  child:
-                                                      BottomSheetwhatsupWidget(),
-                                                ),
+                                                  );
+                                                },
+                                                controller: listViewController2,
                                               );
                                             },
-                                          ).then((value) => setState(() {}));
-                                        },
-                                        text:
-                                            FFLocalizations.of(context).getText(
-                                          'd9sbo1qx' /* whats Up ? */,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: 150,
-                                          height: 25,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .subtitle2
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: Colors.white,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                             Padding(
                               padding:
@@ -771,114 +887,92 @@ class _ChatWidgetState extends State<ChatWidget> {
                                               ),
                                             ),
                                             Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(15, 0, 0, 0),
-                                                child: TextFormField(
-                                                  controller: textController,
-                                                  autofocus: true,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    hintText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      'mexrc0tz' /* Write a message... */,
-                                                    ),
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .bodyText2
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFFD2D2D2),
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                        ),
-                                                    enabledBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    focusedBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    errorBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                4.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                4.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
+                                              child: TextFormField(
+                                                controller: textController,
+                                                autofocus: true,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  hintText: FFLocalizations.of(
                                                           context)
-                                                      .bodyText1
+                                                      .getText(
+                                                    'oh12onby' /* Write a message... */,
+                                                  ),
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyText2
                                                       .override(
                                                         fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFFD2D2D2),
                                                         fontWeight:
-                                                            FontWeight.normal,
-                                                        lineHeight: 0.01,
+                                                            FontWeight.w300,
                                                       ),
-                                                  maxLines: null,
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                  errorBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
                                                 ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                maxLines: null,
                                               ),
                                             ),
                                           ],
@@ -896,6 +990,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                             user: currentUserReference,
                                             text: textController!.text,
                                             timestamp: getCurrentTimestamp,
+                                            chat: widget.chatRef,
                                           );
                                           await ChatMessagesRecord.collection
                                               .doc()
@@ -911,6 +1006,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           );
                                           await widget.chatRef!
                                               .update(chatsUpdateData);
+                                          setState(() {
+                                            textController?.clear();
+                                          });
+                                          await columnController?.animateTo(
+                                            columnController!
+                                                .position.maxScrollExtent,
+                                            duration:
+                                                Duration(milliseconds: 100),
+                                            curve: Curves.ease,
+                                          );
                                         },
                                         child: Image.asset(
                                           'assets/images/Mask_Group_201.png',

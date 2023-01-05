@@ -145,14 +145,6 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.mainAddress;
-    if (value != null) {
-      result
-        ..add('main_address')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                DocumentReference, const [const FullType.nullable(Object)])));
-    }
     value = object.description;
     if (value != null) {
       result
@@ -180,6 +172,13 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add('insurance')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.location;
+    if (value != null) {
+      result
+        ..add('location')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(LatLng)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -281,12 +280,6 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           result.verificationCode = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'main_address':
-          result.mainAddress = serializers.deserialize(value,
-              specifiedType: const FullType(DocumentReference, const [
-                const FullType.nullable(Object)
-              ])) as DocumentReference<Object?>?;
-          break;
         case 'description':
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -304,6 +297,10 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         case 'insurance':
           result.insurance = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'location':
+          result.location = serializers.deserialize(value,
+              specifiedType: const FullType(LatLng)) as LatLng?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -356,8 +353,6 @@ class _$UserRecord extends UserRecord {
   @override
   final String? verificationCode;
   @override
-  final DocumentReference<Object?>? mainAddress;
-  @override
   final String? description;
   @override
   final int? yearsOfExperience;
@@ -365,6 +360,8 @@ class _$UserRecord extends UserRecord {
   final BuiltList<String>? languages;
   @override
   final bool? insurance;
+  @override
+  final LatLng? location;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -390,11 +387,11 @@ class _$UserRecord extends UserRecord {
       this.hasMainAddress,
       this.periodic,
       this.verificationCode,
-      this.mainAddress,
       this.description,
       this.yearsOfExperience,
       this.languages,
       this.insurance,
+      this.location,
       this.ffRef})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(company, r'UserRecord', 'company');
@@ -429,11 +426,11 @@ class _$UserRecord extends UserRecord {
         hasMainAddress == other.hasMainAddress &&
         periodic == other.periodic &&
         verificationCode == other.verificationCode &&
-        mainAddress == other.mainAddress &&
         description == other.description &&
         yearsOfExperience == other.yearsOfExperience &&
         languages == other.languages &&
         insurance == other.insurance &&
+        location == other.location &&
         ffRef == other.ffRef;
   }
 
@@ -471,11 +468,11 @@ class _$UserRecord extends UserRecord {
                                         hasMainAddress.hashCode),
                                     periodic.hashCode),
                                 verificationCode.hashCode),
-                            mainAddress.hashCode),
-                        description.hashCode),
-                    yearsOfExperience.hashCode),
-                languages.hashCode),
-            insurance.hashCode),
+                            description.hashCode),
+                        yearsOfExperience.hashCode),
+                    languages.hashCode),
+                insurance.hashCode),
+            location.hashCode),
         ffRef.hashCode));
   }
 
@@ -500,11 +497,11 @@ class _$UserRecord extends UserRecord {
           ..add('hasMainAddress', hasMainAddress)
           ..add('periodic', periodic)
           ..add('verificationCode', verificationCode)
-          ..add('mainAddress', mainAddress)
           ..add('description', description)
           ..add('yearsOfExperience', yearsOfExperience)
           ..add('languages', languages)
           ..add('insurance', insurance)
+          ..add('location', location)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -589,11 +586,6 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   set verificationCode(String? verificationCode) =>
       _$this._verificationCode = verificationCode;
 
-  DocumentReference<Object?>? _mainAddress;
-  DocumentReference<Object?>? get mainAddress => _$this._mainAddress;
-  set mainAddress(DocumentReference<Object?>? mainAddress) =>
-      _$this._mainAddress = mainAddress;
-
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
@@ -612,6 +604,10 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   bool? _insurance;
   bool? get insurance => _$this._insurance;
   set insurance(bool? insurance) => _$this._insurance = insurance;
+
+  LatLng? _location;
+  LatLng? get location => _$this._location;
+  set location(LatLng? location) => _$this._location = location;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -642,11 +638,11 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _hasMainAddress = $v.hasMainAddress;
       _periodic = $v.periodic;
       _verificationCode = $v.verificationCode;
-      _mainAddress = $v.mainAddress;
       _description = $v.description;
       _yearsOfExperience = $v.yearsOfExperience;
       _languages = $v.languages?.toBuilder();
       _insurance = $v.insurance;
+      _location = $v.location;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -690,11 +686,11 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               hasMainAddress: hasMainAddress,
               periodic: periodic,
               verificationCode: verificationCode,
-              mainAddress: mainAddress,
               description: description,
               yearsOfExperience: yearsOfExperience,
               languages: _languages?.build(),
               insurance: insurance,
+              location: location,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

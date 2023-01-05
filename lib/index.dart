@@ -5,10 +5,10 @@ export 'forgot_password/forgot_password_widget.dart' show ForgotPasswordWidget;
 export 'new_password/new_password_widget.dart' show NewPasswordWidget;
 export 'choose_language/choose_language_widget.dart' show ChooseLanguageWidget;
 export 'know_u/know_u_widget.dart' show KnowUWidget;
-export 'contactdata2_m_145/contactdata2_m145_widget.dart'
-    show Contactdata2M145Widget;
 export 'contactdata2_m_144/contactdata2_m144_widget.dart'
     show Contactdata2M144Widget;
+export 'contactdata2_m_145/contactdata2_m145_widget.dart'
+    show Contactdata2M145Widget;
 export 'what_are_you_interested_in/what_are_you_interested_in_widget.dart'
     show WhatAreYouInterestedInWidget;
 export 'skills/skills_widget.dart' show SkillsWidget;
@@ -81,3 +81,5 @@ export 'appointmentlist/appointmentlist_widget.dart' show AppointmentlistWidget;
 export 'appointmentdeatls/appointmentdeatls_widget.dart'
     show AppointmentdeatlsWidget;
 export 'howitworks/howitworks_widget.dart' show HowitworksWidget;
+export 'appointmentdeatls_rquested/appointmentdeatls_rquested_widget.dart'
+    show AppointmentdeatlsRquestedWidget;

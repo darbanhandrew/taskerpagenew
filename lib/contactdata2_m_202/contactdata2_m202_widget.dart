@@ -19,6 +19,7 @@ class Contactdata2M202Widget extends StatefulWidget {
 }
 
 class _Contactdata2M202WidgetState extends State<Contactdata2M202Widget> {
+  TaskAddressRecord? createdTaskAddress;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,8 +40,10 @@ class _Contactdata2M202WidgetState extends State<Contactdata2M202Widget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return StreamBuilder<TaskRecord>(
-      stream: TaskRecord.getDocument(FFAppState().createdTask!),
+    return StreamBuilder<List<UserRecord>>(
+      stream: queryUserRecord(
+        singleRecord: true,
+      ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -54,7 +57,15 @@ class _Contactdata2M202WidgetState extends State<Contactdata2M202Widget> {
             ),
           );
         }
-        final contactdata2M202TaskRecord = snapshot.data!;
+        List<UserRecord> contactdata2M202UserRecordList = snapshot.data!;
+        // Return an empty Container when the item does not exist.
+        if (snapshot.data!.isEmpty) {
+          return Container();
+        }
+        final contactdata2M202UserRecord =
+            contactdata2M202UserRecordList.isNotEmpty
+                ? contactdata2M202UserRecordList.first
+                : null;
         return Title(
             title: 'CONTACTDATA2-M-202',
             color: FlutterFlowTheme.of(context).primaryColor,
@@ -114,90 +125,121 @@ class _Contactdata2M202WidgetState extends State<Contactdata2M202Widget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                        child: StreamBuilder<List<TaskAddressRecord>>(
+                          stream: queryTaskAddressRecord(
+                            parent: FFAppState().createdTask,
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                  ),
                                 ),
-                                child: Padding(
+                              );
+                            }
+                            List<TaskAddressRecord>
+                                columnTaskAddressRecordList = snapshot.data!;
+                            final columnTaskAddressRecord =
+                                columnTaskAddressRecordList.isNotEmpty
+                                    ? columnTaskAddressRecordList.first
+                                    : null;
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 27, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 10),
-                                        child: Container(
-                                          width: 70,
-                                          height: 70,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              scaffoldKey.currentState!
-                                                  .openDrawer();
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/Group_2196.png',
-                                              width: 50,
-                                              height: 50,
-                                              fit: BoxFit.none,
+                                      0, 0, 0, 30),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 27, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 10),
+                                            child: Container(
+                                              width: 70,
+                                              height: 70,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  scaffoldKey.currentState!
+                                                      .openDrawer();
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/Group_2196.png',
+                                                  width: 50,
+                                                  height: 50,
+                                                  fit: BoxFit.none,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5, 0, 0, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 8),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 50, 35, 0),
-                                                    child: SelectionArea(
-                                                        child: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '3ii58dmb' /* Please add your addresses */,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 8),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 50,
+                                                                    35, 0),
+                                                        child: SelectionArea(
+                                                            child: Text(
+                                                          FFLocalizations.of(
                                                                   context)
+                                                              .getText(
+                                                            '3ii58dmb' /* Please add your addresses */,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .subtitle1
                                                               .override(
                                                                 fontFamily:
@@ -206,231 +248,306 @@ class _Contactdata2M202WidgetState extends State<Contactdata2M202Widget> {
                                                                     FontWeight
                                                                         .normal,
                                                               ),
-                                                    )),
+                                                        )),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15, 0, 0, 8),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            FFLocalizations.of(context).getText(
+                                              '96fvuqku' /* Select from my addresses */,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF222222),
+                                                  fontSize: 14,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                StreamBuilder<List<UserAddressRecord>>(
+                                  stream: queryUserAddressRecord(
+                                    parent:
+                                        contactdata2M202UserRecord!.reference,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<UserAddressRecord>
+                                        listViewUserAddressRecordList =
+                                        snapshot.data!;
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          listViewUserAddressRecordList.length,
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewUserAddressRecord =
+                                            listViewUserAddressRecordList[
+                                                listViewIndex];
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 8),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      var _shouldSetState =
+                                                          false;
+                                                      if (columnTaskAddressRecord!
+                                                              .reference !=
+                                                          null) {
+                                                        final taskAddressUpdateData =
+                                                            createTaskAddressRecordData(
+                                                          address:
+                                                              updateAddressStruct(
+                                                            listViewUserAddressRecord
+                                                                .address,
+                                                            clearUnsetFields:
+                                                                false,
+                                                          ),
+                                                          modifiedAt:
+                                                              getCurrentTimestamp,
+                                                          userAdreesRef:
+                                                              listViewUserAddressRecord
+                                                                  .reference,
+                                                        );
+                                                        await columnTaskAddressRecord!
+                                                            .reference
+                                                            .update(
+                                                                taskAddressUpdateData);
+                                                        if (_shouldSetState)
+                                                          setState(() {});
+                                                        return;
+                                                      } else {
+                                                        final taskAddressCreateData =
+                                                            createTaskAddressRecordData(
+                                                          address:
+                                                              updateAddressStruct(
+                                                            listViewUserAddressRecord
+                                                                .address,
+                                                            clearUnsetFields:
+                                                                false,
+                                                          ),
+                                                          createdAt:
+                                                              getCurrentTimestamp,
+                                                          modifiedAt:
+                                                              getCurrentTimestamp,
+                                                          archived: false,
+                                                          defaultAddress: false,
+                                                          userAdreesRef:
+                                                              listViewUserAddressRecord
+                                                                  .reference,
+                                                        );
+                                                        var taskAddressRecordReference =
+                                                            TaskAddressRecord
+                                                                .createDoc(
+                                                                    FFAppState()
+                                                                        .createdTask!);
+                                                        await taskAddressRecordReference
+                                                            .set(
+                                                                taskAddressCreateData);
+                                                        createdTaskAddress =
+                                                            TaskAddressRecord
+                                                                .getDocumentFromData(
+                                                                    taskAddressCreateData,
+                                                                    taskAddressRecordReference);
+                                                        _shouldSetState = true;
+                                                        if (_shouldSetState)
+                                                          setState(() {});
+                                                        return;
+                                                      }
+
+                                                      if (_shouldSetState)
+                                                        setState(() {});
+                                                    },
+                                                    child: Container(
+                                                      width: 360,
+                                                      height: 86,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 4,
+                                                            color: Color(
+                                                                0x33000000),
+                                                            spreadRadius: 1,
+                                                          )
+                                                        ],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        border: Border.all(
+                                                          color: listViewUserAddressRecord
+                                                                      .reference ==
+                                                                  createdTaskAddress!
+                                                                      .userAdreesRef
+                                                              ? FlutterFlowTheme
+                                                                      .of(
+                                                                          context)
+                                                                  .primaryColor
+                                                              : FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .tertiaryColor,
+                                                          width: 1,
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0, 0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          15,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                              child: Text(
+                                                                '${listViewUserAddressRecord.address.street} ${listViewUserAddressRecord.address.number?.toString()}-${listViewUserAddressRecord.address.postalCode}-${listViewUserAddressRecord.address.city}',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: Color(
+                                                                          0xFF8A8A8A),
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15, 25, 15, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Align(
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                  'CONTACTDATA2-M-144');
+                                            },
+                                            child: Container(
+                                              width: 220,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                                borderRadius:
+                                                    BorderRadius.circular(2),
+                                                border: Border.all(
+                                                  color: Color(0xFFF36121),
+                                                ),
+                                              ),
+                                              child: Align(
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'les53l5s' /* Or enter different address */,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFFF36121),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 0, 0, 8),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          '96fvuqku' /* Select from my addresses */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .subtitle2
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF222222),
-                                              fontSize: 14,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            StreamBuilder<List<AddressRecord>>(
-                              stream: queryAddressRecord(
-                                queryBuilder: (addressRecord) =>
-                                    addressRecord.where('owner',
-                                        isEqualTo: currentUserReference),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<AddressRecord> listViewAddressRecordList =
-                                    snapshot.data!;
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: listViewAddressRecordList.length,
-                                  itemBuilder: (context, listViewIndex) {
-                                    final listViewAddressRecord =
-                                        listViewAddressRecordList[
-                                            listViewIndex];
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 8),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: Align(
-                                              alignment:
-                                                  AlignmentDirectional(0, 0),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  final taskUpdateData =
-                                                      createTaskRecordData(
-                                                    selectedAddress:
-                                                        listViewAddressRecord
-                                                            .reference,
-                                                  );
-                                                  await contactdata2M202TaskRecord
-                                                      .reference
-                                                      .update(taskUpdateData);
-                                                },
-                                                child: Container(
-                                                  width: 360,
-                                                  height: 86,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBtnText,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        blurRadius: 4,
-                                                        color:
-                                                            Color(0x33000000),
-                                                        spreadRadius: 1,
-                                                      )
-                                                    ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                    border: Border.all(
-                                                      color: listViewAddressRecord.reference ==
-                                                              contactdata2M202TaskRecord
-                                                                  .selectedAddress
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .tertiaryColor,
-                                                      width: 1,
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0, 0),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 0, 0),
-                                                          child: Text(
-                                                            '${listViewAddressRecord.address.street} ${listViewAddressRecord.address.number?.toString()}-${listViewAddressRecord.address.postalCode}-${listViewAddressRecord.address.city}',
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: Color(
-                                                                      0xFF8A8A8A),
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 25, 15, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          context
-                                              .pushNamed('CONTACTDATA2-M-144');
-                                        },
-                                        child: Container(
-                                          width: 220,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBtnText,
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                            border: Border.all(
-                                              color: Color(0xFFF36121),
-                                            ),
-                                          ),
-                                          child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0, 0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'les53l5s' /* Or enter different address */,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: Color(0xFFF36121),
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                              ],
+                            );
+                          },
                         ),
                       ),
                       Container(

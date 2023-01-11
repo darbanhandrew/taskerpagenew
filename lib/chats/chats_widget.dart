@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,19 +24,21 @@ class ChatsWidget extends StatefulWidget {
 }
 
 class _ChatsWidgetState extends State<ChatsWidget> {
+  TextEditingController? textController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-
+    textController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
+    textController?.dispose();
     super.dispose();
   }
 
@@ -144,15 +147,63 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 10, 20, 0),
+                                child: TextFormField(
+                                  controller: textController,
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    'textController',
+                                    Duration(milliseconds: 2000),
+                                    () => setState(() {}),
+                                  ),
+                                  autofocus: true,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      '6ptjxm6y' /* Search ... */,
+                                    ),
+                                    hintStyle:
+                                        FlutterFlowTheme.of(context).bodyText2,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    focusedErrorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ),
+                              Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: StreamBuilder<List<ChatsRecord>>(
-                                  stream: queryChatsRecord(
-                                    queryBuilder: (chatsRecord) => chatsRecord
-                                        .where('task', isEqualTo: widget.task)
-                                        .orderBy('last_message_time',
-                                            descending: true),
-                                  ),
+                                  stream: queryChatsRecord(),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -178,223 +229,243 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                         final listViewChatsRecord =
                                             listViewChatsRecordList[
                                                 listViewIndex];
-                                        return Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 0, 16, 8),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'chat',
-                                                queryParams: {
-                                                  'chatRef': serializeParam(
-                                                    listViewChatsRecord
-                                                        .reference,
-                                                    ParamType.DocumentReference,
+                                        return Visibility(
+                                          visible: (widget.task ==
+                                                  listViewChatsRecord.task) &&
+                                              listViewChatsRecord.users!
+                                                  .toList()
+                                                  .contains(chatsUserRecord
+                                                      .reference),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16, 0, 16, 8),
+                                            child: InkWell(
+                                              onTap: () async {
+                                                context.pushNamed(
+                                                  'chat',
+                                                  queryParams: {
+                                                    'chatRef': serializeParam(
+                                                      listViewChatsRecord
+                                                          .reference,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                    'chatUserRef':
+                                                        serializeParam(
+                                                      listViewChatsRecord
+                                                                  .userA ==
+                                                              currentUserReference
+                                                          ? listViewChatsRecord
+                                                              .userB
+                                                          : listViewChatsRecord
+                                                              .userA,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: Container(
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  border: Border.all(
+                                                    color: Color(0xFFF1F4F8),
+                                                    width: 2,
                                                   ),
-                                                  'chatUserRef': serializeParam(
-                                                    listViewChatsRecord.userA ==
-                                                            currentUserReference
-                                                        ? listViewChatsRecord
-                                                            .userB
-                                                        : listViewChatsRecord
-                                                            .userA,
-                                                    ParamType.DocumentReference,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                border: Border.all(
-                                                  color: Color(0xFFF1F4F8),
-                                                  width: 2,
                                                 ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 8, 8, 8),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: valueOrDefault<
-                                                            Color>(
-                                                          listViewChatsRecord
-                                                                  .lastMessageSeenBy!
-                                                                  .toList()
-                                                                  .contains(
-                                                                      currentUserReference)
-                                                              ? FlutterFlowTheme
-                                                                      .of(
-                                                                          context)
-                                                                  .primaryColor
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBtnText,
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryBtnText,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                      ),
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0, 0),
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(12, 0,
-                                                                    0, 0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            StreamBuilder<
-                                                                UserRecord>(
-                                                              stream: UserRecord
-                                                                  .getDocument(
-                                                                      listViewChatsRecord
-                                                                          .userA!),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                final textUserRecord =
-                                                                    snapshot
-                                                                        .data!;
-                                                                return Text(
-                                                                  '${textUserRecord.firstName}  ${textUserRecord.lastName}',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .subtitle1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Outfit',
-                                                                        color: Color(
-                                                                            0xFF101213),
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                );
-                                                              },
-                                                            ),
-                                                            StreamBuilder<
-                                                                UserRecord>(
-                                                              stream: UserRecord
-                                                                  .getDocument(
-                                                                      listViewChatsRecord
-                                                                          .userB!),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                final textUserRecord =
-                                                                    snapshot
-                                                                        .data!;
-                                                                return Text(
-                                                                  '${textUserRecord.firstName}  ${textUserRecord.lastName}',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .subtitle1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Outfit',
-                                                                        color: Color(
-                                                                            0xFF101213),
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                );
-                                                              },
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
-                                                              child: Text(
-                                                                listViewChatsRecord
-                                                                    .lastMessage!
-                                                                    .maybeHandleOverflow(
-                                                                        maxChars:
-                                                                            15),
-                                                                style: FlutterFlowTheme.of(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(8, 8, 8, 8),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: valueOrDefault<
+                                                              Color>(
+                                                            listViewChatsRecord
+                                                                    .lastMessageSeenBy!
+                                                                    .toList()
+                                                                    .contains(
+                                                                        currentUserReference)
+                                                                ? FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText2
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Outfit',
-                                                                      color: Color(
-                                                                          0xFF57636C),
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
+                                                                    .primaryColor
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBtnText,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(12,
+                                                                      0, 0, 0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              if (listViewChatsRecord
+                                                                      .userA !=
+                                                                  currentUserReference)
+                                                                StreamBuilder<
+                                                                    UserRecord>(
+                                                                  stream: UserRecord
+                                                                      .getDocument(
+                                                                          listViewChatsRecord
+                                                                              .userA!),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              50,
+                                                                          height:
+                                                                              50,
+                                                                          child:
+                                                                              CircularProgressIndicator(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    final textUserRecord =
+                                                                        snapshot
+                                                                            .data!;
+                                                                    return Text(
+                                                                      '${textUserRecord.firstName}  ${textUserRecord.lastName}',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .subtitle1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Outfit',
+                                                                            color:
+                                                                                Color(0xFF101213),
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              if (listViewChatsRecord
+                                                                      .userB !=
+                                                                  currentUserReference)
+                                                                StreamBuilder<
+                                                                    UserRecord>(
+                                                                  stream: UserRecord
+                                                                      .getDocument(
+                                                                          listViewChatsRecord
+                                                                              .userB!),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              50,
+                                                                          height:
+                                                                              50,
+                                                                          child:
+                                                                              CircularProgressIndicator(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    final textUserRecord =
+                                                                        snapshot
+                                                                            .data!;
+                                                                    return Text(
+                                                                      '${textUserRecord.firstName}  ${textUserRecord.lastName}',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .subtitle1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Outfit',
+                                                                            color:
+                                                                                Color(0xFF101213),
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            4,
+                                                                            0,
+                                                                            0),
+                                                                child: Text(
+                                                                  listViewChatsRecord
+                                                                      .lastMessage!
+                                                                      .maybeHandleOverflow(
+                                                                          maxChars:
+                                                                              15),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Outfit',
+                                                                        color: Color(
+                                                                            0xFF57636C),
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),

@@ -631,7 +631,7 @@ class _HomePageM04WidgetState extends State<HomePageM04Widget> {
                                           InkWell(
                                             onTap: () async {
                                               context.pushNamed(
-                                                  'serach_result_task');
+                                                  'searchResultTasker');
                                             },
                                             child: Container(
                                               width: 145,
@@ -678,8 +678,7 @@ class _HomePageM04WidgetState extends State<HomePageM04Widget> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
-                                              context
-                                                  .pushNamed('serach_result');
+                                              context.pushNamed('searchResult');
                                             },
                                             child: Container(
                                               width: 145,

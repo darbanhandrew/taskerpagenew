@@ -571,18 +571,23 @@ class _TaskerdetailsM217WidgetState extends State<TaskerdetailsM217Widget> {
                               children: [
                                 Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'y3g4p4ip' /* <   Back */,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      context.pop();
+                                    },
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'y3g4p4ip' /* <   Back */,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF292929),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF292929),
-                                          fontWeight: FontWeight.w500,
-                                        ),
                                   ),
                                 ),
                               ],

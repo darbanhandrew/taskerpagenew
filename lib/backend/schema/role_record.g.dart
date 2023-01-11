@@ -33,6 +33,14 @@ class _$RoleRecordSerializer implements StructuredSerializer<RoleRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.locale;
+    if (value != null) {
+      result
+        ..add('locale')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(TranslatableStringStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -63,6 +71,12 @@ class _$RoleRecordSerializer implements StructuredSerializer<RoleRecord> {
           result.displayMessage = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'locale':
+          result.locale.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(TranslatableStringStruct)
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -82,12 +96,15 @@ class _$RoleRecord extends RoleRecord {
   @override
   final String? displayMessage;
   @override
+  final BuiltList<TranslatableStringStruct>? locale;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$RoleRecord([void Function(RoleRecordBuilder)? updates]) =>
       (new RoleRecordBuilder()..update(updates))._build();
 
-  _$RoleRecord._({this.name, this.displayMessage, this.ffRef}) : super._();
+  _$RoleRecord._({this.name, this.displayMessage, this.locale, this.ffRef})
+      : super._();
 
   @override
   RoleRecord rebuild(void Function(RoleRecordBuilder) updates) =>
@@ -102,13 +119,16 @@ class _$RoleRecord extends RoleRecord {
     return other is RoleRecord &&
         name == other.name &&
         displayMessage == other.displayMessage &&
+        locale == other.locale &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, name.hashCode), displayMessage.hashCode), ffRef.hashCode));
+        $jc($jc($jc(0, name.hashCode), displayMessage.hashCode),
+            locale.hashCode),
+        ffRef.hashCode));
   }
 
   @override
@@ -116,6 +136,7 @@ class _$RoleRecord extends RoleRecord {
     return (newBuiltValueToStringHelper(r'RoleRecord')
           ..add('name', name)
           ..add('displayMessage', displayMessage)
+          ..add('locale', locale)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -133,6 +154,12 @@ class RoleRecordBuilder implements Builder<RoleRecord, RoleRecordBuilder> {
   set displayMessage(String? displayMessage) =>
       _$this._displayMessage = displayMessage;
 
+  ListBuilder<TranslatableStringStruct>? _locale;
+  ListBuilder<TranslatableStringStruct> get locale =>
+      _$this._locale ??= new ListBuilder<TranslatableStringStruct>();
+  set locale(ListBuilder<TranslatableStringStruct>? locale) =>
+      _$this._locale = locale;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -146,6 +173,7 @@ class RoleRecordBuilder implements Builder<RoleRecord, RoleRecordBuilder> {
     if ($v != null) {
       _name = $v.name;
       _displayMessage = $v.displayMessage;
+      _locale = $v.locale?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -167,9 +195,25 @@ class RoleRecordBuilder implements Builder<RoleRecord, RoleRecordBuilder> {
   RoleRecord build() => _build();
 
   _$RoleRecord _build() {
-    final _$result = _$v ??
-        new _$RoleRecord._(
-            name: name, displayMessage: displayMessage, ffRef: ffRef);
+    _$RoleRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$RoleRecord._(
+              name: name,
+              displayMessage: displayMessage,
+              locale: _locale?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'locale';
+        _locale?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'RoleRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

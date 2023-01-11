@@ -19,7 +19,11 @@ class _$AppointmentRecordSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, AppointmentRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
+    final result = <Object?>[
+      'address',
+      serializers.serialize(object.address,
+          specifiedType: const FullType(AddressStruct)),
+    ];
     Object? value;
     value = object.users;
     if (value != null) {
@@ -144,6 +148,10 @@ class _$AppointmentRecordSerializer
           result.phone = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'address':
+          result.address.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AddressStruct))! as AddressStruct);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -175,6 +183,8 @@ class _$AppointmentRecord extends AppointmentRecord {
   @override
   final String? phone;
   @override
+  final AddressStruct address;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$AppointmentRecord(
@@ -190,8 +200,12 @@ class _$AppointmentRecord extends AppointmentRecord {
       this.invited,
       this.typeAppointment,
       this.phone,
+      required this.address,
       this.ffRef})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        address, r'AppointmentRecord', 'address');
+  }
 
   @override
   AppointmentRecord rebuild(void Function(AppointmentRecordBuilder) updates) =>
@@ -213,6 +227,7 @@ class _$AppointmentRecord extends AppointmentRecord {
         invited == other.invited &&
         typeAppointment == other.typeAppointment &&
         phone == other.phone &&
+        address == other.address &&
         ffRef == other.ffRef;
   }
 
@@ -224,13 +239,17 @@ class _$AppointmentRecord extends AppointmentRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, users.hashCode), dateTime.hashCode),
-                                accepted.hashCode),
-                            createdAt.hashCode),
-                        createdBy.hashCode),
-                    invited.hashCode),
-                typeAppointment.hashCode),
-            phone.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, users.hashCode),
+                                        dateTime.hashCode),
+                                    accepted.hashCode),
+                                createdAt.hashCode),
+                            createdBy.hashCode),
+                        invited.hashCode),
+                    typeAppointment.hashCode),
+                phone.hashCode),
+            address.hashCode),
         ffRef.hashCode));
   }
 
@@ -245,6 +264,7 @@ class _$AppointmentRecord extends AppointmentRecord {
           ..add('invited', invited)
           ..add('typeAppointment', typeAppointment)
           ..add('phone', phone)
+          ..add('address', address)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -290,6 +310,11 @@ class AppointmentRecordBuilder
   String? get phone => _$this._phone;
   set phone(String? phone) => _$this._phone = phone;
 
+  AddressStructBuilder? _address;
+  AddressStructBuilder get address =>
+      _$this._address ??= new AddressStructBuilder();
+  set address(AddressStructBuilder? address) => _$this._address = address;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -309,6 +334,7 @@ class AppointmentRecordBuilder
       _invited = $v.invited;
       _typeAppointment = $v.typeAppointment;
       _phone = $v.phone;
+      _address = $v.address.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -342,12 +368,16 @@ class AppointmentRecordBuilder
               invited: invited,
               typeAppointment: typeAppointment,
               phone: phone,
+              address: address.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'users';
         _users?.build();
+
+        _$failedField = 'address';
+        address.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'AppointmentRecord', _$failedField, e.toString());

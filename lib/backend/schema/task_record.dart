@@ -46,6 +46,13 @@ abstract class TaskRecord implements Built<TaskRecord, TaskRecordBuilder> {
 
   String? get name;
 
+  LatLng? get location;
+
+  AddressStruct get address;
+
+  @BuiltValueField(wireName: 'user_address_ref')
+  DocumentReference? get userAddressRef;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -60,7 +67,8 @@ abstract class TaskRecord implements Built<TaskRecord, TaskRecordBuilder> {
     ..taskTime = TaskDateTimeStructBuilder()
     ..taskerType = TaskerTypeStructBuilder()
     ..users = ListBuilder()
-    ..name = '';
+    ..name = ''
+    ..address = AddressStructBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('task');
@@ -129,6 +137,26 @@ abstract class TaskRecord implements Built<TaskRecord, TaskRecordBuilder> {
           ..users = safeGet(
               () => ListBuilder(snapshot.data['users'].map((s) => toRef(s))))
           ..name = snapshot.data['name']
+          ..location = safeGet(() => LatLng(
+                snapshot.data['_geoloc']['lat'],
+                snapshot.data['_geoloc']['lng'],
+              ))
+          ..address = createAddressStruct(
+            street: (snapshot.data['address'] ?? {})['street'],
+            number: (snapshot.data['address'] ?? {})['number']?.round(),
+            postalCode: (snapshot.data['address'] ?? {})['postal_code'],
+            city: (snapshot.data['address'] ?? {})['city'],
+            country: safeGet(
+                () => toRef((snapshot.data['address'] ?? {})['country'])),
+            location: safeGet(() => LatLng(
+                  (snapshot.data['address'] ?? {})['_geoloc']['lat'],
+                  (snapshot.data['address'] ?? {})['_geoloc']['lng'],
+                )),
+            create: true,
+            clearUnsetFields: false,
+          ).toBuilder()
+          ..userAddressRef =
+              safeGet(() => toRef(snapshot.data['user_address_ref']))
           ..ffRef = TaskRecord.collection.doc(snapshot.objectID),
       );
 
@@ -169,6 +197,9 @@ Map<String, dynamic> createTaskRecordData({
   TaskDateTimeStruct? taskTime,
   TaskerTypeStruct? taskerType,
   String? name,
+  LatLng? location,
+  AddressStruct? address,
+  DocumentReference? userAddressRef,
 }) {
   final firestoreData = serializers.toFirestore(
     TaskRecord.serializer,
@@ -188,7 +219,10 @@ Map<String, dynamic> createTaskRecordData({
         ..taskTime = TaskDateTimeStructBuilder()
         ..taskerType = TaskerTypeStructBuilder()
         ..users = null
-        ..name = name,
+        ..name = name
+        ..location = location
+        ..address = AddressStructBuilder()
+        ..userAddressRef = userAddressRef,
     ),
   );
 
@@ -197,6 +231,9 @@ Map<String, dynamic> createTaskRecordData({
 
   // Handle nested data for "tasker_type" field.
   addTaskerTypeStructData(firestoreData, taskerType, 'tasker_type');
+
+  // Handle nested data for "address" field.
+  addAddressStructData(firestoreData, address, 'address');
 
   return firestoreData;
 }

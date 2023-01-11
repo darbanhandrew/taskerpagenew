@@ -570,7 +570,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               context
-                                                  .pushNamed('ForgotPassword');
+                                                  .pushNamed('verified-email');
                                             },
                                             text: FFLocalizations.of(context)
                                                 .getText(

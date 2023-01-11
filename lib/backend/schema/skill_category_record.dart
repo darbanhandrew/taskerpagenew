@@ -20,6 +20,8 @@ abstract class SkillCategoryRecord
 
   String? get icon;
 
+  BuiltList<TranslatableStringStruct>? get locale;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -27,7 +29,8 @@ abstract class SkillCategoryRecord
   static void _initializeBuilder(SkillCategoryRecordBuilder builder) => builder
     ..name = ''
     ..displayName = ''
-    ..icon = '';
+    ..icon = ''
+    ..locale = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('skill_category');
@@ -46,6 +49,14 @@ abstract class SkillCategoryRecord
           ..name = snapshot.data['name']
           ..displayName = snapshot.data['display_name']
           ..icon = snapshot.data['icon']
+          ..locale = safeGet(() => ListBuilder(snapshot.data['locale']
+              .map((data) => createTranslatableStringStruct(
+                    language: safeGet(() =>
+                        toRef((data as Map<String, dynamic>)['language'])),
+                    text: (data as Map<String, dynamic>)['text'],
+                    create: true,
+                    clearUnsetFields: false,
+                  ).toBuilder())))
           ..ffRef = SkillCategoryRecord.collection.doc(snapshot.objectID),
       );
 
@@ -86,7 +97,8 @@ Map<String, dynamic> createSkillCategoryRecordData({
       (s) => s
         ..name = name
         ..displayName = displayName
-        ..icon = icon,
+        ..icon = icon
+        ..locale = null,
     ),
   );
 

@@ -52,6 +52,21 @@ class _$DefineMessageRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.locale;
+    if (value != null) {
+      result
+        ..add('locale')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList,
+                const [const FullType(TranslatableDifineMessagesStruct)])));
+    }
+    value = object.iPremium;
+    if (value != null) {
+      result
+        ..add('i_premium')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -91,6 +106,16 @@ class _$DefineMessageRecordSerializer
           result.type = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'locale':
+          result.locale.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(TranslatableDifineMessagesStruct)
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'i_premium':
+          result.iPremium = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -114,6 +139,10 @@ class _$DefineMessageRecord extends DefineMessageRecord {
   @override
   final String? type;
   @override
+  final BuiltList<TranslatableDifineMessagesStruct>? locale;
+  @override
+  final bool? iPremium;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$DefineMessageRecord(
@@ -121,7 +150,13 @@ class _$DefineMessageRecord extends DefineMessageRecord {
       (new DefineMessageRecordBuilder()..update(updates))._build();
 
   _$DefineMessageRecord._(
-      {this.displayName, this.messages, this.order, this.type, this.ffRef})
+      {this.displayName,
+      this.messages,
+      this.order,
+      this.type,
+      this.locale,
+      this.iPremium,
+      this.ffRef})
       : super._();
 
   @override
@@ -141,6 +176,8 @@ class _$DefineMessageRecord extends DefineMessageRecord {
         messages == other.messages &&
         order == other.order &&
         type == other.type &&
+        locale == other.locale &&
+        iPremium == other.iPremium &&
         ffRef == other.ffRef;
   }
 
@@ -148,9 +185,13 @@ class _$DefineMessageRecord extends DefineMessageRecord {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, displayName.hashCode), messages.hashCode),
-                order.hashCode),
-            type.hashCode),
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, displayName.hashCode), messages.hashCode),
+                        order.hashCode),
+                    type.hashCode),
+                locale.hashCode),
+            iPremium.hashCode),
         ffRef.hashCode));
   }
 
@@ -161,6 +202,8 @@ class _$DefineMessageRecord extends DefineMessageRecord {
           ..add('messages', messages)
           ..add('order', order)
           ..add('type', type)
+          ..add('locale', locale)
+          ..add('iPremium', iPremium)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -186,6 +229,16 @@ class DefineMessageRecordBuilder
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
+  ListBuilder<TranslatableDifineMessagesStruct>? _locale;
+  ListBuilder<TranslatableDifineMessagesStruct> get locale =>
+      _$this._locale ??= new ListBuilder<TranslatableDifineMessagesStruct>();
+  set locale(ListBuilder<TranslatableDifineMessagesStruct>? locale) =>
+      _$this._locale = locale;
+
+  bool? _iPremium;
+  bool? get iPremium => _$this._iPremium;
+  set iPremium(bool? iPremium) => _$this._iPremium = iPremium;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -201,6 +254,8 @@ class DefineMessageRecordBuilder
       _messages = $v.messages;
       _order = $v.order;
       _type = $v.type;
+      _locale = $v.locale?.toBuilder();
+      _iPremium = $v.iPremium;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -222,13 +277,28 @@ class DefineMessageRecordBuilder
   DefineMessageRecord build() => _build();
 
   _$DefineMessageRecord _build() {
-    final _$result = _$v ??
-        new _$DefineMessageRecord._(
-            displayName: displayName,
-            messages: messages,
-            order: order,
-            type: type,
-            ffRef: ffRef);
+    _$DefineMessageRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$DefineMessageRecord._(
+              displayName: displayName,
+              messages: messages,
+              order: order,
+              type: type,
+              locale: _locale?.build(),
+              iPremium: iPremium,
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'locale';
+        _locale?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'DefineMessageRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

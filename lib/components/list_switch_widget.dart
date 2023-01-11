@@ -33,23 +33,49 @@ class _ListSwitchWidgetState extends State<ListSwitchWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Switch(
-      value: switchValue ??= true,
-      onChanged: (newValue) async {
-        setState(() => switchValue = newValue!);
-        if (newValue!) {
-          final fildUpdateData = createFildRecordData(
-            value: true,
+    return StreamBuilder<List<FildRecord>>(
+      stream: queryFildRecord(
+        singleRecord: true,
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(
+                color: FlutterFlowTheme.of(context).primaryColor,
+              ),
+            ),
           );
-          await widget.switchAction!.update(fildUpdateData);
-        } else {
-          final fildUpdateData = createFildRecordData(
-            value: false,
-          );
-          await widget.switchAction!.update(fildUpdateData);
         }
+        List<FildRecord> switchFildRecordList = snapshot.data!;
+        // Return an empty Container when the item does not exist.
+        if (snapshot.data!.isEmpty) {
+          return Container();
+        }
+        final switchFildRecord =
+            switchFildRecordList.isNotEmpty ? switchFildRecordList.first : null;
+        return Switch(
+          value: switchValue ??= switchFildRecord!.value!,
+          onChanged: (newValue) async {
+            setState(() => switchValue = newValue!);
+            if (newValue!) {
+              final fildUpdateData = createFildRecordData(
+                value: true,
+              );
+              await widget.switchAction!.update(fildUpdateData);
+            } else {
+              final fildUpdateData = createFildRecordData(
+                value: false,
+              );
+              await widget.switchAction!.update(fildUpdateData);
+            }
+          },
+          activeColor: FlutterFlowTheme.of(context).primaryColor,
+        );
       },
-      activeColor: FlutterFlowTheme.of(context).primaryColor,
     );
   }
 }

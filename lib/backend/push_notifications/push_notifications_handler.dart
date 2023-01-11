@@ -51,12 +51,13 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     try {
       final initialPageName = message.data['initialPageName'] as String;
       final initialParameterData = getInitialParameterData(message.data);
-      final pageBuilder = pageBuilderMap[initialPageName];
-      if (pageBuilder != null) {
-        final page = await pageBuilder(initialParameterData);
-        await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
+      final parametersBuilder = parametersBuilderMap[initialPageName];
+      if (parametersBuilder != null) {
+        final parameterData = await parametersBuilder(initialParameterData);
+        context.pushNamed(
+          initialPageName,
+          params: parameterData.params,
+          extra: parameterData.extra,
         );
       }
     } catch (e) {
@@ -90,94 +91,149 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       : widget.child;
 }
 
-final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
-  'SignIn': (data) async => SignInWidget(),
-  'SignUp': (data) async => SignUpWidget(),
-  'ForgotPassword': (data) async => ForgotPasswordWidget(),
-  'NewPassword': (data) async => NewPasswordWidget(),
-  'ChooseLanguage': (data) async => ChooseLanguageWidget(),
-  'KnowU': (data) async => KnowUWidget(
-        editKnowU: getParameter(data, 'editKnowU'),
+class ParameterData {
+  const ParameterData(
+      {this.requiredParams = const {}, this.allParams = const {}});
+  final Map<String, String?> requiredParams;
+  final Map<String, dynamic> allParams;
+
+  Map<String, String> get params => Map.fromEntries(
+        requiredParams.entries
+            .where((e) => e.value != null)
+            .map((e) => MapEntry(e.key, e.value!)),
+      );
+  Map<String, dynamic> get extra => Map.fromEntries(
+        allParams.entries.where((e) => e.value != null),
+      );
+
+  static Future<ParameterData> Function(Map<String, dynamic>) none() =>
+      (data) async => ParameterData();
+}
+
+final parametersBuilderMap =
+    <String, Future<ParameterData> Function(Map<String, dynamic>)>{
+  'SignIn': ParameterData.none(),
+  'verified-email': ParameterData.none(),
+  'SignUp': ParameterData.none(),
+  'NewPassword': ParameterData.none(),
+  'ChooseLanguage': ParameterData.none(),
+  'KnowU': (data) async => ParameterData(
+        allParams: {
+          'editKnowU': getParameter<bool>(data, 'editKnowU'),
+        },
       ),
-  'CONTACTDATA2-M-144': (data) async => Contactdata2M144Widget(),
-  'CONTACTDATA2-M-145': (data) async => Contactdata2M145Widget(),
-  'WhatAreYouInterestedIn': (data) async => WhatAreYouInterestedInWidget(),
-  'Skills': (data) async => NavBarPage(initialPage: 'Skills'),
-  'ProfileView': (data) async => NavBarPage(initialPage: 'ProfileView'),
-  'Details1-M-152': (data) async => Details1M152Widget(),
-  'Details2-M-153': (data) async => Details2M153Widget(),
-  'TASK-M-197': (data) async => TaskM197Widget(),
-  'TASK-M-198': (data) async => TaskM198Widget(),
-  'TASK-M-200': (data) async => TaskM200Widget(),
-  'CONTACTDATA2-M-221': (data) async => Contactdata2M221Widget(),
-  'CONTACTDATA2-M-202': (data) async => Contactdata2M202Widget(),
-  'Calnendar-M-203': (data) async => CalnendarM203Widget(),
-  'Calnendar-M-205': (data) async => CalnendarM205Widget(),
-  'Calnendar-M-208': (data) async => CalnendarM208Widget(),
-  'Taskerdetails-M-215': (data) async => TaskerdetailsM215Widget(),
-  'Taskerdetails-M-217': (data) async => TaskerdetailsM217Widget(),
-  'Taskerdetails-M-218': (data) async => TaskerdetailsM218Widget(),
-  'search-M-12': (data) async => SearchM12Widget(),
-  'MyNetwork': (data) async => MyNetworkWidget(),
-  'Describe-M-150': (data) async => DescribeM150Widget(),
-  'Calender': (data) async => CalenderWidget(),
-  'Profile': (data) async => ProfileWidget(),
-  'ContactData': (data) async => ContactDataWidget(),
-  'homePage-M-03': (data) async => NavBarPage(initialPage: 'homePage-M-03'),
-  'homePage-M-04': (data) async => HomePageM04Widget(),
-  'homePage-M-05': (data) async => HomePageM05Widget(),
-  'MyTasks': (data) async => MyTasksWidget(),
-  'Skills2': (data) async => Skills2Widget(),
-  'Identification': (data) async => IdentificationWidget(),
-  'Identification2': (data) async => Identification2Widget(),
-  'Education': (data) async => NavBarPage(initialPage: 'Education'),
-  'Education2': (data) async => Education2Widget(),
-  'homePage-M-06': (data) async => HomePageM06Widget(),
-  'homePage-M-07': (data) async => HomePageM07Widget(),
-  'Rates': (data) async => RatesWidget(),
-  'Rates2': (data) async => Rates2Widget(),
-  'TaskAppointment': (data) async => TaskAppointmentWidget(),
-  'sign_up-M-126': (data) async => SignUpM126Widget(),
-  'DateofBirth-M-173': (data) async => DateofBirthM173Widget(),
-  'sign_up_M-165': (data) async => SignUpM165Widget(),
-  'sign_up_M-167': (data) async => SignUpM167Widget(),
-  'Signup-M-166': (data) async => SignupM166Widget(),
-  'sign_up_M-168': (data) async => SignUpM168Widget(),
-  'rate_m-169': (data) async => RateM169Widget(),
-  'sign_upEducation': (data) async => SignUpEducationWidget(),
-  'Rates_M-171': (data) async => RatesM171Widget(),
-  'ChooseSkillls-M146': (data) async => ChooseSkilllsM146Widget(),
-  'DescribeYourself': (data) async => DescribeYourselfWidget(),
-  'Profile-M-151': (data) async => ProfileM151Widget(),
-  'serach_result_task': (data) async => SerachResultTaskWidget(),
-  'serach_result': (data) async => SerachResultWidget(),
-  'chats': (data) async => ChatsWidget(
-        task: getParameter(data, 'task'),
+  'CONTACTDATA2-M-144': ParameterData.none(),
+  'CONTACTDATA2-M-145': (data) async => ParameterData(
+        allParams: {
+          'edit': getParameter<DocumentReference>(data, 'edit'),
+        },
       ),
-  'chat': (data) async => ChatWidget(
-        chatRef: getParameter(data, 'chatRef'),
-        chatUserRef: getParameter(data, 'chatUserRef'),
+  'WhatAreYouInterestedIn': ParameterData.none(),
+  'Skills': ParameterData.none(),
+  'ProfileView': ParameterData.none(),
+  'Details1-M-152': ParameterData.none(),
+  'Details2-M-153': ParameterData.none(),
+  'TASK-M-197': ParameterData.none(),
+  'TASK-M-198': (data) async => ParameterData(
+        allParams: {
+          'edit': getParameter<DocumentReference>(data, 'edit'),
+        },
       ),
-  'TASK-M-199': (data) async => TaskM199Widget(),
-  'appointment': (data) async => AppointmentWidget(),
-  'TaskPubish': (data) async => TaskPubishWidget(
-        messagePoster: getParameter(data, 'messagePoster'),
-        task: getParameter(data, 'task'),
+  'TASK-M-200': ParameterData.none(),
+  'CONTACTDATA2-M-221': ParameterData.none(),
+  'CONTACTDATA2-M-202': ParameterData.none(),
+  'Calnendar-M-203': ParameterData.none(),
+  'Calnendar-M-205': ParameterData.none(),
+  'Calnendar-M-208': ParameterData.none(),
+  'Taskerdetails-M-215': ParameterData.none(),
+  'Taskerdetails-M-217': ParameterData.none(),
+  'Taskerdetails-M-218': ParameterData.none(),
+  'MyNetwork': ParameterData.none(),
+  'search-M-12': ParameterData.none(),
+  'Describe-M-150': ParameterData.none(),
+  'Calender': ParameterData.none(),
+  'Profile': ParameterData.none(),
+  'ContactData': ParameterData.none(),
+  'homePage-M-03': ParameterData.none(),
+  'homePage-M-04': ParameterData.none(),
+  'homePage-M-05': ParameterData.none(),
+  'MyTasks': ParameterData.none(),
+  'Skills2': ParameterData.none(),
+  'Identification': ParameterData.none(),
+  'Identification2': ParameterData.none(),
+  'Education': ParameterData.none(),
+  'Education2': ParameterData.none(),
+  'homePage-M-06': ParameterData.none(),
+  'Rates': ParameterData.none(),
+  'homePage-M-07': ParameterData.none(),
+  'Rates2': ParameterData.none(),
+  'TaskAppointment': ParameterData.none(),
+  'sign_up-M-126': ParameterData.none(),
+  'DateofBirth-M-173': ParameterData.none(),
+  'sign_up_M-165': ParameterData.none(),
+  'Signup-M-166': ParameterData.none(),
+  'sign_up_M-168': ParameterData.none(),
+  'rate_m-169': ParameterData.none(),
+  'sign_upEducation': ParameterData.none(),
+  'Rates_M-171': ParameterData.none(),
+  'DescribeYourself': ParameterData.none(),
+  'ChooseSkillls-M146': ParameterData.none(),
+  'Profile-M-151': ParameterData.none(),
+  'searchResultTasker': ParameterData.none(),
+  'tasks': ParameterData.none(),
+  'searchResult': ParameterData.none(),
+  'chat': (data) async => ParameterData(
+        allParams: {
+          'chatRef': getParameter<DocumentReference>(data, 'chatRef'),
+          'chatUserRef': getParameter<DocumentReference>(data, 'chatUserRef'),
+        },
       ),
-  'appointmentlist': (data) async => NavBarPage(initialPage: 'appointmentlist'),
-  'appointmentdeatls': (data) async => AppointmentdeatlsWidget(
-        appiontmentdeatls: getParameter(data, 'appiontmentdeatls'),
-        acceptInlistappointment: getParameter(data, 'acceptInlistappointment'),
+  'chats': (data) async => ParameterData(
+        allParams: {
+          'task': getParameter<DocumentReference>(data, 'task'),
+        },
       ),
-  'Howitworks': (data) async => HowitworksWidget(),
-  'appointmentdeatlsRquested': (data) async => AppointmentdeatlsRquestedWidget(
-        appiontmentdeatls: getParameter(data, 'appiontmentdeatls'),
-        acceptInlistappointment: getParameter(data, 'acceptInlistappointment'),
+  'appointmentlist': ParameterData.none(),
+  'TASK-M-199': ParameterData.none(),
+  'appointment': ParameterData.none(),
+  'appointmentdeatls': (data) async => ParameterData(
+        allParams: {
+          'appiontmentdeatls':
+              getParameter<DocumentReference>(data, 'appiontmentdeatls'),
+          'userRef': getParameter<DocumentReference>(data, 'userRef'),
+        },
+      ),
+  'Howitworks': ParameterData.none(),
+  'TaskPublish': (data) async => ParameterData(
+        allParams: {
+          'messagePoster': getParameter<bool>(data, 'messagePoster'),
+          'task': getParameter<DocumentReference>(data, 'task'),
+          'editTask': getParameter<bool>(data, 'editTask'),
+        },
+      ),
+  'appointmentdeatlsRquested': (data) async => ParameterData(
+        allParams: {
+          'appiontmentdeatls':
+              getParameter<DocumentReference>(data, 'appiontmentdeatls'),
+          'userRef': getParameter<DocumentReference>(data, 'userRef'),
+        },
+      ),
+  'CONTACTDATA2-M-145Copy': ParameterData.none(),
+  'test': ParameterData.none(),
+  'profile_scan': (data) async => ParameterData(
+        allParams: {
+          'appiontmentdeatls':
+              getParameter<DocumentReference>(data, 'appiontmentdeatls'),
+          'userRef': getParameter<DocumentReference>(data, 'userRef'),
+        },
+      ),
+  'editEducation': (data) async => ParameterData(
+        allParams: {
+          'educationDocument':
+              getParameter<DocumentReference>(data, 'educationDocument'),
+        },
       ),
 };
-
-bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>
-    params.any((param) => getParameter(data, param) != null);
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {
   try {

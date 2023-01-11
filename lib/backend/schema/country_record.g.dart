@@ -41,6 +41,13 @@ class _$CountryRecordSerializer implements StructuredSerializer<CountryRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.currencyCode;
+    if (value != null) {
+      result
+        ..add('currency_code')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -76,6 +83,10 @@ class _$CountryRecordSerializer implements StructuredSerializer<CountryRecord> {
           result.flagIcon = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'currency_code':
+          result.currencyCode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -97,12 +108,15 @@ class _$CountryRecord extends CountryRecord {
   @override
   final String? flagIcon;
   @override
+  final String? currencyCode;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$CountryRecord([void Function(CountryRecordBuilder)? updates]) =>
       (new CountryRecordBuilder()..update(updates))._build();
 
-  _$CountryRecord._({this.code, this.phoneCode, this.flagIcon, this.ffRef})
+  _$CountryRecord._(
+      {this.code, this.phoneCode, this.flagIcon, this.currencyCode, this.ffRef})
       : super._();
 
   @override
@@ -119,13 +133,17 @@ class _$CountryRecord extends CountryRecord {
         code == other.code &&
         phoneCode == other.phoneCode &&
         flagIcon == other.flagIcon &&
+        currencyCode == other.currencyCode &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, code.hashCode), phoneCode.hashCode), flagIcon.hashCode),
+        $jc(
+            $jc($jc($jc(0, code.hashCode), phoneCode.hashCode),
+                flagIcon.hashCode),
+            currencyCode.hashCode),
         ffRef.hashCode));
   }
 
@@ -135,6 +153,7 @@ class _$CountryRecord extends CountryRecord {
           ..add('code', code)
           ..add('phoneCode', phoneCode)
           ..add('flagIcon', flagIcon)
+          ..add('currencyCode', currencyCode)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -156,6 +175,10 @@ class CountryRecordBuilder
   String? get flagIcon => _$this._flagIcon;
   set flagIcon(String? flagIcon) => _$this._flagIcon = flagIcon;
 
+  String? _currencyCode;
+  String? get currencyCode => _$this._currencyCode;
+  set currencyCode(String? currencyCode) => _$this._currencyCode = currencyCode;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -170,6 +193,7 @@ class CountryRecordBuilder
       _code = $v.code;
       _phoneCode = $v.phoneCode;
       _flagIcon = $v.flagIcon;
+      _currencyCode = $v.currencyCode;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -193,7 +217,11 @@ class CountryRecordBuilder
   _$CountryRecord _build() {
     final _$result = _$v ??
         new _$CountryRecord._(
-            code: code, phoneCode: phoneCode, flagIcon: flagIcon, ffRef: ffRef);
+            code: code,
+            phoneCode: phoneCode,
+            flagIcon: flagIcon,
+            currencyCode: currencyCode,
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

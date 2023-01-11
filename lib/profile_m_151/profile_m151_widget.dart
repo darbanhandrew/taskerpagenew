@@ -263,18 +263,23 @@ class _ProfileM151WidgetState extends State<ProfileM151Widget> {
                                   ),
                                   child: Align(
                                     alignment: AlignmentDirectional(0, 0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        '7eaylqyg' /* I'll do it later */,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        context.pushNamed('Details1-M-152');
+                                      },
+                                      child: Text(
+                                        FFLocalizations.of(context).getText(
+                                          '7eaylqyg' /* I'll do it later */,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF8A8A8A),
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                       ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF8A8A8A),
-                                            fontWeight: FontWeight.w500,
-                                          ),
                                     ),
                                   ),
                                 ),

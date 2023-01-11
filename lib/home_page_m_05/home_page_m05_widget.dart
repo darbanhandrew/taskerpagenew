@@ -378,7 +378,7 @@ class _HomePageM05WidgetState extends State<HomePageM05Widget> {
                   ),
                   InkWell(
                     onTap: () async {
-                      context.pushNamed('serach_result_task');
+                      context.pushNamed('searchResultTasker');
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -445,7 +445,7 @@ class _HomePageM05WidgetState extends State<HomePageM05Widget> {
                   ),
                   InkWell(
                     onTap: () async {
-                      context.pushNamed('serach_result');
+                      context.pushNamed('searchResult');
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.max,

@@ -16,10 +16,10 @@ abstract class SkillRecord implements Built<SkillRecord, SkillRecordBuilder> {
   @BuiltValueField(wireName: 'display_name')
   String? get displayName;
 
-  BuiltList<OptionStruct>? get options;
-
   @BuiltValueField(wireName: 'category_ref')
   DocumentReference? get categoryRef;
+
+  BuiltList<TranslatableStringStruct>? get locale;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -28,7 +28,7 @@ abstract class SkillRecord implements Built<SkillRecord, SkillRecordBuilder> {
   static void _initializeBuilder(SkillRecordBuilder builder) => builder
     ..name = ''
     ..displayName = ''
-    ..options = ListBuilder();
+    ..locale = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('skill');
@@ -45,17 +45,15 @@ abstract class SkillRecord implements Built<SkillRecord, SkillRecordBuilder> {
         (c) => c
           ..name = snapshot.data['name']
           ..displayName = snapshot.data['display_name']
-          ..options = safeGet(() => ListBuilder(
-              snapshot.data['options'].map((data) => createOptionStruct(
-                    name: (data as Map<String, dynamic>)['name'],
-                    order: (data as Map<String, dynamic>)['order']?.round(),
-                    isSingle: (data as Map<String, dynamic>)['is_single'],
-                    value: (data as Map<String, dynamic>)['value'],
-                    type: (data as Map<String, dynamic>)['type'],
+          ..categoryRef = safeGet(() => toRef(snapshot.data['category_ref']))
+          ..locale = safeGet(() => ListBuilder(snapshot.data['locale']
+              .map((data) => createTranslatableStringStruct(
+                    language: safeGet(() =>
+                        toRef((data as Map<String, dynamic>)['language'])),
+                    text: (data as Map<String, dynamic>)['text'],
                     create: true,
                     clearUnsetFields: false,
                   ).toBuilder())))
-          ..categoryRef = safeGet(() => toRef(snapshot.data['category_ref']))
           ..ffRef = SkillRecord.collection.doc(snapshot.objectID),
       );
 
@@ -95,8 +93,8 @@ Map<String, dynamic> createSkillRecordData({
       (s) => s
         ..name = name
         ..displayName = displayName
-        ..options = null
-        ..categoryRef = categoryRef,
+        ..categoryRef = categoryRef
+        ..locale = null,
     ),
   );
 

@@ -1,9 +1,9 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/list_switch_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -143,6 +143,8 @@ class _ChooseSkillBottomSheetWidgetState
                                     };
                                     await widget.userSkill!.reference
                                         .update(userSkillUpdateData);
+                                    FFAppState().removeFromChosenSkills(
+                                        gridViewSkillRecord.reference);
                                     return;
                                   } else {
                                     final userSkillUpdateData = {
@@ -151,6 +153,8 @@ class _ChooseSkillBottomSheetWidgetState
                                     };
                                     await widget.userSkill!.reference
                                         .update(userSkillUpdateData);
+                                    FFAppState().addToChosenSkills(
+                                        gridViewSkillRecord.reference);
                                     return;
                                   }
                                 },
@@ -182,27 +186,34 @@ class _ChooseSkillBottomSheetWidgetState
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 10, 0),
-                                        child: Text(
-                                          gridViewSkillRecord.displayName!,
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: columnUserSkillRecord
-                                                        .skillRefs!
-                                                        .toList()
-                                                        .contains(
-                                                            gridViewSkillRecord
-                                                                .reference)
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiaryColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Text(
+                                            functions
+                                                .skillLocale(
+                                                    currentUserDocument!
+                                                        .language!,
+                                                    gridViewSkillRecord)!
+                                                .text!,
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: columnUserSkillRecord
+                                                          .skillRefs!
+                                                          .toList()
+                                                          .contains(
+                                                              gridViewSkillRecord
+                                                                  .reference)
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryColor
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiaryColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -299,7 +310,6 @@ class _ChooseSkillBottomSheetWidgetState
                                     };
                                     await widget.userSkill!.reference
                                         .update(userSkillUpdateData);
-                                    return;
                                   } else {
                                     final userSkillUpdateData = {
                                       'skill_levels': FieldValue.arrayUnion(
@@ -307,8 +317,10 @@ class _ChooseSkillBottomSheetWidgetState
                                     };
                                     await widget.userSkill!.reference
                                         .update(userSkillUpdateData);
-                                    return;
                                   }
+
+                                  FFAppState().addToChosenSkillLevels(
+                                      gridViewSkillLevelRecord.reference);
                                 },
                                 child: Container(
                                   height: 100,
@@ -335,27 +347,34 @@ class _ChooseSkillBottomSheetWidgetState
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 10, 0),
-                                        child: Text(
-                                          gridViewSkillLevelRecord.displayName!,
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: columnUserSkillRecord
-                                                        .skillLevels!
-                                                        .toList()
-                                                        .contains(
-                                                            gridViewSkillLevelRecord
-                                                                .reference)
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiaryColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Text(
+                                            functions
+                                                .skillLevelLocale(
+                                                    currentUserDocument!
+                                                        .language!,
+                                                    gridViewSkillLevelRecord)!
+                                                .text!,
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: columnUserSkillRecord
+                                                          .skillLevels!
+                                                          .toList()
+                                                          .contains(
+                                                              gridViewSkillLevelRecord
+                                                                  .reference)
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryColor
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiaryColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -374,233 +393,6 @@ class _ChooseSkillBottomSheetWidgetState
                   thickness: 0.5,
                   indent: 15,
                   endIndent: 15,
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 25),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          't9brcqzx' /* fields skill */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
-                      child: StreamBuilder<List<FildRecord>>(
-                        stream: queryFildRecord(
-                          queryBuilder: (fildRecord) => fildRecord
-                              .whereArrayContainsAny('skills_ref',
-                                  columnUserSkillRecord.skillRefs!.toList())
-                              .where('type', isEqualTo: 'swich'),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                ),
-                              ),
-                            );
-                          }
-                          List<FildRecord> listViewFildRecordList =
-                              snapshot.data!;
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewFildRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewFildRecord =
-                                  listViewFildRecordList[listViewIndex];
-                              return Visibility(
-                                visible: listViewFildRecord.type == 'radio',
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      listViewFildRecord.displayName!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        ListSwitchWidget(
-                                          key: UniqueKey(),
-                                          switchAction:
-                                              listViewFildRecord.reference,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      border: Border.all(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
-                      child: StreamBuilder<List<FildRecord>>(
-                        stream: queryFildRecord(
-                          queryBuilder: (fildRecord) => fildRecord
-                              .whereArrayContainsAny('skills_ref',
-                                  columnUserSkillRecord.skillRefs!.toList())
-                              .where('type', isEqualTo: 'radio'),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                ),
-                              ),
-                            );
-                          }
-                          List<FildRecord> gridViewFildRecordList =
-                              snapshot.data!;
-                          return GridView.builder(
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 3,
-                              childAspectRatio: 4,
-                            ),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: gridViewFildRecordList.length,
-                            itemBuilder: (context, gridViewIndex) {
-                              final gridViewFildRecord =
-                                  gridViewFildRecordList[gridViewIndex];
-                              return Visibility(
-                                visible: gridViewFildRecord.type == 'swich',
-                                child: InkWell(
-                                  onTap: () async {
-                                    if (FFAppState().field == false) {
-                                      final fildUpdateData = {
-                                        ...createFildRecordData(
-                                          value: true,
-                                        ),
-                                        'skills_ref': columnUserSkillRecord
-                                            .skillRefs!
-                                            .toList(),
-                                      };
-                                      await gridViewFildRecord.reference
-                                          .update(fildUpdateData);
-                                      FFAppState().update(() {
-                                        FFAppState().field = true;
-                                      });
-                                    } else {
-                                      final fildUpdateData = {
-                                        ...createFildRecordData(
-                                          value: false,
-                                        ),
-                                        'skills_ref': columnUserSkillRecord
-                                            .skillRefs!
-                                            .toList(),
-                                      };
-                                      await gridViewFildRecord.reference
-                                          .update(fildUpdateData);
-                                      FFAppState().update(() {
-                                        FFAppState().field = false;
-                                      });
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(3),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiaryColor,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 10, 0),
-                                          child: Text(
-                                            gridViewFildRecord.displayName!,
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: columnUserSkillRecord
-                                                          .skillRefs!
-                                                          .toList()
-                                                          .contains(
-                                                              gridViewFildRecord
-                                                                  .reference)
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryColor
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .tertiaryColor,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 20),

@@ -158,11 +158,17 @@ class _TaskM199WidgetState extends State<TaskM199Widget> {
                                                           context)
                                                       .secondaryBackground,
                                                 ),
-                                                child: Image.asset(
-                                                  'assets/images/Group_2196.png',
-                                                  width: 50,
-                                                  height: 50,
-                                                  fit: BoxFit.none,
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    scaffoldKey.currentState!
+                                                        .openDrawer();
+                                                  },
+                                                  child: Image.asset(
+                                                    'assets/images/Group_2196.png',
+                                                    width: 50,
+                                                    height: 50,
+                                                    fit: BoxFit.none,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -320,8 +326,22 @@ class _TaskM199WidgetState extends State<TaskM199Widget> {
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFF8A8A8A),
+                                                          color: valueOrDefault<
+                                                              Color>(
+                                                            gridViewSkillRecord
+                                                                        .reference ==
+                                                                    taskM199TaskRecord
+                                                                        .skill
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .tertiaryColor,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                          ),
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -847,18 +867,23 @@ class _TaskM199WidgetState extends State<TaskM199Widget> {
                               children: [
                                 Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      's5gka6d6' /* <   Back */,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      context.pop();
+                                    },
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        's5gka6d6' /* <   Back */,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF292929),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF292929),
-                                          fontWeight: FontWeight.w500,
-                                        ),
                                   ),
                                 ),
                               ],
@@ -874,8 +899,7 @@ class _TaskM199WidgetState extends State<TaskM199Widget> {
                                     onPressed: () async {
                                       final taskUpdateData = {
                                         ...createTaskRecordData(
-                                          description:
-                                              taskM199TaskRecord.description,
+                                          description: textController!.text,
                                           file: uploadedFileUrl,
                                           name:
                                               'Task ${random_data.randomInteger(100, 999).toString()}',

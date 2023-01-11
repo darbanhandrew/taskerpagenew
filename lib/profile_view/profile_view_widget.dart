@@ -1,10 +1,15 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
+import '../components/visit_card_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +22,9 @@ class ProfileViewWidget extends StatefulWidget {
 }
 
 class _ProfileViewWidgetState extends State<ProfileViewWidget> {
-  double? ratingBarValue;
+  bool isMediaUploading = false;
+  String uploadedFileUrl = '';
+
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -154,24 +161,33 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(8,
                                                                       0, 0, 0),
-                                                          child: SelectionArea(
-                                                              child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'kvm2l1uc' /* 581521513 */,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              await Clipboard.setData(
+                                                                  ClipboardData(
+                                                                      text: profileViewUserRecord
+                                                                          .uid!));
+                                                            },
+                                                            child: Text(
+                                                              profileViewUserRecord
+                                                                  .uid!
+                                                                  .maybeHandleOverflow(
+                                                                maxChars: 8,
+                                                                replacement:
+                                                                    '…',
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                  ),
                                                             ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                ),
-                                                          )),
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -234,10 +250,13 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                     8, 0, 0, 0),
                                                         child: SelectionArea(
                                                             child: Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'semgjiw9' /* 2019/05/08 */,
+                                                          dateTimeFormat(
+                                                            'yMd',
+                                                            profileViewUserRecord
+                                                                .createdTime!,
+                                                            locale: FFLocalizations
+                                                                    .of(context)
+                                                                .languageCode,
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -306,7 +325,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                   )
                                                 ],
                                                 borderRadius:
-                                                    BorderRadius.circular(2),
+                                                    BorderRadius.circular(4),
                                               ),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -381,83 +400,100 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                              StreamBuilder<
+                                                                  LanguageRecord>(
+                                                                stream: LanguageRecord
+                                                                    .getDocument(
+                                                                        profileViewUserRecord
+                                                                            .language!),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            50,
+                                                                        height:
+                                                                            50,
+                                                                        child:
+                                                                            CircularProgressIndicator(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  final rowLanguageRecord =
+                                                                      snapshot
+                                                                          .data!;
+                                                                  return Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0,
                                                                             0,
                                                                             0,
                                                                             5),
-                                                                    child: StreamBuilder<
-                                                                        List<
-                                                                            UserAddressRecord>>(
-                                                                      stream:
-                                                                          queryUserAddressRecord(
-                                                                        singleRecord:
-                                                                            true,
+                                                                        child: StreamBuilder<
+                                                                            List<UserAddressRecord>>(
+                                                                          stream:
+                                                                              queryUserAddressRecord(
+                                                                            parent:
+                                                                                profileViewUserRecord.reference,
+                                                                            singleRecord:
+                                                                                true,
+                                                                          ),
+                                                                          builder:
+                                                                              (context, snapshot) {
+                                                                            // Customize what your widget looks like when it's loading.
+                                                                            if (!snapshot.hasData) {
+                                                                              return Center(
+                                                                                child: SizedBox(
+                                                                                  width: 50,
+                                                                                  height: 50,
+                                                                                  child: CircularProgressIndicator(
+                                                                                    color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            }
+                                                                            List<UserAddressRecord>
+                                                                                textUserAddressRecordList =
+                                                                                snapshot.data!;
+                                                                            // Return an empty Container when the item does not exist.
+                                                                            if (snapshot.data!.isEmpty) {
+                                                                              return Container();
+                                                                            }
+                                                                            final textUserAddressRecord = textUserAddressRecordList.isNotEmpty
+                                                                                ? textUserAddressRecordList.first
+                                                                                : null;
+                                                                            return SelectionArea(
+                                                                                child: Text(
+                                                                              '${textUserAddressRecord!.address.city} | ${rowLanguageRecord.code}'.maybeHandleOverflow(maxChars: 20),
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ));
+                                                                          },
+                                                                        ),
                                                                       ),
-                                                                      builder:
-                                                                          (context,
-                                                                              snapshot) {
-                                                                        // Customize what your widget looks like when it's loading.
-                                                                        if (!snapshot
-                                                                            .hasData) {
-                                                                          return Center(
-                                                                            child:
-                                                                                SizedBox(
-                                                                              width: 50,
-                                                                              height: 50,
-                                                                              child: CircularProgressIndicator(
-                                                                                color: FlutterFlowTheme.of(context).primaryColor,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        }
-                                                                        List<UserAddressRecord>
-                                                                            textUserAddressRecordList =
-                                                                            snapshot.data!;
-                                                                        // Return an empty Container when the item does not exist.
-                                                                        if (snapshot
-                                                                            .data!
-                                                                            .isEmpty) {
-                                                                          return Container();
-                                                                        }
-                                                                        final textUserAddressRecord = textUserAddressRecordList.isNotEmpty
-                                                                            ? textUserAddressRecordList.first
-                                                                            : null;
-                                                                        return SelectionArea(
-                                                                            child:
-                                                                                Text(
-                                                                          '${textUserAddressRecord!.defaultAddress?.toString()}| ${profileViewUserRecord.languages!.toList().length.toString()}'
-                                                                              .maybeHandleOverflow(maxChars: 20),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
-                                                                        ));
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                    ],
+                                                                  );
+                                                                },
                                                               ),
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
                                                                 children: [
-                                                                  RatingBar
-                                                                      .builder(
-                                                                    onRatingUpdate:
-                                                                        (newValue) =>
-                                                                            setState(() =>
-                                                                                ratingBarValue = newValue),
+                                                                  RatingBarIndicator(
                                                                     itemBuilder:
                                                                         (context,
                                                                                 index) =>
@@ -469,9 +505,9 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                     ),
                                                                     direction: Axis
                                                                         .horizontal,
-                                                                    initialRating:
-                                                                        ratingBarValue ??=
-                                                                            3,
+                                                                    rating:
+                                                                        profileViewUserRecord
+                                                                            .rate!,
                                                                     unratedColor:
                                                                         Color(
                                                                             0xFFDCDCDC),
@@ -479,9 +515,6 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                                         5,
                                                                     itemSize:
                                                                         17.5,
-                                                                    glowColor:
-                                                                        Color(
-                                                                            0xFFEFC349),
                                                                   ),
                                                                 ],
                                                               ),
@@ -507,11 +540,78 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Image.asset(
-                                                              'assets/images/Mask_Group_645.png',
-                                                              width: 25,
-                                                              height: 25,
-                                                              fit: BoxFit.none,
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                final selectedMedia =
+                                                                    await selectMediaWithSourceBottomSheet(
+                                                                  context:
+                                                                      context,
+                                                                  allowPhoto:
+                                                                      true,
+                                                                );
+                                                                if (selectedMedia !=
+                                                                        null &&
+                                                                    selectedMedia.every((m) =>
+                                                                        validateFileFormat(
+                                                                            m.storagePath,
+                                                                            context))) {
+                                                                  setState(() =>
+                                                                      isMediaUploading =
+                                                                          true);
+                                                                  var downloadUrls =
+                                                                      <String>[];
+                                                                  try {
+                                                                    downloadUrls = (await Future
+                                                                            .wait(
+                                                                      selectedMedia
+                                                                          .map(
+                                                                        (m) async => await uploadData(
+                                                                            m.storagePath,
+                                                                            m.bytes),
+                                                                      ),
+                                                                    ))
+                                                                        .where((u) =>
+                                                                            u !=
+                                                                            null)
+                                                                        .map((u) =>
+                                                                            u!)
+                                                                        .toList();
+                                                                  } finally {
+                                                                    isMediaUploading =
+                                                                        false;
+                                                                  }
+                                                                  if (downloadUrls
+                                                                          .length ==
+                                                                      selectedMedia
+                                                                          .length) {
+                                                                    setState(() =>
+                                                                        uploadedFileUrl =
+                                                                            downloadUrls.first);
+                                                                  } else {
+                                                                    setState(
+                                                                        () {});
+                                                                    return;
+                                                                  }
+                                                                }
+
+                                                                final userUpdateData =
+                                                                    createUserRecordData(
+                                                                  photoUrl:
+                                                                      uploadedFileUrl,
+                                                                );
+                                                                await profileViewUserRecord
+                                                                    .reference
+                                                                    .update(
+                                                                        userUpdateData);
+                                                              },
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/Mask_Group_645.png',
+                                                                width: 25,
+                                                                height: 25,
+                                                                fit:
+                                                                    BoxFit.none,
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -520,10 +620,13 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                             print(
                                                                 'Button pressed ...');
                                                           },
-                                                          text: FFLocalizations
-                                                                  .of(context)
-                                                              .getText(
-                                                            '1h925kdg' /* Upgrade to premium */,
+                                                          text: valueOrDefault<
+                                                              String>(
+                                                            !profileViewUserRecord
+                                                                    .isPremium!
+                                                                ? 'Upgrade to premium'
+                                                                : '${profileViewUserRecord.maxNumberOfAppointments?.toString()} Appointment left',
+                                                            'Upgrade to premium',
                                                           ),
                                                           options:
                                                               FFButtonOptions(
@@ -604,7 +707,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
@@ -682,7 +785,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
@@ -760,7 +863,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
@@ -838,7 +941,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
@@ -916,12 +1019,12 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
                                                         context.pushNamed(
-                                                            'Education');
+                                                            'Signup-M-166');
                                                       },
                                                       child: Column(
                                                         mainAxisSize:
@@ -994,7 +1097,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
@@ -1081,7 +1184,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                           ],
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(2),
+                                                                  .circular(4),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -1158,12 +1261,38 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                       ],
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              2),
+                                                              4),
                                                     ),
                                                     child: InkWell(
                                                       onTap: () async {
-                                                        context.pushNamed(
-                                                            'TaskAppointment');
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .secondaryText,
+                                                          barrierColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .secondaryColor,
+                                                          enableDrag: false,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                      .of(context)
+                                                                  .viewInsets,
+                                                              child:
+                                                                  VisitCardWidget(
+                                                                userDocument:
+                                                                    profileViewUserRecord
+                                                                        .reference,
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            setState(() {}));
                                                       },
                                                       child: Column(
                                                         mainAxisSize:
@@ -1534,7 +1663,12 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                             InkWell(
                                               onTap: () async {
                                                 context
-                                                    .pushNamed('serach_result');
+                                                    .pushNamed('searchResult');
+
+                                                FFAppState().update(() {
+                                                  FFAppState().taskOrTasker =
+                                                      false;
+                                                });
                                               },
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -1584,7 +1718,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                             InkWell(
                                                               onTap: () async {
                                                                 context.pushNamed(
-                                                                    'serach_result');
+                                                                    'searchResult');
                                                               },
                                                               child: Text(
                                                                 FFLocalizations.of(
@@ -1628,8 +1762,13 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
-                                                context.pushNamed(
-                                                    'serach_result_task');
+                                                context
+                                                    .pushNamed('searchResult');
+
+                                                FFAppState().update(() {
+                                                  FFAppState().taskOrTasker =
+                                                      true;
+                                                });
                                               },
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -1679,7 +1818,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                             InkWell(
                                                               onTap: () async {
                                                                 context.pushNamed(
-                                                                    'serach_result_task');
+                                                                    'searchResultTasker');
                                                               },
                                                               child: Text(
                                                                 FFLocalizations.of(
@@ -1908,55 +2047,71 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                InkWell(
-                                  onTap: () async {
-                                    context.pushNamed('homePage-M-03');
-                                  },
-                                  child: Container(
-                                    width: 150,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x00FFFFFF),
-                                      borderRadius: BorderRadius.circular(2),
-                                      border: Border.all(
-                                        color: Color(0xFF8A8A8A),
-                                        width: 2,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              'assets/images/Export.png',
-                                              width: 30,
-                                              height: 30,
-                                              fit: BoxFit.none,
-                                            ),
-                                          ],
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 30),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      GoRouter.of(context).prepareAuthEvent();
+                                      await signOut();
+
+                                      context.pushNamedAuth(
+                                          'homePage-M-03', mounted);
+                                    },
+                                    child: Container(
+                                      width: 150,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x00FFFFFF),
+                                        borderRadius: BorderRadius.circular(2),
+                                        border: Border.all(
+                                          color: Color(0xFF8A8A8A),
+                                          width: 2,
                                         ),
-                                        Column(
+                                      ),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          await signOut();
+
+                                          context.goNamedAuth(
+                                              'homePage-M-03', mounted);
+                                        },
+                                        child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: SelectionArea(
-                                                  child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'viujow54' /* Log out */,
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/Export.png',
+                                                  width: 30,
+                                                  height: 30,
+                                                  fit: BoxFit.none,
                                                 ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: SelectionArea(
+                                                      child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      'viujow54' /* Log out */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
@@ -1965,11 +2120,13 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
-                                              )),
+                                                  )),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),

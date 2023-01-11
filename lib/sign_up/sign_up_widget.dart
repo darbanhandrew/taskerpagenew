@@ -595,7 +595,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                           await sendEmailVerification();
 
                                           context.pushNamedAuth(
-                                              'KnowU', mounted);
+                                              'verified-email', mounted);
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(

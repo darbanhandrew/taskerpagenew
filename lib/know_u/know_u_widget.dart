@@ -7,7 +7,8 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '../custom_code/actions/index.dart' as actions;
+import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -213,7 +214,7 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(24, 0, 24, 8),
+                                                    .fromSTEB(39, 0, 24, 8),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -238,174 +239,190 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                   ],
                                                 ),
                                               ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  16, 0, 16, 0),
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          final userUpdateData =
-                                                              createUserRecordData(
-                                                            accountType:
-                                                                'Private',
-                                                          );
-                                                          await currentUserReference!
-                                                              .update(
-                                                                  userUpdateData);
-                                                        },
-                                                        child: Container(
-                                                          height: 40,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        2),
-                                                            border: Border.all(
-                                                              width: 1,
-                                                            ),
-                                                          ),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              AuthUserStreamWidget(
-                                                                builder: (context) =>
-                                                                    SelectionArea(
-                                                                        child:
-                                                                            Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'h4kq3r8r' /* Private */,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: valueOrDefault(currentUserDocument?.accountType, '') ==
-                                                                                'Private'
-                                                                            ? FlutterFlowTheme.of(context).primaryColor
-                                                                            : FlutterFlowTheme.of(context).tertiaryColor,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                )),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  16, 0, 16, 0),
-                                                      child:
-                                                          AuthUserStreamWidget(
-                                                        builder: (context) =>
-                                                            InkWell(
-                                                          onTap: () async {
-                                                            final userUpdateData =
-                                                                createUserRecordData(
-                                                              accountType:
-                                                                  'Company',
-                                                            );
-                                                            await currentUserReference!
-                                                                .update(
-                                                                    userUpdateData);
-                                                          },
-                                                          child: Container(
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          2),
-                                                              border:
-                                                                  Border.all(
-                                                                color: valueOrDefault(
-                                                                            currentUserDocument
-                                                                                ?.accountType,
-                                                                            '') ==
-                                                                        'Company'
-                                                                    ? FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor
-                                                                    : FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .tertiaryColor,
-                                                                width: 1,
-                                                              ),
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'cawtxbx6' /* Company */,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: valueOrDefault(currentUserDocument?.accountType, '') ==
-                                                                                'Company'
-                                                                            ? FlutterFlowTheme.of(context).primaryColor
-                                                                            : FlutterFlowTheme.of(context).tertiaryColor,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        lineHeight:
-                                                                            1,
-                                                                      ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(15, 0, 15, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(16, 0,
+                                                                    16, 0),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          builder: (context) =>
+                                                              InkWell(
+                                                            onTap: () async {
+                                                              final userUpdateData =
+                                                                  createUserRecordData(
+                                                                accountType:
+                                                                    'Company',
+                                                              );
+                                                              await currentUserReference!
+                                                                  .update(
+                                                                      userUpdateData);
+                                                            },
+                                                            child: Container(
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            2),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: valueOrDefault(
+                                                                              currentUserDocument
+                                                                                  ?.accountType,
+                                                                              '') ==
+                                                                          'Company'
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .tertiaryColor,
+                                                                  width: 1,
                                                                 ),
-                                                              ],
+                                                              ),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'cawtxbx6' /* Company */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color: valueOrDefault(currentUserDocument?.accountType, '') == 'Company'
+                                                                              ? FlutterFlowTheme.of(context).primaryColor
+                                                                              : FlutterFlowTheme.of(context).tertiaryColor,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          lineHeight:
+                                                                              1,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(16, 0,
+                                                                    16, 0),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          builder: (context) =>
+                                                              InkWell(
+                                                            onTap: () async {
+                                                              final userUpdateData =
+                                                                  createUserRecordData(
+                                                                accountType:
+                                                                    'Private',
+                                                              );
+                                                              await currentUserReference!
+                                                                  .update(
+                                                                      userUpdateData);
+                                                            },
+                                                            child: Container(
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            2),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: valueOrDefault(
+                                                                              currentUserDocument
+                                                                                  ?.accountType,
+                                                                              '') ==
+                                                                          'Private'
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .tertiaryColor,
+                                                                  width: 1,
+                                                                ),
+                                                              ),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'bm8qti08' /* Private */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color: valueOrDefault(currentUserDocument?.accountType, '') == 'Private'
+                                                                              ? FlutterFlowTheme.of(context).primaryColor
+                                                                              : FlutterFlowTheme.of(context).tertiaryColor,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          lineHeight:
+                                                                              1,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               Divider(
                                                 height: 32,
@@ -575,48 +592,57 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                                         0,
                                                                         16,
                                                                         0),
-                                                            child: InkWell(
-                                                              onTap: () async {
-                                                                final userUpdateData =
-                                                                    createUserRecordData(
-                                                                  nameTitle:
-                                                                      'Mr',
-                                                                );
-                                                                await currentUserReference!
-                                                                    .update(
-                                                                        userUpdateData);
-                                                              },
-                                                              child: Container(
-                                                                height: 40,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryBackground,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              2),
-                                                                  border: Border
-                                                                      .all(
-                                                                    width: 1,
+                                                            child:
+                                                                AuthUserStreamWidget(
+                                                              builder:
+                                                                  (context) =>
+                                                                      InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  final userUpdateData =
+                                                                      createUserRecordData(
+                                                                    nameTitle:
+                                                                        'Mr',
+                                                                  );
+                                                                  await currentUserReference!
+                                                                      .update(
+                                                                          userUpdateData);
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  height: 40,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(2),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
+                                                                      color: valueOrDefault(currentUserDocument?.nameTitle, '') ==
+                                                                              'Mr'
+                                                                          ? FlutterFlowTheme.of(context)
+                                                                              .primaryColor
+                                                                          : FlutterFlowTheme.of(context)
+                                                                              .tertiaryColor,
+                                                                      width: 1,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    AuthUserStreamWidget(
-                                                                      builder: (context) =>
-                                                                          SelectionArea(
-                                                                              child: Text(
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
                                                                         FFLocalizations.of(context)
                                                                             .getText(
-                                                                          '0sb0rjet' /* Mr */,
+                                                                          'ahuw565x' /* Mr */,
                                                                         ),
                                                                         textAlign:
                                                                             TextAlign.center,
@@ -626,10 +652,11 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                                               fontFamily: 'Poppins',
                                                                               color: valueOrDefault(currentUserDocument?.nameTitle, '') == 'Mr' ? FlutterFlowTheme.of(context).primaryColor : FlutterFlowTheme.of(context).tertiaryColor,
                                                                               fontWeight: FontWeight.w500,
+                                                                              lineHeight: 1,
                                                                             ),
-                                                                      )),
-                                                                    ),
-                                                                  ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -941,11 +968,13 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                                           .withoutNulls
                                                           .toList()
                                                           .toList(),
-                                                  optionLabels: functions
-                                                      .countryCodeOptions(
-                                                          dropDownCountryRecordList
-                                                              .toList())
-                                                      .toList(),
+                                                  optionLabels:
+                                                      dropDownCountryRecordList
+                                                          .map((e) =>
+                                                              e.phoneCode)
+                                                          .withoutNulls
+                                                          .toList()
+                                                          .toList(),
                                                   onChanged: (val) => setState(
                                                       () =>
                                                           dropDownValue = val),
@@ -1147,9 +1176,22 @@ class _KnowUWidgetState extends State<KnowUWidget> {
                                           name: textController1!.text,
                                           clearUnsetFields: false,
                                         ),
+                                        verificationCode:
+                                            random_data.randomString(
+                                          4,
+                                          4,
+                                          false,
+                                          false,
+                                          true,
+                                        ),
+                                        compeltedProfile: 20.0,
                                       );
                                       await currentUserReference!
                                           .update(userUpdateData);
+                                      await actions.sendSMSTwilio(
+                                        knowUUserRecord.phoneNumber!,
+                                        '123',
+                                      );
 
                                       context
                                           .pushNamed('WhatAreYouInterestedIn');

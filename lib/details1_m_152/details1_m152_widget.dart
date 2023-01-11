@@ -502,7 +502,7 @@ class _Details1M152WidgetState extends State<Details1M152Widget> {
                                   EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  context.pop();
+                                  context.pushNamed('sign_up_M-165');
                                 },
                                 text: FFLocalizations.of(context).getText(
                                   'e64zq649' /* I'll do it later */,

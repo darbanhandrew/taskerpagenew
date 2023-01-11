@@ -48,7 +48,7 @@ class _BtnSHByPhoneWidgetState extends State<BtnSHByPhoneWidget> {
               ],
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(15, 25, 15, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

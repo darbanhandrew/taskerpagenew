@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -1676,8 +1677,12 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                                                           8,
                                                                           0),
                                                               child: Text(
-                                                                containerSkillCategoryRecord
-                                                                    .displayName!,
+                                                                functions
+                                                                    .skillCategoryLocale(
+                                                                        chooseSkilllsM146UserRecord
+                                                                            .language!,
+                                                                        containerSkillCategoryRecord)!
+                                                                    .text!,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyText1
@@ -1789,6 +1794,19 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                                           .getDocumentFromData(
                                                               userSkillCreateData,
                                                               userSkillRecordReference);
+
+                                                      final userUpdateData = {
+                                                        'skill_category_refs':
+                                                            FieldValue
+                                                                .arrayUnion([
+                                                          gridViewSkillCategoryRecord
+                                                              .reference
+                                                        ]),
+                                                      };
+                                                      await chooseSkilllsM146UserRecord
+                                                          .reference
+                                                          .update(
+                                                              userUpdateData);
                                                       setState(() {
                                                         FFAppState()
                                                             .addToChosenCategories(
@@ -1919,18 +1937,24 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                       ),
                                       child: Align(
                                         alignment: AlignmentDirectional(0, 0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '1hkltvdd' /* I'll do it later */,
+                                        child: InkWell(
+                                          onTap: () async {
+                                            context.pushNamed(
+                                                'CONTACTDATA2-M-144');
+                                          },
+                                          child: Text(
+                                            FFLocalizations.of(context).getText(
+                                              '1hkltvdd' /* I'll do it later */,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF8A8A8A),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                           ),
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF8A8A8A),
-                                                fontWeight: FontWeight.w500,
-                                              ),
                                         ),
                                       ),
                                     ),
@@ -1947,7 +1971,21 @@ class _ChooseSkilllsM146WidgetState extends State<ChooseSkilllsM146Widget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      context.pushNamed('CONTACTDATA2-M-144');
+                                      final userUpdateData = {
+                                        ...createUserRecordData(
+                                          compeltedProfile: 60.0,
+                                        ),
+                                        'skill_category_refs':
+                                            FFAppState().chosenCategories,
+                                        'skill_refs': FFAppState().chosenSkills,
+                                        'skill_level_refs':
+                                            FFAppState().chosenSkillLevels,
+                                      };
+                                      await chooseSkilllsM146UserRecord
+                                          .reference
+                                          .update(userUpdateData);
+
+                                      context.pushNamed('Skills');
                                     },
                                     text: FFLocalizations.of(context).getText(
                                       'elfytapl' /* Save */,

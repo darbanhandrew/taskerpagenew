@@ -20,6 +20,11 @@ abstract class DefineMessageRecord
 
   String? get type;
 
+  BuiltList<TranslatableDifineMessagesStruct>? get locale;
+
+  @BuiltValueField(wireName: 'i_premium')
+  bool? get iPremium;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -28,7 +33,9 @@ abstract class DefineMessageRecord
     ..displayName = ''
     ..messages = ''
     ..order = 0
-    ..type = '';
+    ..type = ''
+    ..locale = ListBuilder()
+    ..iPremium = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('define_Message');
@@ -57,6 +64,7 @@ Map<String, dynamic> createDefineMessageRecordData({
   String? messages,
   int? order,
   String? type,
+  bool? iPremium,
 }) {
   final firestoreData = serializers.toFirestore(
     DefineMessageRecord.serializer,
@@ -65,7 +73,9 @@ Map<String, dynamic> createDefineMessageRecordData({
         ..displayName = displayName
         ..messages = messages
         ..order = order
-        ..type = type,
+        ..type = type
+        ..locale = null
+        ..iPremium = iPremium,
     ),
   );
 

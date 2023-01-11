@@ -337,7 +337,6 @@ class _SignUpM165WidgetState extends State<SignUpM165Widget> {
                                 Expanded(
                                   child: TextFormField(
                                     controller: textController1,
-                                    autofocus: true,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText:
@@ -411,7 +410,6 @@ class _SignUpM165WidgetState extends State<SignUpM165Widget> {
                                 Expanded(
                                   child: TextFormField(
                                     controller: textController2,
-                                    autofocus: true,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText:
@@ -616,18 +614,23 @@ class _SignUpM165WidgetState extends State<SignUpM165Widget> {
                           children: [
                             Align(
                               alignment: AlignmentDirectional(0, 0),
-                              child: Text(
-                                FFLocalizations.of(context).getText(
-                                  'yyc5waqe' /* I'll do it later */,
+                              child: InkWell(
+                                onTap: () async {
+                                  context.pushNamed('ProfileView');
+                                },
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'yyc5waqe' /* I'll do it later */,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF8A8A8A),
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                 ),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF8A8A8A),
-                                      fontWeight: FontWeight.w500,
-                                    ),
                               ),
                             ),
                             FFButtonWidget(
@@ -643,8 +646,13 @@ class _SignUpM165WidgetState extends State<SignUpM165Widget> {
                                 await EducationRecord.createDoc(
                                         currentUserReference!)
                                     .set(educationCreateData);
+                                if (FFAppState().isEditing) {
+                                  context.pop();
+                                } else {
+                                  context.pushNamed('Signup-M-166');
+                                }
 
-                                context.pushNamed('Signup-M-166');
+                                FFAppState().isEditing = false;
                               },
                               text: FFLocalizations.of(context).getText(
                                 'xv17yvso' /* +Add */,

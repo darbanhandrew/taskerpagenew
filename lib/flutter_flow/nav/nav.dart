@@ -85,14 +85,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SignInWidget(),
             ),
             FFRoute(
+              name: 'verified-email',
+              path: 'verifiedEmail',
+              builder: (context, params) => VerifiedEmailWidget(),
+            ),
+            FFRoute(
               name: 'SignUp',
               path: 'signUp',
               builder: (context, params) => SignUpWidget(),
-            ),
-            FFRoute(
-              name: 'ForgotPassword',
-              path: 'forgotPassword',
-              builder: (context, params) => ForgotPasswordWidget(),
             ),
             FFRoute(
               name: 'NewPassword',
@@ -119,7 +119,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'CONTACTDATA2-M-145',
               path: 'contactdata2M145',
-              builder: (context, params) => Contactdata2M145Widget(),
+              builder: (context, params) => Contactdata2M145Widget(
+                edit: params.getParam(
+                    'edit', ParamType.DocumentReference, false, ['user']),
+              ),
             ),
             FFRoute(
               name: 'WhatAreYouInterestedIn',
@@ -129,9 +132,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Skills',
               path: 'skills',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Skills')
-                  : SkillsWidget(),
+              builder: (context, params) => SkillsWidget(),
             ),
             FFRoute(
               name: 'ProfileView',
@@ -158,7 +159,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'TASK-M-198',
               path: 'taskM198',
-              builder: (context, params) => TaskM198Widget(),
+              builder: (context, params) => TaskM198Widget(
+                edit: params.getParam(
+                    'edit', ParamType.DocumentReference, false, ['task']),
+              ),
             ),
             FFRoute(
               name: 'TASK-M-200',
@@ -206,14 +210,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => TaskerdetailsM218Widget(),
             ),
             FFRoute(
-              name: 'search-M-12',
-              path: 'searchM12',
-              builder: (context, params) => SearchM12Widget(),
-            ),
-            FFRoute(
               name: 'MyNetwork',
               path: 'myNetwork',
               builder: (context, params) => MyNetworkWidget(),
+            ),
+            FFRoute(
+              name: 'search-M-12',
+              path: 'searchM12',
+              builder: (context, params) => SearchM12Widget(),
             ),
             FFRoute(
               name: 'Describe-M-150',
@@ -228,12 +232,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Profile',
               path: 'profile',
-              builder: (context, params) => ProfileWidget(),
+              builder: (context, params) => NavBarPage(
+                initialPage: '',
+                page: ProfileWidget(),
+              ),
             ),
             FFRoute(
               name: 'ContactData',
               path: 'contactData',
-              builder: (context, params) => ContactDataWidget(),
+              builder: (context, params) => NavBarPage(
+                initialPage: '',
+                page: ContactDataWidget(),
+              ),
             ),
             FFRoute(
               name: 'homePage-M-03',
@@ -275,9 +285,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Education',
               path: 'education',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Education')
-                  : EducationWidget(),
+              builder: (context, params) => NavBarPage(
+                initialPage: '',
+                page: EducationWidget(),
+              ),
             ),
             FFRoute(
               name: 'Education2',
@@ -290,14 +301,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => HomePageM06Widget(),
             ),
             FFRoute(
-              name: 'homePage-M-07',
-              path: 'homePageM07',
-              builder: (context, params) => HomePageM07Widget(),
-            ),
-            FFRoute(
               name: 'Rates',
               path: 'rates',
               builder: (context, params) => RatesWidget(),
+            ),
+            FFRoute(
+              name: 'homePage-M-07',
+              path: 'homePageM07',
+              builder: (context, params) => HomePageM07Widget(),
             ),
             FFRoute(
               name: 'Rates2',
@@ -325,11 +336,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SignUpM165Widget(),
             ),
             FFRoute(
-              name: 'sign_up_M-167',
-              path: 'signUpM167',
-              builder: (context, params) => SignUpM167Widget(),
-            ),
-            FFRoute(
               name: 'Signup-M-166',
               path: 'signupM166',
               builder: (context, params) => SignupM166Widget(),
@@ -355,14 +361,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => RatesM171Widget(),
             ),
             FFRoute(
-              name: 'ChooseSkillls-M146',
-              path: 'chooseSkilllsM146',
-              builder: (context, params) => ChooseSkilllsM146Widget(),
-            ),
-            FFRoute(
               name: 'DescribeYourself',
               path: 'describeYourself',
               builder: (context, params) => DescribeYourselfWidget(),
+            ),
+            FFRoute(
+              name: 'ChooseSkillls-M146',
+              path: 'chooseSkilllsM146',
+              builder: (context, params) => ChooseSkilllsM146Widget(),
             ),
             FFRoute(
               name: 'Profile-M-151',
@@ -370,14 +376,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ProfileM151Widget(),
             ),
             FFRoute(
-              name: 'serach_result_task',
-              path: 'serachResultTask',
-              builder: (context, params) => SerachResultTaskWidget(),
-            ),
-            FFRoute(
-              name: 'serach_result',
-              path: 'serachResult',
-              builder: (context, params) => SerachResultWidget(),
+              name: 'searchResultTasker',
+              path: 'searchResultTasker',
+              builder: (context, params) => SearchResultTaskerWidget(),
             ),
             FFRoute(
               name: 'tasks',
@@ -387,12 +388,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : TasksWidget(),
             ),
             FFRoute(
-              name: 'chats',
-              path: 'taskChats',
-              builder: (context, params) => ChatsWidget(
-                task: params.getParam(
-                    'task', ParamType.DocumentReference, false, ['task']),
-              ),
+              name: 'searchResult',
+              path: 'searchResult',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'searchResult')
+                  : SearchResultWidget(),
             ),
             FFRoute(
               name: 'chat',
@@ -405,20 +405,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'TASK-M-199',
-              path: 'taskM199',
-              builder: (context, params) => TaskM199Widget(),
-            ),
-            FFRoute(
-              name: 'appointment',
-              path: 'appointment',
-              builder: (context, params) => AppointmentWidget(),
-            ),
-            FFRoute(
-              name: 'TaskPubish',
-              path: 'taskPubish',
-              builder: (context, params) => TaskPubishWidget(
-                messagePoster: params.getParam('messagePoster', ParamType.bool),
+              name: 'chats',
+              path: 'taskChats',
+              builder: (context, params) => ChatsWidget(
                 task: params.getParam(
                     'task', ParamType.DocumentReference, false, ['task']),
               ),
@@ -431,13 +420,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : AppointmentlistWidget(),
             ),
             FFRoute(
+              name: 'TASK-M-199',
+              path: 'taskM199',
+              builder: (context, params) => TaskM199Widget(),
+            ),
+            FFRoute(
+              name: 'appointment',
+              path: 'appointment',
+              builder: (context, params) => AppointmentWidget(),
+            ),
+            FFRoute(
               name: 'appointmentdeatls',
               path: 'appointmentdeatls',
               builder: (context, params) => AppointmentdeatlsWidget(
                 appiontmentdeatls: params.getParam('appiontmentdeatls',
                     ParamType.DocumentReference, false, ['appointment']),
-                acceptInlistappointment:
-                    params.getParam('acceptInlistappointment', ParamType.bool),
+                userRef: params.getParam(
+                    'userRef', ParamType.DocumentReference, false, ['user']),
               ),
             ),
             FFRoute(
@@ -446,13 +445,51 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => HowitworksWidget(),
             ),
             FFRoute(
+              name: 'TaskPublish',
+              path: 'taskPublish',
+              builder: (context, params) => TaskPublishWidget(
+                messagePoster: params.getParam('messagePoster', ParamType.bool),
+                task: params.getParam(
+                    'task', ParamType.DocumentReference, false, ['task']),
+                editTask: params.getParam('editTask', ParamType.bool),
+              ),
+            ),
+            FFRoute(
               name: 'appointmentdeatlsRquested',
               path: 'appointmentdeatlsRquested',
               builder: (context, params) => AppointmentdeatlsRquestedWidget(
                 appiontmentdeatls: params.getParam('appiontmentdeatls',
                     ParamType.DocumentReference, false, ['appointment']),
-                acceptInlistappointment:
-                    params.getParam('acceptInlistappointment', ParamType.bool),
+                userRef: params.getParam(
+                    'userRef', ParamType.DocumentReference, false, ['user']),
+              ),
+            ),
+            FFRoute(
+              name: 'CONTACTDATA2-M-145Copy',
+              path: 'cONTACTDATA2M145Copy',
+              builder: (context, params) => CONTACTDATA2M145CopyWidget(),
+            ),
+            FFRoute(
+              name: 'test',
+              path: 'test',
+              builder: (context, params) => TestWidget(),
+            ),
+            FFRoute(
+              name: 'profile_scan',
+              path: 'profileScan',
+              builder: (context, params) => ProfileScanWidget(
+                appiontmentdeatls: params.getParam('appiontmentdeatls',
+                    ParamType.DocumentReference, false, ['appointment']),
+                userRef: params.getParam(
+                    'userRef', ParamType.DocumentReference, false, ['user']),
+              ),
+            ),
+            FFRoute(
+              name: 'editEducation',
+              path: 'editEducation',
+              builder: (context, params) => EditEducationWidget(
+                educationDocument: params.getParam('educationDocument',
+                    ParamType.DocumentReference, false, ['user', 'education']),
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),

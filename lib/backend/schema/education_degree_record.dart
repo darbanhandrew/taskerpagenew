@@ -18,6 +18,8 @@ abstract class EducationDegreeRecord
   @BuiltValueField(wireName: 'display_name')
   String? get displayName;
 
+  BuiltList<TranslatableStringStruct>? get locale;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -25,7 +27,8 @@ abstract class EducationDegreeRecord
   static void _initializeBuilder(EducationDegreeRecordBuilder builder) =>
       builder
         ..name = ''
-        ..displayName = '';
+        ..displayName = ''
+        ..locale = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('education_degree');
@@ -43,6 +46,14 @@ abstract class EducationDegreeRecord
         (c) => c
           ..name = snapshot.data['name']
           ..displayName = snapshot.data['display_name']
+          ..locale = safeGet(() => ListBuilder(snapshot.data['locale']
+              .map((data) => createTranslatableStringStruct(
+                    language: safeGet(() =>
+                        toRef((data as Map<String, dynamic>)['language'])),
+                    text: (data as Map<String, dynamic>)['text'],
+                    create: true,
+                    clearUnsetFields: false,
+                  ).toBuilder())))
           ..ffRef = EducationDegreeRecord.collection.doc(snapshot.objectID),
       );
 
@@ -81,7 +92,8 @@ Map<String, dynamic> createEducationDegreeRecordData({
     EducationDegreeRecord(
       (e) => e
         ..name = name
-        ..displayName = displayName,
+        ..displayName = displayName
+        ..locale = null,
     ),
   );
 

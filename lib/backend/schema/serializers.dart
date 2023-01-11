@@ -17,10 +17,13 @@ import 'tasker_age_type_record.dart';
 import 'appointment_record.dart';
 import 'define_message_record.dart';
 import 'user_address_record.dart';
-import 'task_address_record.dart';
-import 'appointment_address_record.dart';
 import 'user_skill_record.dart';
 import 'fild_record.dart';
+import 'user_field_record.dart';
+import 'plan_record.dart';
+import 'transactions_record.dart';
+import 'sign_u_p_step_badg_record.dart';
+import 'rate_record.dart';
 
 import 'index.dart';
 
@@ -48,10 +51,13 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   AppointmentRecord,
   DefineMessageRecord,
   UserAddressRecord,
-  TaskAddressRecord,
-  AppointmentAddressRecord,
   UserSkillRecord,
   FildRecord,
+  UserFieldRecord,
+  PlanRecord,
+  TransactionsRecord,
+  SignUPStepBadgRecord,
+  RateRecord,
   CompanyStruct,
   TranslatableStringStruct,
   AddressStruct,
@@ -59,6 +65,9 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   SkillDetailStruct,
   TaskDateTimeStruct,
   TaskerTypeStruct,
+  UserFieldDataTypeStruct,
+  FieldsSkillStruct,
+  TranslatableDifineMessagesStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

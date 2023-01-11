@@ -152,6 +152,39 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Hem',
     },
   },
+  // verified-email
+  {
+    '05rbjbr0': {
+      'en': 'Post a task',
+      'de': 'Poste eine Aufgabe',
+      'sv': 'Lägg upp en uppgift',
+    },
+    '8i4qfsu0': {
+      'en': 'Waiting for email confirmation ...',
+      'de': 'Geben sie ihre E-Mailadresse ein!',
+      'sv': 'Skriv in din mailadress!',
+    },
+    'pwdgcqr8': {
+      'en': 'Temporary pass',
+      'de': '',
+      'sv': '',
+    },
+    'q7mbk113': {
+      'en': '<  Edit email',
+      'de': '< Zurück',
+      'sv': '< Tillbaka',
+    },
+    'iyzzvm9s': {
+      'en': 'Send another link',
+      'de': 'Link senden',
+      'sv': 'Skicka länk',
+    },
+    '0qfjj7uj': {
+      'en': 'Home',
+      'de': 'Zuhause',
+      'sv': 'Hem',
+    },
+  },
   // SignUp
   {
     'dvbwh33k': {
@@ -235,39 +268,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Logga in',
     },
     'b86vkdyk': {
-      'en': 'Home',
-      'de': 'Zuhause',
-      'sv': 'Hem',
-    },
-  },
-  // ForgotPassword
-  {
-    '05rbjbr0': {
-      'en': 'Post a task',
-      'de': 'Poste eine Aufgabe',
-      'sv': 'Lägg upp en uppgift',
-    },
-    '8i4qfsu0': {
-      'en': 'Enter your email address!',
-      'de': 'Geben sie ihre E-Mailadresse ein!',
-      'sv': 'Skriv in din mailadress!',
-    },
-    'ki4jo3os': {
-      'en': 'E-mail address ',
-      'de': 'E-Mail-Addresse',
-      'sv': 'E-postadress',
-    },
-    'q7mbk113': {
-      'en': '<   Back',
-      'de': '< Zurück',
-      'sv': '< Tillbaka',
-    },
-    'iyzzvm9s': {
-      'en': 'Send link',
-      'de': 'Link senden',
-      'sv': 'Skicka länk',
-    },
-    '0qfjj7uj': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
@@ -361,13 +361,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Konto Typ',
       'sv': 'Kontotyp',
     },
-    'h4kq3r8r': {
-      'en': 'Private',
-      'de': 'Privatgelände',
-      'sv': 'Privat',
-    },
     'cawtxbx6': {
       'en': 'Company',
+      'de': 'Unternehmen',
+      'sv': 'Företag',
+    },
+    'bm8qti08': {
+      'en': 'Private',
       'de': 'Unternehmen',
       'sv': 'Företag',
     },
@@ -381,10 +381,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Frau',
       'sv': 'Fru',
     },
-    '0sb0rjet': {
+    'ahuw565x': {
       'en': 'Mr',
-      'de': 'Herr',
-      'sv': 'herr',
+      'de': 'Frau',
+      'sv': 'Fru',
     },
     '3mqmwtmk': {
       'en': 'Company Name',
@@ -537,11 +537,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': '+ Fügen Sie weitere Adressen hinzu',
       'sv': '+ Lägg till ytterligare adresser',
     },
-    'w7swi2of': {
-      'en': 'Next   >',
-      'de': 'Weiter >',
-      'sv': 'Nästa >',
-    },
     'h94mm6d7': {
       'en': 'Home',
       'de': 'Zuhause',
@@ -583,40 +578,35 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Poste eine Aufgabe',
       'sv': 'Lägg upp en uppgift',
     },
-    'xodkiggv': {
+    'yoprxtkn': {
       'en': 'Skills',
       'de': 'Kompetenzen',
       'sv': 'Kompetens',
     },
-    'sz9k1qr1': {
-      'en': '1',
-      'de': '1',
-      'sv': '1',
-    },
-    'p5ax3lkj': {
+    '2dsn1mkf': {
       'en': 'Skills :',
       'de': 'Kompetenzen :',
       'sv': 'Kompetens :',
     },
-    'osqhbn1t': {
+    'se899bl3': {
       'en': 'Skill level :',
       'de': 'Fähigkeits Level :',
       'sv': 'Skicklighetsnivå :',
     },
-    'f837egbz': {
-      'en': 'Instruments :',
-      'de': 'Instrumente :',
-      'sv': 'Instrument:',
-    },
-    'uqmmtx1r': {
-      'en': 'Violin',
-      'de': 'Geige',
-      'sv': 'Fiol',
-    },
-    'w11ec5iy': {
+    'bqzfw9nx': {
       'en': '+ Add another Skills',
       'de': '+ Fügen Sie weitere Fähigkeiten hinzu',
       'sv': '+ Lägg till ytterligare färdigheter',
+    },
+    's21b9wnv': {
+      'en': 'I\'ll do it later',
+      'de': '',
+      'sv': '',
+    },
+    'eviq01bh': {
+      'en': 'Save',
+      'de': '',
+      'sv': '',
     },
     'v8x1e9j2': {
       'en': 'Messaging',
@@ -631,25 +621,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Mitgliedsnummer:',
       'sv': 'Medlemsnummer:',
     },
-    'kvm2l1uc': {
-      'en': '581521513',
-      'de': '581521513',
-      'sv': '581521513',
-    },
     'v8srpybz': {
       'en': 'Member Since: ',
       'de': 'Mitglied seit:',
       'sv': 'Medlem sedan:',
-    },
-    'semgjiw9': {
-      'en': '2019/05/08',
-      'de': '08.05.2019',
-      'sv': '2019/05/08',
-    },
-    '1h925kdg': {
-      'en': 'Upgrade to premium',
-      'de': 'Auf Premium upgraden',
-      'sv': 'Uppgradera till Premium',
     },
     'n8xo72x3': {
       'en': 'Profile',
@@ -1128,7 +1103,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Eller ange en annan adress',
     },
     'sxe2hryz': {
-      'en': 'Discard',
+      'en': 'Back',
       'de': 'Verwerfen',
       'sv': 'Kassera',
     },
@@ -1566,6 +1541,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Hem',
     },
   },
+  // MyNetwork
+  {
+    'wpyrsm79': {
+      'en': 'Post a task',
+      'de': 'Poste eine Aufgabe',
+      'sv': 'Lägg upp en uppgift',
+    },
+    'e8g0jqqy': {
+      'en': 'My Network',
+      'de': 'Mein Netzwerk',
+      'sv': 'Mitt nätverk',
+    },
+  },
   // search-M-12
   {
     'qxohdt1z': {
@@ -1577,16 +1565,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Any',
       'de': 'Irgendein',
       'sv': 'Några',
-    },
-    'pvi435ex': {
-      'en': 'My address',
-      'de': '',
-      'sv': '',
-    },
-    'vxjmstzh': {
-      'en': 'Enter your Location, City or Zipcode',
-      'de': '',
-      'sv': '',
     },
     '2co3o69l': {
       'en': 'Select Location',
@@ -1602,11 +1580,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'km',
       'de': 'km',
       'sv': 'km',
-    },
-    '6p8kuuso': {
-      'en': '10              30                 50                100',
-      'de': '10 30 50 100',
-      'sv': '10 30 50 100',
     },
     'n7i5t7j0': {
       'en': 'Category',
@@ -1698,30 +1671,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Kompetenzen',
       'sv': 'Kompetens',
     },
-    'xkmg7b8z': {
-      'en': 'Garden Care ',
-      'de': 'Gartenpflege',
-      'sv': 'Trädgårdsvård',
-    },
-    '878nwelq': {
-      'en': 'Garden Construction ',
-      'de': 'Gartenbau',
-      'sv': 'Trädgårdskonstruktion',
-    },
-    'rmq06f5y': {
-      'en': 'Planting',
-      'de': 'Pflanzen',
-      'sv': 'Plantering',
-    },
     'ch932b65': {
       'en': 'Skill level',
       'de': 'Fähigkeits Level',
       'sv': 'Skicklighetsnivå',
-    },
-    'vsy2gg0m': {
-      'en': 'Hello World',
-      'de': '',
-      'sv': '',
     },
     '7ew3q51g': {
       'en': 'Brings own tools',
@@ -1762,51 +1715,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '20th Dec 2018',
       'de': '20. Dezember 2018',
       'sv': '20 december 2018',
-    },
-    'y8rkidl6': {
-      'en': 'Price',
-      'de': 'Preis',
-      'sv': 'Pris',
-    },
-    'xupwebcp': {
-      'en': 'Any',
-      'de': 'Irgendein',
-      'sv': 'Några',
-    },
-    's2rqzzry': {
-      'en': 'Hourly rate',
-      'de': 'Stundensatz',
-      'sv': 'Timtaxa',
-    },
-    'awrtixkb': {
-      'en': 'From',
-      'de': 'Von',
-      'sv': 'Från',
-    },
-    'cfd54qux': {
-      'en': 'To',
-      'de': 'Zu',
-      'sv': 'Till',
-    },
-    '4cqh1ki0': {
-      'en': '€',
-      'de': '€',
-      'sv': '€',
-    },
-    '34vto9nx': {
-      'en': '\$',
-      'de': '\$',
-      'sv': '\$',
-    },
-    'l4h9b0fp': {
-      'en': 'Total Amount',
-      'de': 'Gesamtmenge',
-      'sv': 'Totala summan',
-    },
-    '5fsopmz1': {
-      'en': 'Top rates first',
-      'de': 'Top-Preise zuerst',
-      'sv': 'Högsta priser först',
     },
     'nxsyokb4': {
       'en': 'Tasker type',
@@ -1902,19 +1810,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
-    },
-  },
-  // MyNetwork
-  {
-    'wpyrsm79': {
-      'en': 'Post a task',
-      'de': 'Poste eine Aufgabe',
-      'sv': 'Lägg upp en uppgift',
-    },
-    'e8g0jqqy': {
-      'en': 'My Network',
-      'de': 'Mein Netzwerk',
-      'sv': 'Mitt nätverk',
     },
   },
   // Describe-M-150
@@ -2111,6 +2006,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Name :',
       'sv': 'Namn :',
     },
+    'pxy4lz3t': {
+      'en': '',
+      'de': '',
+      'sv': '',
+    },
     'nzcefohn': {
       'en': 'Date of birthday :',
       'de': 'Geburtsdatum :',
@@ -2131,20 +2031,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'xxxxxxx',
       'sv': 'xxxxxxxx',
     },
-    'vfajfx5v': {
-      'en': 'Text',
-      'de': 'Text',
-      'sv': 'Text',
+    '1nwxwtbo': {
+      'en': 'Role',
+      'de': 'Passwort :',
+      'sv': 'Lösenord :',
     },
     '6zthc5yu': {
       'en': 'Member Ship Type :',
       'de': 'Art der Mitgliedschaft :',
       'sv': 'Typ av medlemskap :',
-    },
-    'zk7vrkw0': {
-      'en': 'Free',
-      'de': 'Frei',
-      'sv': 'Fri',
     },
     'zb0ji072': {
       'en': 'Upgrade',
@@ -2184,60 +2079,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Kontaktdaten',
       'sv': 'Kontaktinformation',
     },
-    'v3vfpyw6': {
-      'en': 'Email address :',
-      'de': 'E-Mail-Addresse :',
-      'sv': 'E-postadress :',
-    },
-    '34a8bdwa': {
-      'en': 'katrinsmith@gmail.com',
-      'de': 'katrinsmith@gmail.com',
-      'sv': 'katrinsmith@gmail.com',
-    },
-    'wk553cb6': {
-      'en': 'Password :',
-      'de': 'Passwort :',
-      'sv': 'Lösenord :',
-    },
-    'akegfdqe': {
-      'en': 'xxxxxxxx',
-      'de': 'xxxxxxx',
-      'sv': 'xxxxxxxx',
-    },
     'pi0iq4y8': {
       'en': 'Mobile numbe : ',
       'de': 'Handynummer :',
       'sv': 'Mobilnummer:',
     },
-    'l4skrrb5': {
-      'en': '(+49) 941 56 26 569',
-      'de': '(+49) 941 56 26 569',
-      'sv': '(+49) 941 56 26 569',
-    },
     'cv30xeeq': {
       'en': 'Addresses',
       'de': 'Adressen',
       'sv': 'Adresser',
-    },
-    'i9jl4l27': {
-      'en': 'Konrad-Adenauer-Allee \n1144263 Dortmund, Germany',
-      'de': 'Konrad-Adenauer-Allee\n1144263 Dortmund, Deutschland',
-      'sv': 'Konrad-Adenauer-Allee\n1144263 Dortmund, Tyskland',
-    },
-    'j581jmql': {
-      'en': 'Main address',
-      'de': 'Hauptadresse',
-      'sv': 'Huvudadress',
-    },
-    '61vu3pag': {
-      'en': 'Konrad-Adenauer-Allee 1144263 Dortmund,\nGermany',
-      'de': 'Konrad-Adenauer-Allee 1144263 Dortmund,\nDeutschland',
-      'sv': 'Konrad-Adenauer-Allee 1144263 Dortmund,\nTyskland',
-    },
-    'txgco6vb': {
-      'en': '+ Add another addresses',
-      'de': '+ Fügen Sie weitere Adressen hinzu',
-      'sv': '+ Lägg till ytterligare adresser',
     },
     'qm4atkip': {
       'en': 'Identification :',
@@ -2321,7 +2171,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
           'Skapa en uppgift på mindre än 1 minut\nVälj bland alternativ\nDefiniera budget och datum\nDefiniera villkor\nPosta det',
     },
     '0ak2a89i': {
-      'en': 'Make the deal',
+      'en': 'Chat and Appointment',
       'de': 'Machen Sie den Deal',
       'sv': 'Gör affären',
     },
@@ -2355,71 +2205,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv':
           'Alla alternativ inkluderar tillgång till\ntasker.page talangpool av högsta kvalitet\nfrilansare och byråer',
     },
-    'syzncc69': {
-      'en': 'Standard',
-      'de': 'Standard',
-      'sv': 'Standard',
-    },
-    '54szuwzb': {
-      'en': 'Create a strong profile of all talents\nyou have!\n',
-      'de':
-          'Erstellen Sie ein aussagekräftiges Profil aller Talente\nSie haben!',
-      'sv': 'Skapa en stark profil av alla talanger\ndu har!',
-    },
-    'vff99bwr': {
-      'en': 'Post tasks and bid on other task \nunder one single account!\n',
-      'de':
-          'Erstellen Sie ein aussagekräftiges Profil aller Talente\nSie haben!',
-      'sv': 'Skapa en stark profil av alla talanger\ndu har!',
-    },
-    't164bzqa': {
-      'en': 'Free',
-      'de': 'Frei',
-      'sv': 'Fri',
-    },
-    'nmc8bowd': {
-      'en': 'Select Standard',
-      'de': 'Wählen Sie Standard',
-      'sv': 'Välj Standard',
-    },
-    'hd0q9r8u': {
-      'en': 'See feature  >',
-      'de': 'Siehe Funktion >',
-      'sv': 'Se funktion >',
-    },
-    'hazu8rym': {
+    'pzbndggb': {
       'en': 'BEST VALUE',
       'de': 'BESTER WERT',
       'sv': 'BÄSTA VÄRDE',
-    },
-    'zzirze78': {
-      'en': 'Premium',
-      'de': 'Prämie',
-      'sv': 'Premie',
-    },
-    '1cym7lhm': {
-      'en': 'Search people and get connected \nand work together! \n',
-      'de':
-          'Suchen Sie nach Personen und verbinden Sie sich\nund zusammenarbeiten!',
-      'sv': 'Sök efter människor och bli ansluten\noch jobba tillsammans!',
-    },
-    '7wmy85u7': {
-      'en':
-          'Post tasks and get things done with \nno limit and no additional cost!\n',
-      'de':
-          'Veröffentliche Aufgaben und erledige Dinge\nkein Limit und keine zusätzlichen Kosten!',
-      'sv':
-          'Lägg upp uppgifter och få saker gjorda med\ningen gräns och ingen extra kostnad!',
     },
     'tie0dqh3': {
       'en': 'from',
       'de': 'von',
       'sv': 'från',
-    },
-    'oxl3db3c': {
-      'en': '9,90',
-      'de': '9,90',
-      'sv': '9,90',
     },
     'yjnullsf': {
       'en': '€',
@@ -2436,11 +2230,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'von',
       'sv': 'från',
     },
-    'cgt5y49p': {
-      'en': ' 11,90 ',
-      'de': '11,90',
-      'sv': '11,90',
-    },
     '43ye2tvt': {
       'en': '------',
       'de': '',
@@ -2456,57 +2245,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': '/ Monat',
       'sv': '/ månad',
     },
-    'r1b1trqj': {
-      'en': 'Select Premium',
-      'de': 'Wählen Sie Premium aus',
-      'sv': 'Välj Premium',
-    },
     'mzd3nyy0': {
-      'en': 'See feature  >',
-      'de': 'Siehe Funktion >',
-      'sv': 'Se funktion >',
-    },
-    'hyjgtv50': {
-      'en': 'Enterprice',
-      'de': 'Unternehmen',
-      'sv': 'Företagspris',
-    },
-    '8yhdiot7': {
-      'en': 'Present your company with minimal \ncost!\n',
-      'de': 'Präsentieren Sie Ihr Unternehmen mit minimalem Aufwand\nkosten!',
-      'sv': 'Presentera ditt företag med minimal\nkosta!',
-    },
-    'wop7atmg': {
-      'en': 'Get access to hundreds of \nopportunities!\n',
-      'de': 'Erhalten Sie Zugriff auf Hunderte von\nGelegenheiten!',
-      'sv': 'Få tillgång till hundratals\nmöjligheter!',
-    },
-    'lbijkz94': {
-      'en': 'from',
-      'de': 'von',
-      'sv': 'från',
-    },
-    'v62tdkyz': {
-      'en': '29,90',
-      'de': '29,90',
-      'sv': '29,90',
-    },
-    'mklhadci': {
-      'en': '€',
-      'de': '€',
-      'sv': '€',
-    },
-    'ykgfgssf': {
-      'en': '/ month',
-      'de': '/ Monat',
-      'sv': '/ månad',
-    },
-    'a64t6prf': {
-      'en': 'Select Enterprice',
-      'de': 'Wählen Sie Enterprise-Preis aus',
-      'sv': 'Välj Företagspris',
-    },
-    '6v3b5763': {
       'en': 'See feature  >',
       'de': 'Siehe Funktion >',
       'sv': 'Se funktion >',
@@ -2521,43 +2260,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Sehen Sie, was andere erledigen',
       'sv': 'Se vad andra gör',
     },
-    'fvj79tgf': {
-      'en': 'TOP DEAL',
-      'de': 'TOP ANGEBOT',
-      'sv': 'BÄSTA ERBJUDANDE',
-    },
-    'gwkvhrlm': {
-      'en': 'Open',
-      'de': 'Offen',
-      'sv': 'Öppen',
-    },
-    'ngxq9x3a': {
-      'en': 'Weekly',
-      'de': 'Wöchentlich',
-      'sv': 'Varje vecka',
-    },
-    'mh6dejyr': {
-      'en': 'Move Boxes and Push\nbike Kew to Sydney...',
-      'de':
-          'Kisten verschieben und schieben\nMit dem Fahrrad von Kew nach Sydney...',
-      'sv': 'Flytta lådor och tryck\ncykla Kew till Sydney...',
-    },
-    'phdx0qiz': {
-      'en': '61€',
-      'de': '61€',
-      'sv': '61€',
-    },
-    'g153bpui': {
-      'en': 'per hour',
-      'de': 'pro Stunde',
-      'sv': 'per timme',
-    },
-    'rvbluu48': {
+    'hmi6kpmu': {
       'en': 'Choose the best person',
       'de': 'Wählen Sie die beste Person',
       'sv': 'Välj den bästa personen',
     },
-    'gx9e8bf4': {
+    'c26puz05': {
       'en':
           'for you Take a look at profiles and \nreviewsto pick the best Tasker for\nyour task.  ',
       'de':
@@ -2565,7 +2273,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv':
           'för dig Ta en titt på profiler och\nrecensioner för att välja den bästa Tasker för\ndin uppgift.',
     },
-    'ekj9j3qk': {
+    'f9fl9enq': {
       'en': 'Build your team',
       'de': 'Bauen Sie Ihr Team auf',
       'sv': 'Bygg ditt lag',
@@ -2583,56 +2291,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv':
           'Upptäck historien bakom människorna som\ngör Tasker.sidan\nstor gemenskap',
     },
-    'sh5zycek': {
-      'en': 'TOP DEAL',
-      'de': 'TOP ANGEBOT',
-      'sv': 'BÄSTA ERBJUDANDE',
-    },
-    'krucxhqo': {
-      'en': 'MAR 15, 2019',
-      'de': '15. MÄRZ 2019',
-      'sv': '15 MARS 2019',
-    },
-    'h2ulnrdo': {
-      'en': 'Open',
-      'de': 'Offen',
-      'sv': 'Öppen',
-    },
-    '85wcjde0': {
-      'en': 'Weekly',
-      'de': 'Wöchentlich',
-      'sv': 'Varje vecka',
-    },
-    '55vm1spx': {
-      'en': '',
-      'de': 'Gartenarbeit |',
-      'sv': 'Trädgårdsskötsel |',
-    },
-    '3a9aqlv4': {
-      'en': 'Planting ',
-      'de': 'Pflanzen',
-      'sv': 'Plantering',
-    },
-    'hc7cstnv': {
-      'en': 'Move Boxes and Push\nbike Kew to Sydney...',
-      'de':
-          'Kisten verschieben und schieben\nMit dem Fahrrad von Kew nach Sydney...',
-      'sv': 'Flytta lådor och tryck\ncykla Kew till Sydney...',
-    },
-    'tbji0oet': {
-      'en': '61€',
-      'de': '61€',
-      'sv': '61€',
-    },
-    'sop1r0l5': {
-      'en': 'per hour',
-      'de': 'pro Stunde',
-      'sv': 'per timme',
-    },
-    'rhbd9qdq': {
-      'en': 'Dortmund | DE  ',
-      'de': 'Dortmund | DE',
-      'sv': 'Dortmund | DE',
+    'rv2trihv': {
+      'en': 'PREMIUM',
+      'de': '',
+      'sv': '',
     },
     '3mu2oqs3': {
       'en': 'Meet some Taskers!',
@@ -2818,11 +2480,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Company',
       'de': 'Unternehmen',
       'sv': 'Företag',
-    },
-    '0sczsq8d': {
-      'en': 'Mobile app',
-      'de': 'App',
-      'sv': 'Mobil app',
     },
     '27icweyz': {
       'en': '© 2015 - 2019 tasker.page® Global Inc.',
@@ -3067,11 +2724,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Identification
   {
-    '60facxq3': {
-      'en': 'Post a task',
-      'de': 'Poste eine Aufgabe',
-      'sv': 'Lägg upp en uppgift',
-    },
     'bo55gqpa': {
       'en': 'Identification',
       'de': 'Identifikation',
@@ -3200,27 +2852,27 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Poste eine Aufgabe',
       'sv': 'Lägg upp en uppgift',
     },
-    'dgltzv1l': {
+    'uju8evs5': {
       'en': 'Education',
       'de': 'Ausbildung',
       'sv': 'Utbildning',
     },
-    'fsxorauu': {
+    '9yqyaque': {
       'en': 'Name :',
       'de': 'Name :',
       'sv': 'Namn :',
     },
-    '5q63vzzn': {
+    'mbg2i16m': {
       'en': 'Name of Institute :',
       'de': 'Name des Institutes :',
       'sv': 'Namn på Institut :',
     },
-    'iq0i8648': {
+    'ulfvay3m': {
       'en': 'Type :',
       'de': 'Typ :',
       'sv': 'Typ :',
     },
-    'vtwg1xzt': {
+    'niowm25i': {
       'en': '+ Add  another Training or Education',
       'de': '+ Fügen Sie eine weitere Schulung oder Ausbildung hinzu',
       'sv': '+ Lägg till ytterligare en utbildning eller utbildning',
@@ -3278,160 +2930,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Kategorien',
       'sv': 'Kategorier',
     },
-    '04z2plrn': {
-      'en': 'Baby-Sitting',
-      'de': 'Babysitting',
-      'sv': 'Barnpassning',
-    },
-    'zogejv4j': {
-      'en': 'Gardening',
-      'de': 'Gartenarbeit',
-      'sv': 'Trädgårdsarbete',
-    },
-    '4d3c7xju': {
-      'en': 'Handwork',
-      'de': 'Handarbeit',
-      'sv': 'Handarbete',
-    },
-    '57odyp6t': {
-      'en': 'Housekeeping',
-      'de': 'Haushaltsführung',
-      'sv': 'Hushållning',
-    },
-    'h1fc2zit': {
-      'en': 'Senior care',
-      'de': 'Seniorenbetreuung',
-      'sv': 'Äldrevård',
-    },
-    '7hykr7pd': {
-      'en': 'Party & Event',
-      'de': 'Party & Veranstaltung',
-      'sv': 'Fest & Event',
-    },
-    'ptwyhp53': {
-      'en': 'Music',
-      'de': 'Musik',
-      'sv': 'musik',
-    },
-    '2fw9x6yr': {
-      'en': 'Computer & IT',
-      'de': 'Computer & IT',
-      'sv': 'Dator & IT',
-    },
-    'hn5yt8wu': {
-      'en': 'Haircut & Beauty',
-      'de': 'Haarschnitt & Schönheit',
-      'sv': 'Frisyr & Skönhet',
-    },
-    'jerzxfal': {
-      'en': 'Languages',
-      'de': 'Sprachen',
-      'sv': 'språk',
-    },
-    '7l5wg7c4': {
-      'en': 'Taeching',
-      'de': 'Taeching',
-      'sv': 'Undervisning',
-    },
-    '1wyvkiko': {
-      'en': 'Therapy - Nursing',
-      'de': 'Therapie - Pflege',
-      'sv': 'Terapi - Omvårdnad',
-    },
-    'en6mo9le': {
-      'en': 'Cook & Catering',
-      'de': 'Koch & Gastronomie',
-      'sv': 'Kock & Catering',
-    },
-    'hgt26sc9': {
-      'en': 'Relocation',
-      'de': 'Verlegung',
-      'sv': 'Omlokalisering',
-    },
-    'nvhsjti2': {
-      'en': 'Pet-Sitting',
-      'de': 'Haustierbetreuung',
-      'sv': 'Husdjursvakt',
-    },
-    '6q2zw3zq': {
-      'en': 'Entertainment',
-      'de': 'Unterhaltung',
-      'sv': 'Underhållning',
-    },
     '1yybaxyj': {
-      'en': 'Home',
-      'de': 'Zuhause',
-      'sv': 'Hem',
-    },
-  },
-  // homePage-M-07
-  {
-    'j2hsorib': {
-      'en': '<   Back ',
-      'de': '< Zurück',
-      'sv': '< Tillbaka',
-    },
-    'z9epvb4e': {
-      'en': 'language',
-      'de': 'Sprache',
-      'sv': 'språk',
-    },
-    '0jzlxelp': {
-      'en': 'Select Country',
-      'de': 'Land auswählen',
-      'sv': 'Välj land',
-    },
-    '7me8pad5': {
-      'en': 'Germany',
-      'de': 'Deutschland',
-      'sv': 'Tyskland',
-    },
-    'n4ae61du': {
-      'en': 'Switzerland',
-      'de': 'Schweiz',
-      'sv': 'Schweiz',
-    },
-    'b94c0k5i': {
-      'en': 'Nederland',
-      'de': 'Niederlande',
-      'sv': 'Nederland',
-    },
-    'dvgsv2oo': {
-      'en': 'Dansk',
-      'de': 'Dänisch',
-      'sv': 'Dansk',
-    },
-    '482ulbxl': {
-      'en': 'Belgique',
-      'de': 'Belgien',
-      'sv': 'Belgique',
-    },
-    'zyxutk9d': {
-      'en': 'Österreich',
-      'de': 'Österreich',
-      'sv': 'Österreich',
-    },
-    '8p6qyf4i': {
-      'en': 'Select Language',
-      'de': 'Sprache auswählen',
-      'sv': 'Välj språk',
-    },
-    'lt86wxjh': {
-      'en': 'Deutsch',
-      'de': 'Deutsch',
-      'sv': 'Deutsch',
-    },
-    '7h821qb8': {
-      'en': 'English',
-      'de': 'Englisch',
-      'sv': 'engelsk',
-    },
-    '5x6zm3i1': {
-      'en': 'Apply',
-      'de': 'Anwenden',
-      'sv': 'Tillämpa',
-    },
-    'funbnnh7': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
@@ -3523,6 +3022,34 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Messaging',
       'de': 'Nachrichten',
       'sv': 'Meddelanden',
+    },
+  },
+  // homePage-M-07
+  {
+    'j2hsorib': {
+      'en': '<   Back ',
+      'de': '< Zurück',
+      'sv': '< Tillbaka',
+    },
+    'z9epvb4e': {
+      'en': 'language',
+      'de': 'Sprache',
+      'sv': 'språk',
+    },
+    '0jzlxelp': {
+      'en': 'Select Country',
+      'de': 'Land auswählen',
+      'sv': 'Välj land',
+    },
+    '8p6qyf4i': {
+      'en': 'Select Language',
+      'de': 'Sprache auswählen',
+      'sv': 'Välj språk',
+    },
+    'funbnnh7': {
+      'en': 'Home',
+      'de': 'Zuhause',
+      'sv': 'Hem',
     },
   },
   // Rates2
@@ -3628,18 +3155,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Wir haben Ihnen gerade eine SMS an unten gesendet\nAnzahl!',
       'sv': 'Vi har precis skickat ett sms till dig nedan\nsiffra!',
     },
-    '8eofqr5y': {
-      'en': 'Country code',
-      'de': 'Landesvorwahl',
-      'sv': 'Landskod',
-    },
-    'htxj39a6': {
-      'en': 'Mobile number',
-      'de': 'Handy Nummer',
-      'sv': 'Mobilnummer',
-    },
     'fj1l5w7f': {
-      'en': 'Request a new code! ',
+      'en': 'edit phone number',
+      'de': 'Fordern Sie einen neuen Code!',
+      'sv': 'Begär en ny kod!',
+    },
+    'm54007m6': {
+      'en': 'Request a new code ! ',
       'de': 'Fordern Sie einen neuen Code!',
       'sv': 'Begär en ny kod!',
     },
@@ -3647,26 +3169,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Enter your 4 digit code here!',
       'de': 'Geben Sie hier Ihren 4-stelligen Code ein!',
       'sv': 'Ange din 4-siffriga kod här!',
-    },
-    'gtzg8pre': {
-      'en': '0',
-      'de': '0',
-      'sv': '0',
-    },
-    '40ta0jq7': {
-      'en': '0',
-      'de': '0',
-      'sv': '0',
-    },
-    'm5u8p4yr': {
-      'en': '0',
-      'de': '0',
-      'sv': '0',
-    },
-    'ngshwgbt': {
-      'en': '0',
-      'de': '0',
-      'sv': '0',
     },
     '7l9mhsck': {
       'en': 'Home',
@@ -3765,34 +3267,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': '+Lägg till',
     },
     'xf6zkmx7': {
-      'en': 'Home',
-      'de': 'Zuhause',
-      'sv': 'Hem',
-    },
-  },
-  // sign_up_M-167
-  {
-    'k18q7p1l': {
-      'en': 'Click in the box to add your Certificate',
-      'de': 'Klicken Sie in das Feld, um Ihr Zertifikat hinzuzufügen',
-      'sv': 'Klicka i rutan för att lägga till ditt certifikat',
-    },
-    'u8km5zz7': {
-      'en': 'Take photo',
-      'de': 'Foto machen',
-      'sv': 'Ta ett foto',
-    },
-    '4ya3xb9y': {
-      'en': 'I\'ll do it later',
-      'de': 'Ich werde es später machen',
-      'sv': 'jag gör det senare',
-    },
-    '7ngo3ct9': {
-      'en': 'Save',
-      'de': 'Speichern',
-      'sv': 'Spara',
-    },
-    'kbzdroab': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
@@ -4178,6 +3652,39 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Meddelanden',
     },
   },
+  // DescribeYourself
+  {
+    'ko05agqv': {
+      'en': 'Post a task',
+      'de': 'Poste eine Aufgabe',
+      'sv': 'Lägg upp en uppgift',
+    },
+    'yor8ksla': {
+      'en': 'Describe your self',
+      'de': 'Beschreibe dich selbst',
+      'sv': 'Beskriv dig själv',
+    },
+    'ny9300tw': {
+      'en': 'Describe your self example ..',
+      'de': '[Einige Hinweistexte...]',
+      'sv': '[Någon tipstext...]',
+    },
+    '31ir3mby': {
+      'en': 'I\'ll do it later',
+      'de': 'Ich werde es später machen',
+      'sv': 'jag gör det senare',
+    },
+    '3j18r0fg': {
+      'en': 'Save',
+      'de': 'Speichern',
+      'sv': 'Spara',
+    },
+    'nqydecjn': {
+      'en': 'Home',
+      'de': 'Zuhause',
+      'sv': 'Hem',
+    },
+  },
   // ChooseSkillls-M146
   {
     '1zljve4s': {
@@ -4327,39 +3834,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Hem',
     },
   },
-  // DescribeYourself
-  {
-    'ko05agqv': {
-      'en': 'Post a task',
-      'de': 'Poste eine Aufgabe',
-      'sv': 'Lägg upp en uppgift',
-    },
-    'yor8ksla': {
-      'en': 'Describe your self',
-      'de': 'Beschreibe dich selbst',
-      'sv': 'Beskriv dig själv',
-    },
-    'ny9300tw': {
-      'en': 'Describe your self example ..',
-      'de': '[Einige Hinweistexte...]',
-      'sv': '[Någon tipstext...]',
-    },
-    '31ir3mby': {
-      'en': 'I\'ll do it later',
-      'de': 'Ich werde es später machen',
-      'sv': 'jag gör det senare',
-    },
-    '3j18r0fg': {
-      'en': 'Save',
-      'de': 'Speichern',
-      'sv': 'Spara',
-    },
-    'nqydecjn': {
-      'en': 'Home',
-      'de': 'Zuhause',
-      'sv': 'Hem',
-    },
-  },
   // Profile-M-151
   {
     'hr884r46': {
@@ -4383,7 +3857,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Hem',
     },
   },
-  // serach_result_task
+  // searchResultTasker
   {
     'gy9hey21': {
       'en': 'Task',
@@ -4420,53 +3894,26 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Nur offene Aufgabe',
       'sv': 'Endast öppen uppgift',
     },
-    'uwb2b5ln': {
-      'en': 'PREMIUM',
-      'de': 'PRÄMIE',
-      'sv': 'PREMIE',
-    },
-    'bqz8wsg4': {
-      'en': 'MAR 15, 2019',
-      'de': '15. MÄRZ 2019',
-      'sv': '15 MARS 2019',
-    },
-    '6kps9r61': {
-      'en': 'Since 1990',
-      'de': 'Seit 1990',
-      'sv': 'Sedan 1990',
-    },
-    'tx2zpynz': {
-      'en': 'James Smith',
-      'de': 'James Smith',
-      'sv': 'James Smith',
-    },
-    'w3zfxfq7': {
-      'en': 'Dortmund | DE  ',
-      'de': 'Dortmund | DE',
-      'sv': 'Dortmund | DE',
-    },
-    'f2qleerm': {
-      'en': '61€',
-      'de': '61€',
-      'sv': '61€',
-    },
-    '5qn3zjak': {
-      'en': 'per hour',
-      'de': 'pro Stunde',
-      'sv': 'per timme',
-    },
-    '7mdwv50l': {
-      'en': '45',
-      'de': '45',
-      'sv': '45',
-    },
     'axki6a1v': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
     },
   },
-  // serach_result
+  // tasks
+  {
+    'nbb7a9js': {
+      'en': 'Post a task',
+      'de': 'Poste eine Aufgabe',
+      'sv': 'Lägg upp en uppgift',
+    },
+    'waiohs13': {
+      'en': 'Tasks',
+      'de': 'Nachrichten',
+      'sv': 'Meddelanden',
+    },
+  },
+  // searchResult
   {
     'ofrx0jpi': {
       'en': 'Task',
@@ -4503,62 +3950,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Nur offene Aufgabe',
       'sv': 'Endast öppen uppgift',
     },
-    '7q5iw4yc': {
-      'en': 'Open',
-      'de': 'Offen',
-      'sv': 'Öppen',
-    },
-    'wkwp8zh9': {
-      'en': 'Weekly',
-      'de': 'Wöchentlich',
-      'sv': 'Varje vecka',
-    },
-    'r1ww0ush': {
-      'en': 'Move Boxes and Push\nbike Kew to Sydney...',
-      'de':
-          'Kisten verschieben und schieben\nMit dem Fahrrad von Kew nach Sydney...',
-      'sv': 'Flytta lådor och tryck\ncykla Kew till Sydney...',
-    },
-    'y16ij9fy': {
-      'en': '61€',
-      'de': '61€',
-      'sv': '61€',
-    },
-    'tnjtvgfm': {
-      'en': 'per hour',
-      'de': 'pro Stunde',
-      'sv': 'per timme',
+    'hnno1pkl': {
+      'en': 'PREMIUM',
+      'de': '',
+      'sv': '',
     },
     'mskyiqgw': {
-      'en': 'Home',
+      'en': 'search',
       'de': 'Zuhause',
       'sv': 'Hem',
-    },
-  },
-  // tasks
-  {
-    'nbb7a9js': {
-      'en': 'Post a task',
-      'de': 'Poste eine Aufgabe',
-      'sv': 'Lägg upp en uppgift',
-    },
-    'waiohs13': {
-      'en': 'Messaging',
-      'de': 'Nachrichten',
-      'sv': 'Meddelanden',
-    },
-  },
-  // chats
-  {
-    'n4y8fwc4': {
-      'en': 'Post a task',
-      'de': 'Poste eine Aufgabe',
-      'sv': 'Lägg upp en uppgift',
-    },
-    'o0u2zcex': {
-      'en': 'Messaging',
-      'de': 'Nachrichten',
-      'sv': 'Meddelanden',
     },
   },
   // chat
@@ -4568,10 +3968,76 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Eine Nachricht schreiben...',
       'sv': 'Skriv ett meddelande...',
     },
+    'xsbgoftm': {
+      'en': 'Go to premium account !',
+      'de': '',
+      'sv': '',
+    },
     '7m6szstx': {
       'en': 'Home',
       'de': 'Zuhause',
       'sv': 'Hem',
+    },
+  },
+  // chats
+  {
+    'n4y8fwc4': {
+      'en': 'Post a task',
+      'de': 'Poste eine Aufgabe',
+      'sv': 'Lägg upp en uppgift',
+    },
+    '6ptjxm6y': {
+      'en': 'Search ...',
+      'de': '',
+      'sv': '',
+    },
+    'o0u2zcex': {
+      'en': 'Messaging',
+      'de': 'Nachrichten',
+      'sv': 'Meddelanden',
+    },
+  },
+  // appointmentlist
+  {
+    'b780g45g': {
+      'en': 'Requested',
+      'de': '',
+      'sv': '',
+    },
+    'tbh2j5ih': {
+      'en': 'Appointment Requests from',
+      'de': '',
+      'sv': '',
+    },
+    'fbhdrfao': {
+      'en': 'Pending',
+      'de': '',
+      'sv': '',
+    },
+    'ogwklugc': {
+      'en': 'Appointment Requests for',
+      'de': '',
+      'sv': '',
+    },
+    'qkjy4bre': {
+      'en': 'requested',
+      'de': '',
+      'sv': '',
+    },
+    '7hmz9zi8': {
+      'en': 'Accepted',
+      'de': '',
+      'sv': '',
+    },
+    'xq9repml': {
+      'en': 'Appointment Requests from',
+      'de': '',
+      'sv': '',
+    },
+    '1wh19r07': {
+      'en': 'Appointment',
+      'de': 'Nachrichten',
+      'sv': 'Meddelanden',
     },
   },
   // TASK-M-199
@@ -4645,111 +4111,20 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Utnämningar',
     },
   },
-  // TaskPubish
-  {
-    't6i676ur': {
-      'en': 'Task Number: ',
-      'de': 'Aufgabennummer:',
-      'sv': 'Uppgiftsnummer:',
-    },
-    '10qd6vsd': {
-      'en': 'Task discription',
-      'de': 'Aufgabenbeschreibung',
-      'sv': 'Uppgiftsbeskrivning',
-    },
-    'pfezpcde': {
-      'en': 'See more   >',
-      'de': 'Siehe mehr >',
-      'sv': 'Se mer >',
-    },
-    '8lsde1mo': {
-      'en': 'Mornings',
-      'de': 'Morgens',
-      'sv': 'Morgnar',
-    },
-    'y3mapryv': {
-      'en': '2 days',
-      'de': '2 Tage',
-      'sv': '2 dagar',
-    },
-    '0ken7jtl': {
-      'en': 'per month ',
-      'de': 'pro Monat',
-      'sv': 'per månad',
-    },
-    '6kp3it5m': {
-      'en': '2 hours',
-      'de': '2 Stunden',
-      'sv': '2 timmar',
-    },
-    'oguhxq9k': {
-      'en': 'each session',
-      'de': 'jede Sitzung',
-      'sv': 'varje session',
-    },
-    '4f23cixe': {
-      'en': 'Preferd day:',
-      'de': 'Bevorzugter Tag:',
-      'sv': 'Preferred dag:',
-    },
-    '4m9xm2cz': {
-      'en': 'Sun, Mon, Tue, Wed, Thu',
-      'de': 'So, Mo, Di, Mi, Do',
-      'sv': 'sön, mån, tis, ons, tors',
-    },
-    'w6edjb64': {
-      'en': 'Post a similar task',
-      'de': 'Posten Sie eine ähnliche Aufgabe',
-      'sv': 'Lägg upp en liknande uppgift',
-    },
-    'ujkrs7gp': {
-      'en': '<Back',
-      'de': '<Zurück',
-      'sv': '<Tillbaka',
-    },
-    'ys27p6ft': {
-      'en': 'Messaging',
-      'de': 'Nachrichten',
-      'sv': 'Meddelanden',
-    },
-  },
-  // appointmentlist
-  {
-    'nriwnspk': {
-      'en': 'Appointment Requests from',
-      'de': '',
-      'sv': '',
-    },
-    'l662b8al': {
-      'en': 'accept',
-      'de': '',
-      'sv': '',
-    },
-    'bm4998tk': {
-      'en': 'Appointment Requests for',
-      'de': '',
-      'sv': '',
-    },
-    'rm5kx13u': {
-      'en': 'requested',
-      'de': '',
-      'sv': '',
-    },
-    '1wh19r07': {
-      'en': 'Appointment',
-      'de': 'Nachrichten',
-      'sv': 'Meddelanden',
-    },
-  },
   // appointmentdeatls
   {
-    '4f0dy8xy': {
-      'en': 'Lesson Name',
+    'bu9twkxj': {
+      'en': 'reject appointment',
       'de': '',
       'sv': '',
     },
-    'bu9twkxj': {
-      'en': 'don\'t  accept',
+    'li1xrhro': {
+      'en': 'scan QRcode',
+      'de': '',
+      'sv': '',
+    },
+    'lkuyytcj': {
+      'en': 'Cancel',
       'de': '',
       'sv': '',
     },
@@ -4812,20 +4187,88 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Mitt nätverk',
     },
   },
-  // appointmentdeatlsRquested
+  // TaskPublish
   {
-    'we1ng545': {
-      'en': 'Lesson Name',
+    'bdvcyeqy': {
+      'en': 'This how your task \nwill be shown to public',
+      'de': 'Wählen Sie Ihre Aufgabe aus',
+      'sv': 'Välj din uppgift',
+    },
+    '3h3hye9m': {
+      'en': 'Task discription',
+      'de': 'Aufgabenbeschreibung',
+      'sv': 'Uppgiftsbeskrivning',
+    },
+    'fetixiea': {
+      'en': 'Max Distance',
       'de': '',
       'sv': '',
     },
+    'l1j80bpk': {
+      'en': 'to',
+      'de': 'jede Sitzung',
+      'sv': 'varje session',
+    },
+    '0ken7jtl': {
+      'en': 'per month ',
+      'de': 'pro Monat',
+      'sv': 'per månad',
+    },
+    '7njl1a30': {
+      'en': 'each session',
+      'de': 'jede Sitzung',
+      'sv': 'varje session',
+    },
+    '4f23cixe': {
+      'en': 'Preferd day:',
+      'de': 'Bevorzugter Tag:',
+      'sv': 'Preferred dag:',
+    },
+    'w6edjb64': {
+      'en': 'Post a similar task',
+      'de': 'Posten Sie eine ähnliche Aufgabe',
+      'sv': 'Lägg upp en liknande uppgift',
+    },
+    'ev4ikib7': {
+      'en': '<Back',
+      'de': '<Zurück',
+      'sv': '<Tillbaka',
+    },
+    'uqx53drm': {
+      'en': 'Edit Task',
+      'de': '',
+      'sv': '',
+    },
+    'ys27p6ft': {
+      'en': 'Messaging',
+      'de': 'Nachrichten',
+      'sv': 'Meddelanden',
+    },
+  },
+  // appointmentdeatlsRquested
+  {
     'i0cbrhp6': {
       'en': 'edit deatls appointment',
       'de': '',
       'sv': '',
     },
     'nbo0iac6': {
-      'en': 'cancel',
+      'en': 'cancel appointment',
+      'de': '',
+      'sv': '',
+    },
+    '62kaa4kp': {
+      'en': 'scan QRcode',
+      'de': '',
+      'sv': '',
+    },
+    '7xu0epyh': {
+      'en': 'Cancel',
+      'de': '',
+      'sv': '',
+    },
+    '82ar08ar': {
+      'en': 'Page Title',
       'de': '',
       'sv': '',
     },
@@ -4833,6 +4276,108 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Messaging',
       'de': 'Nachrichten',
       'sv': 'Meddelanden',
+    },
+  },
+  // CONTACTDATA2-M-145Copy
+  {
+    '8w0u8rsb': {
+      'en': 'Main address',
+      'de': 'Hauptadresse',
+      'sv': 'Huvudadress',
+    },
+    'pgv73tsw': {
+      'en': 'Other addresses',
+      'de': 'Andere Adressen',
+      'sv': 'Andra adresser',
+    },
+    'qm6mgeg8': {
+      'en': 'Set to main',
+      'de': 'Auf Haupt stellen',
+      'sv': 'Ställ in på main',
+    },
+    '13w2axls': {
+      'en': '+ Add another addresses',
+      'de': '+ Fügen Sie weitere Adressen hinzu',
+      'sv': '+ Lägg till ytterligare adresser',
+    },
+    'oy8zsjpv': {
+      'en': 'Next   >',
+      'de': 'Weiter >',
+      'sv': 'Nästa >',
+    },
+    'nkavsmzp': {
+      'en': 'Home',
+      'de': 'Zuhause',
+      'sv': 'Hem',
+    },
+  },
+  // test
+  {
+    'zj2hgyxx': {
+      'en': 'Hello World',
+      'de': '',
+      'sv': '',
+    },
+    'ntm11dgr': {
+      'en': 'Button',
+      'de': '',
+      'sv': '',
+    },
+    'rt2fn519': {
+      'en': '[Some hint text...]',
+      'de': '',
+      'sv': '',
+    },
+    'adkol5aq': {
+      'en': 'Home',
+      'de': '',
+      'sv': '',
+    },
+  },
+  // profile_scan
+  {
+    '8ml9wlx2': {
+      'en': 'Messaging',
+      'de': 'Nachrichten',
+      'sv': 'Meddelanden',
+    },
+  },
+  // editEducation
+  {
+    '7t7ug3tj': {
+      'en': 'Add trainings and education you \nparticipated',
+      'de': 'Fügen Sie Schulungen und Ausbildungen hinzu\nteilgenommen',
+      'sv': 'Lägg till utbildningar och utbildning du\ndeltog',
+    },
+    'zoou8hfr': {
+      'en': 'Education / Training Name',
+      'de': 'Ausbildungs-/Schulungsname',
+      'sv': 'Namn på utbildning/utbildning',
+    },
+    'd57r5lme': {
+      'en': 'Name of Institue / Company',
+      'de': 'Name des Instituts / Unternehmens',
+      'sv': 'Namn på institutet/företaget',
+    },
+    'lhtywzwi': {
+      'en': 'Add photo below',
+      'de': 'Foto unten hinzufügen',
+      'sv': 'Lägg till foto nedan',
+    },
+    'lpy9s5yr': {
+      'en': 'Back',
+      'de': 'Ich werde es später machen',
+      'sv': 'jag gör det senare',
+    },
+    'p0g0szm9': {
+      'en': 'Save',
+      'de': '+Hinzufügen',
+      'sv': '+Lägg till',
+    },
+    'bo5ulwl2': {
+      'en': 'Home',
+      'de': 'Zuhause',
+      'sv': 'Hem',
     },
   },
   // TaskCreationDrawerContent
@@ -4896,7 +4441,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': '',
     },
     'jxyllw7l': {
-      'en': 'time stamp',
+      'en': 'Appointment Date',
+      'de': '',
+      'sv': '',
+    },
+    'fajumx7g': {
+      'en': 'Apply',
       'de': '',
       'sv': '',
     },
@@ -5015,15 +4565,67 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'de': 'Fähigkeits Level',
       'sv': 'Skicklighetsnivå',
     },
-    't9brcqzx': {
-      'en': 'fields skill',
-      'de': 'Fähigkeits Level',
-      'sv': 'Skicklighetsnivå',
-    },
     '84ey9pxv': {
       'en': 'Add Skills',
       'de': 'Fähigkeiten hinzufügen',
       'sv': 'Lägg till färdigheter',
+    },
+  },
+  // listChoice
+  {
+    'syc7w3zg': {
+      'en': '.................',
+      'de': '',
+      'sv': '',
+    },
+  },
+  // BtnSH_AppointmentConfirmation
+  {
+    'z7d8uf8t': {
+      'en': 'Are you sure to accept the appointment request?',
+      'de': '',
+      'sv': '',
+    },
+    'byh8okdu': {
+      'en': 'yes',
+      'de': '',
+      'sv': '',
+    },
+    'usbv4zho': {
+      'en': 'NO',
+      'de': '',
+      'sv': '',
+    },
+  },
+  // BtnSH_Rate
+  {
+    'apqzg6w7': {
+      'en': 'Were you satisfied with the appointment?',
+      'de': '',
+      'sv': '',
+    },
+    'iwql8mj2': {
+      'en': 'comment ..',
+      'de': '',
+      'sv': '',
+    },
+    'kq3k75vi': {
+      'en': 'Confirm',
+      'de': '',
+      'sv': '',
+    },
+  },
+  // choosePlan
+  {
+    'z3y68zld': {
+      'en': 'Upgrade your accout',
+      'de': '',
+      'sv': '',
+    },
+    'cohhpszn': {
+      'en': 'Choose one of the  plans below to upgrade',
+      'de': '',
+      'sv': '',
     },
   },
   // Miscellaneous

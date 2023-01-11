@@ -1,9 +1,11 @@
+import '../auth/auth_util.dart';
 import '../auth/firebase_user_provider.dart';
 import '../components/drawwerright_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,19 +18,21 @@ class SignUpM126Widget extends StatefulWidget {
 }
 
 class _SignUpM126WidgetState extends State<SignUpM126Widget> {
+  TextEditingController? pinCodeController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-
+    pinCodeController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
+    pinCodeController?.dispose();
     super.dispose();
   }
 
@@ -177,11 +181,15 @@ class _SignUpM126WidgetState extends State<SignUpM126Widget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Image.asset(
-                                              'assets/images/Mask_Group_235.png',
-                                              width: 70,
-                                              height: 70,
-                                              fit: BoxFit.none,
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(15, 25, 0, 0),
+                                              child: Image.asset(
+                                                'assets/images/Mask_Group_235.png',
+                                                width: 70,
+                                                height: 70,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -192,135 +200,63 @@ class _SignUpM126WidgetState extends State<SignUpM126Widget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 48, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15, 0, 15, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          SelectionArea(
-                                              child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              '8eofqr5y' /* Country code */,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .customColor1,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                          )),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 80, 0),
-                                            child: SelectionArea(
-                                                child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'htxj39a6' /* Mobile number */,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor1,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                            )),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 160,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(2),
-                                  border: Border.all(
-                                    color: Color(0xFFD4D4D4),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 185,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(2),
-                                  border: Border.all(
-                                    color: Color(0xFFD4D4D4),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 20, 15, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SelectionArea(
-                              child: Text(
+                          AuthUserStreamWidget(
+                            builder: (context) => SelectionArea(
+                                child: Text(
+                              currentPhoneNumber,
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(30, 50, 30, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              context.pop();
+                            },
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                'fj1l5w7f' /* edit phone number */,
+                              ),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ),
+                          Text(
                             FFLocalizations.of(context).getText(
-                              'fj1l5w7f' /* Request a new code!  */,
+                              'm54007m6' /* Request a new code !  */,
                             ),
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
@@ -332,7 +268,7 @@ class _SignUpM126WidgetState extends State<SignUpM126Widget> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
-                          )),
+                          ),
                         ],
                       ),
                     ),
@@ -343,24 +279,10 @@ class _SignUpM126WidgetState extends State<SignUpM126Widget> {
                       endIndent: 15,
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 23),
+                      padding: EdgeInsetsDirectional.fromSTEB(40, 70, 15, 8),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/images/Group_1101.png',
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.none,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 8),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SelectionArea(
                               child: Text(
@@ -382,140 +304,67 @@ class _SignUpM126WidgetState extends State<SignUpM126Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 5, 15, 0),
+                      child: PinCodeTextField(
+                        appContext: context,
+                        length: 6,
+                        textStyle: FlutterFlowTheme.of(context)
+                            .subtitle2
+                            .override(
+                              fontFamily: 'Poppins',
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryColor,
+                            ),
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                                child: Container(
-                                  width: 85,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    border: Border.all(
-                                      color: Color(0xFFD4D4D4),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          'gtzg8pre' /* 0 */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                        enableActiveFill: false,
+                        autoFocus: true,
+                        showCursor: true,
+                        cursorColor: FlutterFlowTheme.of(context).primaryColor,
+                        obscureText: false,
+                        hintCharacter: '-',
+                        pinTheme: PinTheme(
+                          fieldHeight: 60,
+                          fieldWidth: 60,
+                          borderWidth: 2,
+                          borderRadius: BorderRadius.circular(8),
+                          shape: PinCodeFieldShape.box,
+                          activeColor:
+                              FlutterFlowTheme.of(context).primaryColor,
+                          inactiveColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
+                          selectedColor:
+                              FlutterFlowTheme.of(context).secondaryText,
+                          activeFillColor:
+                              FlutterFlowTheme.of(context).primaryColor,
+                          inactiveFillColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
+                          selectedFillColor:
+                              FlutterFlowTheme.of(context).secondaryText,
+                        ),
+                        controller: pinCodeController,
+                        onChanged: (_) => {},
+                        onCompleted: (_) async {
+                          GoRouter.of(context).prepareAuthEvent();
+                          final smsCodeVal = pinCodeController!.text;
+                          if (smsCodeVal == null || smsCodeVal.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Enter SMS verification code.'),
                               ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                                child: Container(
-                                  width: 85,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    border: Border.all(
-                                      color: Color(0xFFD4D4D4),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          '40ta0jq7' /* 0 */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                                child: Container(
-                                  width: 85,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    border: Border.all(
-                                      color: Color(0xFFD4D4D4),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          'm5u8p4yr' /* 0 */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 85,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  border: Border.all(
-                                    color: Color(0xFFD4D4D4),
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      FFLocalizations.of(context).getText(
-                                        'ngshwgbt' /* 0 */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                            );
+                            return;
+                          }
+                          final phoneVerifiedUser = await verifySmsCode(
+                            context: context,
+                            smsCode: smsCodeVal,
+                          );
+                          if (phoneVerifiedUser == null) {
+                            return;
+                          }
+
+                          context.pushNamedAuth(
+                              'WhatAreYouInterestedIn', mounted);
+                        },
                       ),
                     ),
                   ],

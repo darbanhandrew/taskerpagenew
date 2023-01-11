@@ -278,6 +278,10 @@ class _WhatAreYouInterestedInWidgetState
                                                                               createUserRecordData(
                                                                             role:
                                                                                 listViewRoleRecord.reference,
+                                                                            roleType:
+                                                                                listViewRoleRecord.name,
+                                                                            isPremium:
+                                                                                false,
                                                                           );
                                                                           await currentUserReference!
                                                                               .update(userUpdateData);
@@ -400,6 +404,12 @@ class _WhatAreYouInterestedInWidgetState
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 24, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
+                                    final userUpdateData = createUserRecordData(
+                                      compeltedProfile: 40.0,
+                                    );
+                                    await currentUserReference!
+                                        .update(userUpdateData);
+
                                     context.pushNamed('ChooseSkillls-M146');
                                   },
                                   text: FFLocalizations.of(context).getText(

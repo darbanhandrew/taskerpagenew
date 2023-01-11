@@ -19,7 +19,11 @@ class _$UserSkillRecordSerializer
   @override
   Iterable<Object?> serialize(Serializers serializers, UserSkillRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
+    final result = <Object?>[
+      'field_skill',
+      serializers.serialize(object.fieldSkill,
+          specifiedType: const FullType(FieldsSkillStruct)),
+    ];
     Object? value;
     value = object.skillCategoryRef;
     if (value != null) {
@@ -92,6 +96,11 @@ class _$UserSkillRecordSerializer
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'field_skill':
+          result.fieldSkill.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(FieldsSkillStruct))!
+              as FieldsSkillStruct);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -113,14 +122,23 @@ class _$UserSkillRecord extends UserSkillRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? skillLevels;
   @override
+  final FieldsSkillStruct fieldSkill;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserSkillRecord([void Function(UserSkillRecordBuilder)? updates]) =>
       (new UserSkillRecordBuilder()..update(updates))._build();
 
   _$UserSkillRecord._(
-      {this.skillCategoryRef, this.skillRefs, this.skillLevels, this.ffRef})
-      : super._();
+      {this.skillCategoryRef,
+      this.skillRefs,
+      this.skillLevels,
+      required this.fieldSkill,
+      this.ffRef})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        fieldSkill, r'UserSkillRecord', 'fieldSkill');
+  }
 
   @override
   UserSkillRecord rebuild(void Function(UserSkillRecordBuilder) updates) =>
@@ -137,14 +155,17 @@ class _$UserSkillRecord extends UserSkillRecord {
         skillCategoryRef == other.skillCategoryRef &&
         skillRefs == other.skillRefs &&
         skillLevels == other.skillLevels &&
+        fieldSkill == other.fieldSkill &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, skillCategoryRef.hashCode), skillRefs.hashCode),
-            skillLevels.hashCode),
+        $jc(
+            $jc($jc($jc(0, skillCategoryRef.hashCode), skillRefs.hashCode),
+                skillLevels.hashCode),
+            fieldSkill.hashCode),
         ffRef.hashCode));
   }
 
@@ -154,6 +175,7 @@ class _$UserSkillRecord extends UserSkillRecord {
           ..add('skillCategoryRef', skillCategoryRef)
           ..add('skillRefs', skillRefs)
           ..add('skillLevels', skillLevels)
+          ..add('fieldSkill', fieldSkill)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -180,6 +202,12 @@ class UserSkillRecordBuilder
   set skillLevels(ListBuilder<DocumentReference<Object?>>? skillLevels) =>
       _$this._skillLevels = skillLevels;
 
+  FieldsSkillStructBuilder? _fieldSkill;
+  FieldsSkillStructBuilder get fieldSkill =>
+      _$this._fieldSkill ??= new FieldsSkillStructBuilder();
+  set fieldSkill(FieldsSkillStructBuilder? fieldSkill) =>
+      _$this._fieldSkill = fieldSkill;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -194,6 +222,7 @@ class UserSkillRecordBuilder
       _skillCategoryRef = $v.skillCategoryRef;
       _skillRefs = $v.skillRefs?.toBuilder();
       _skillLevels = $v.skillLevels?.toBuilder();
+      _fieldSkill = $v.fieldSkill.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -222,6 +251,7 @@ class UserSkillRecordBuilder
               skillCategoryRef: skillCategoryRef,
               skillRefs: _skillRefs?.build(),
               skillLevels: _skillLevels?.build(),
+              fieldSkill: fieldSkill.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -230,6 +260,8 @@ class UserSkillRecordBuilder
         _skillRefs?.build();
         _$failedField = 'skillLevels';
         _skillLevels?.build();
+        _$failedField = 'fieldSkill';
+        fieldSkill.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UserSkillRecord', _$failedField, e.toString());

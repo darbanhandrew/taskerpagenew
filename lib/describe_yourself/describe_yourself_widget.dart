@@ -157,6 +157,7 @@ class _DescribeYourselfWidgetState extends State<DescribeYourselfWidget> {
                                           .bodyText1
                                           .override(
                                             fontFamily: 'Poppins',
+                                            fontSize: 18,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     )),
@@ -182,7 +183,14 @@ class _DescribeYourselfWidgetState extends State<DescribeYourselfWidget> {
                                           'ny9300tw' /* Describe your self example .. */,
                                         ),
                                         hintStyle: FlutterFlowTheme.of(context)
-                                            .bodyText2,
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              fontSize: 14,
+                                            ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -227,7 +235,11 @@ class _DescribeYourselfWidgetState extends State<DescribeYourselfWidget> {
                                         ),
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 14,
+                                          ),
                                       maxLines: 20,
                                       minLines: 20,
                                     ),
@@ -244,7 +256,7 @@ class _DescribeYourselfWidgetState extends State<DescribeYourselfWidget> {
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 80, 0, 0),
                         child: Container(
-                          width: 390,
+                          width: MediaQuery.of(context).size.width,
                           height: 80,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -265,7 +277,7 @@ class _DescribeYourselfWidgetState extends State<DescribeYourselfWidget> {
                                     EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    context.pop();
+                                    context.pushNamed('Profile-M-151');
                                   },
                                   text: FFLocalizations.of(context).getText(
                                     '31ir3mby' /* I'll do it later */,
@@ -298,6 +310,7 @@ class _DescribeYourselfWidgetState extends State<DescribeYourselfWidget> {
                                   onPressed: () async {
                                     final userUpdateData = createUserRecordData(
                                       description: textController!.text,
+                                      compeltedProfile: 100.0,
                                     );
                                     await currentUserReference!
                                         .update(userUpdateData);

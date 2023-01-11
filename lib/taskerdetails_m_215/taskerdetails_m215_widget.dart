@@ -597,7 +597,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                 0) &&
                                                             (taskerdetailsM215TaskRecord
                                                                     .taskerType
-                                                                    .taskerAgeStart ==
+                                                                    .taskerAgeEnd ==
                                                                 20)
                                                         ? FlutterFlowTheme.of(
                                                                 context)
@@ -630,7 +630,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                           0) &&
                                                                       (taskerdetailsM215TaskRecord
                                                                               .taskerType
-                                                                              .taskerAgeStart ==
+                                                                              .taskerAgeEnd ==
                                                                           20)
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
@@ -681,7 +681,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                 21) &&
                                                             (taskerdetailsM215TaskRecord
                                                                     .taskerType
-                                                                    .taskerAgeStart ==
+                                                                    .taskerAgeEnd ==
                                                                 40)
                                                         ? FlutterFlowTheme.of(
                                                                 context)
@@ -714,7 +714,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                           21) &&
                                                                       (taskerdetailsM215TaskRecord
                                                                               .taskerType
-                                                                              .taskerAgeStart ==
+                                                                              .taskerAgeEnd ==
                                                                           40)
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
@@ -765,7 +765,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                 41) &&
                                                             (taskerdetailsM215TaskRecord
                                                                     .taskerType
-                                                                    .taskerAgeStart ==
+                                                                    .taskerAgeEnd ==
                                                                 90)
                                                         ? FlutterFlowTheme.of(
                                                                 context)
@@ -798,7 +798,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                           41) &&
                                                                       (taskerdetailsM215TaskRecord
                                                                               .taskerType
-                                                                              .taskerAgeStart ==
+                                                                              .taskerAgeEnd ==
                                                                           90)
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
@@ -853,7 +853,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                 null) &&
                                                             (taskerdetailsM215TaskRecord
                                                                     .taskerType
-                                                                    .taskerAgeStart ==
+                                                                    .taskerAgeEnd ==
                                                                 null)
                                                         ? FlutterFlowTheme.of(
                                                                 context)
@@ -886,7 +886,7 @@ class _TaskerdetailsM215WidgetState extends State<TaskerdetailsM215Widget> {
                                                                           null) &&
                                                                       (taskerdetailsM215TaskRecord
                                                                               .taskerType
-                                                                              .taskerAgeStart ==
+                                                                              .taskerAgeEnd ==
                                                                           null)
                                                                   ? FlutterFlowTheme.of(
                                                                           context)

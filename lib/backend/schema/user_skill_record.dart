@@ -20,6 +20,9 @@ abstract class UserSkillRecord
   @BuiltValueField(wireName: 'skill_levels')
   BuiltList<DocumentReference>? get skillLevels;
 
+  @BuiltValueField(wireName: 'field_skill')
+  FieldsSkillStruct get fieldSkill;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -28,7 +31,8 @@ abstract class UserSkillRecord
 
   static void _initializeBuilder(UserSkillRecordBuilder builder) => builder
     ..skillRefs = ListBuilder()
-    ..skillLevels = ListBuilder();
+    ..skillLevels = ListBuilder()
+    ..fieldSkill = FieldsSkillStructBuilder();
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -58,6 +62,7 @@ abstract class UserSkillRecord
 
 Map<String, dynamic> createUserSkillRecordData({
   DocumentReference? skillCategoryRef,
+  FieldsSkillStruct? fieldSkill,
 }) {
   final firestoreData = serializers.toFirestore(
     UserSkillRecord.serializer,
@@ -65,9 +70,13 @@ Map<String, dynamic> createUserSkillRecordData({
       (u) => u
         ..skillCategoryRef = skillCategoryRef
         ..skillRefs = null
-        ..skillLevels = null,
+        ..skillLevels = null
+        ..fieldSkill = FieldsSkillStructBuilder(),
     ),
   );
+
+  // Handle nested data for "field_skill" field.
+  addFieldsSkillStructData(firestoreData, fieldSkill, 'field_skill');
 
   return firestoreData;
 }

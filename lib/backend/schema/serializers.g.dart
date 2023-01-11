@@ -8,7 +8,6 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AddressStruct.serializer)
-      ..add(AppointmentAddressRecord.serializer)
       ..add(AppointmentRecord.serializer)
       ..add(ChatMessagesRecord.serializer)
       ..add(ChatsRecord.serializer)
@@ -17,21 +16,28 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(DefineMessageRecord.serializer)
       ..add(EducationDegreeRecord.serializer)
       ..add(EducationRecord.serializer)
+      ..add(FieldsSkillStruct.serializer)
       ..add(FildRecord.serializer)
       ..add(LanguageRecord.serializer)
       ..add(OptionStruct.serializer)
+      ..add(PlanRecord.serializer)
+      ..add(RateRecord.serializer)
       ..add(RoleRecord.serializer)
+      ..add(SignUPStepBadgRecord.serializer)
       ..add(SkillCategoryRecord.serializer)
       ..add(SkillDetailStruct.serializer)
       ..add(SkillLevelRecord.serializer)
       ..add(SkillRecord.serializer)
-      ..add(TaskAddressRecord.serializer)
       ..add(TaskDateTimeStruct.serializer)
       ..add(TaskRecord.serializer)
       ..add(TaskerAgeTypeRecord.serializer)
       ..add(TaskerTypeStruct.serializer)
+      ..add(TransactionsRecord.serializer)
+      ..add(TranslatableDifineMessagesStruct.serializer)
       ..add(TranslatableStringStruct.serializer)
       ..add(UserAddressRecord.serializer)
+      ..add(UserFieldDataTypeStruct.serializer)
+      ..add(UserFieldRecord.serializer)
       ..add(UserRecord.serializer)
       ..add(UserSkillRecord.serializer)
       ..addBuilderFactory(
@@ -92,9 +98,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
           ]),
           () => new ListBuilder<DocumentReference<Object?>>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(OptionStruct)]),
-          () => new ListBuilder<OptionStruct>())
-      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
       ..addBuilderFactory(
@@ -108,7 +111,64 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>()))
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])
+          ]),
+          () => new ListBuilder<DocumentReference<Object?>>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])
+          ]),
+          () => new ListBuilder<DocumentReference<Object?>>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])
+          ]),
+          () => new ListBuilder<DocumentReference<Object?>>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])
+          ]),
+          () => new ListBuilder<DocumentReference<Object?>>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(TranslatableDifineMessagesStruct)]),
+          () => new ListBuilder<TranslatableDifineMessagesStruct>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(TranslatableStringStruct)]),
+          () => new ListBuilder<TranslatableStringStruct>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(TranslatableStringStruct)]),
+          () => new ListBuilder<TranslatableStringStruct>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(TranslatableStringStruct)]),
+          () => new ListBuilder<TranslatableStringStruct>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(TranslatableStringStruct)]),
+          () => new ListBuilder<TranslatableStringStruct>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(TranslatableStringStruct)]),
+          () => new ListBuilder<TranslatableStringStruct>()))
     .build();
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

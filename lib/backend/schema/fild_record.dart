@@ -16,15 +16,15 @@ abstract class FildRecord implements Built<FildRecord, FildRecordBuilder> {
 
   String? get type;
 
-  @BuiltValueField(wireName: 'skills_ref')
-  BuiltList<DocumentReference>? get skillsRef;
-
-  @BuiltValueField(wireName: 'skills_category_ref')
-  BuiltList<DocumentReference>? get skillsCategoryRef;
-
   bool? get value;
 
-  String? get values;
+  BuiltList<String>? get values;
+
+  @BuiltValueField(wireName: 'skill_category_ref')
+  DocumentReference? get skillCategoryRef;
+
+  @BuiltValueField(wireName: 'skill_ref')
+  DocumentReference? get skillRef;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -34,10 +34,8 @@ abstract class FildRecord implements Built<FildRecord, FildRecordBuilder> {
     ..name = ''
     ..displayName = ''
     ..type = ''
-    ..skillsRef = ListBuilder()
-    ..skillsCategoryRef = ListBuilder()
     ..value = false
-    ..values = '';
+    ..values = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('fild');
@@ -64,7 +62,8 @@ Map<String, dynamic> createFildRecordData({
   String? displayName,
   String? type,
   bool? value,
-  String? values,
+  DocumentReference? skillCategoryRef,
+  DocumentReference? skillRef,
 }) {
   final firestoreData = serializers.toFirestore(
     FildRecord.serializer,
@@ -73,10 +72,10 @@ Map<String, dynamic> createFildRecordData({
         ..name = name
         ..displayName = displayName
         ..type = type
-        ..skillsRef = null
-        ..skillsCategoryRef = null
         ..value = value
-        ..values = values,
+        ..values = null
+        ..skillCategoryRef = skillCategoryRef
+        ..skillRef = skillRef,
     ),
   );
 

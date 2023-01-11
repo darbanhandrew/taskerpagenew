@@ -35,6 +35,8 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
 
   DocumentReference? get appointment;
 
+  int? get order;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -42,7 +44,8 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
   static void _initializeBuilder(ChatsRecordBuilder builder) => builder
     ..users = ListBuilder()
     ..lastMessage = ''
-    ..lastMessageSeenBy = ListBuilder();
+    ..lastMessageSeenBy = ListBuilder()
+    ..order = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('chats');
@@ -70,6 +73,7 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
               snapshot.data['last_message_seen_by'].map((s) => toRef(s))))
           ..task = safeGet(() => toRef(snapshot.data['task']))
           ..appointment = safeGet(() => toRef(snapshot.data['appointment']))
+          ..order = snapshot.data['order']?.round()
           ..ffRef = ChatsRecord.collection.doc(snapshot.objectID),
       );
 
@@ -106,6 +110,7 @@ Map<String, dynamic> createChatsRecordData({
   DocumentReference? lastMessageSentBy,
   DocumentReference? task,
   DocumentReference? appointment,
+  int? order,
 }) {
   final firestoreData = serializers.toFirestore(
     ChatsRecord.serializer,
@@ -119,7 +124,8 @@ Map<String, dynamic> createChatsRecordData({
         ..lastMessageSentBy = lastMessageSentBy
         ..lastMessageSeenBy = null
         ..task = task
-        ..appointment = appointment,
+        ..appointment = appointment
+        ..order = order,
     ),
   );
 

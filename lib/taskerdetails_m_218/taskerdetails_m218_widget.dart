@@ -9,7 +9,6 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -31,10 +30,6 @@ class _TaskerdetailsM218WidgetState extends State<TaskerdetailsM218Widget> {
   @override
   void initState() {
     super.initState();
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      context.pushNamed('TaskPubish');
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -273,10 +268,15 @@ class _TaskerdetailsM218WidgetState extends State<TaskerdetailsM218Widget> {
                                           inactiveColor: Color(0xFF9E9E9E),
                                           min: 0,
                                           max: 10,
-                                          value: sliderValue ??= 3,
+                                          value: sliderValue ??=
+                                              taskerdetailsM218TaskRecord
+                                                  .taskerType
+                                                  .maxTaskerDistance!,
                                           label: sliderValue.toString(),
                                           divisions: 50,
                                           onChanged: (newValue) {
+                                            newValue = double.parse(
+                                                newValue.toStringAsFixed(1));
                                             setState(
                                                 () => sliderValue = newValue);
                                           },
@@ -1076,18 +1076,23 @@ class _TaskerdetailsM218WidgetState extends State<TaskerdetailsM218Widget> {
                               children: [
                                 Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'pidy9zcd' /* <   Back */,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      context.pop();
+                                    },
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'pidy9zcd' /* <   Back */,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF292929),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF292929),
-                                          fontWeight: FontWeight.w500,
-                                        ),
                                   ),
                                 ),
                               ],
@@ -1112,7 +1117,24 @@ class _TaskerdetailsM218WidgetState extends State<TaskerdetailsM218Widget> {
                                           .reference
                                           .update(taskUpdateData);
 
-                                      context.pushNamed('TaskPubish');
+                                      context.pushNamed(
+                                        'TaskPublish',
+                                        queryParams: {
+                                          'messagePoster': serializeParam(
+                                            false,
+                                            ParamType.bool,
+                                          ),
+                                          'task': serializeParam(
+                                            taskerdetailsM218TaskRecord
+                                                .reference,
+                                            ParamType.DocumentReference,
+                                          ),
+                                          'editTask': serializeParam(
+                                            false,
+                                            ParamType.bool,
+                                          ),
+                                        }.withoutNulls,
+                                      );
                                     },
                                     text: FFLocalizations.of(context).getText(
                                       '1tr5m4sr' /* Next   > */,

@@ -33,14 +33,6 @@ class _$SkillRecordSerializer implements StructuredSerializer<SkillRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.options;
-    if (value != null) {
-      result
-        ..add('options')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(OptionStruct)])));
-    }
     value = object.categoryRef;
     if (value != null) {
       result
@@ -48,6 +40,14 @@ class _$SkillRecordSerializer implements StructuredSerializer<SkillRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.locale;
+    if (value != null) {
+      result
+        ..add('locale')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(TranslatableStringStruct)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -79,17 +79,17 @@ class _$SkillRecordSerializer implements StructuredSerializer<SkillRecord> {
           result.displayName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'options':
-          result.options.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(OptionStruct)]))!
-              as BuiltList<Object?>);
-          break;
         case 'category_ref':
           result.categoryRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
+          break;
+        case 'locale':
+          result.locale.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(TranslatableStringStruct)
+              ]))! as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -110,9 +110,9 @@ class _$SkillRecord extends SkillRecord {
   @override
   final String? displayName;
   @override
-  final BuiltList<OptionStruct>? options;
-  @override
   final DocumentReference<Object?>? categoryRef;
+  @override
+  final BuiltList<TranslatableStringStruct>? locale;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -120,7 +120,7 @@ class _$SkillRecord extends SkillRecord {
       (new SkillRecordBuilder()..update(updates))._build();
 
   _$SkillRecord._(
-      {this.name, this.displayName, this.options, this.categoryRef, this.ffRef})
+      {this.name, this.displayName, this.categoryRef, this.locale, this.ffRef})
       : super._();
 
   @override
@@ -136,8 +136,8 @@ class _$SkillRecord extends SkillRecord {
     return other is SkillRecord &&
         name == other.name &&
         displayName == other.displayName &&
-        options == other.options &&
         categoryRef == other.categoryRef &&
+        locale == other.locale &&
         ffRef == other.ffRef;
   }
 
@@ -146,8 +146,8 @@ class _$SkillRecord extends SkillRecord {
     return $jf($jc(
         $jc(
             $jc($jc($jc(0, name.hashCode), displayName.hashCode),
-                options.hashCode),
-            categoryRef.hashCode),
+                categoryRef.hashCode),
+            locale.hashCode),
         ffRef.hashCode));
   }
 
@@ -156,8 +156,8 @@ class _$SkillRecord extends SkillRecord {
     return (newBuiltValueToStringHelper(r'SkillRecord')
           ..add('name', name)
           ..add('displayName', displayName)
-          ..add('options', options)
           ..add('categoryRef', categoryRef)
+          ..add('locale', locale)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -174,15 +174,16 @@ class SkillRecordBuilder implements Builder<SkillRecord, SkillRecordBuilder> {
   String? get displayName => _$this._displayName;
   set displayName(String? displayName) => _$this._displayName = displayName;
 
-  ListBuilder<OptionStruct>? _options;
-  ListBuilder<OptionStruct> get options =>
-      _$this._options ??= new ListBuilder<OptionStruct>();
-  set options(ListBuilder<OptionStruct>? options) => _$this._options = options;
-
   DocumentReference<Object?>? _categoryRef;
   DocumentReference<Object?>? get categoryRef => _$this._categoryRef;
   set categoryRef(DocumentReference<Object?>? categoryRef) =>
       _$this._categoryRef = categoryRef;
+
+  ListBuilder<TranslatableStringStruct>? _locale;
+  ListBuilder<TranslatableStringStruct> get locale =>
+      _$this._locale ??= new ListBuilder<TranslatableStringStruct>();
+  set locale(ListBuilder<TranslatableStringStruct>? locale) =>
+      _$this._locale = locale;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -197,8 +198,8 @@ class SkillRecordBuilder implements Builder<SkillRecord, SkillRecordBuilder> {
     if ($v != null) {
       _name = $v.name;
       _displayName = $v.displayName;
-      _options = $v.options?.toBuilder();
       _categoryRef = $v.categoryRef;
+      _locale = $v.locale?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -226,14 +227,14 @@ class SkillRecordBuilder implements Builder<SkillRecord, SkillRecordBuilder> {
           new _$SkillRecord._(
               name: name,
               displayName: displayName,
-              options: _options?.build(),
               categoryRef: categoryRef,
+              locale: _locale?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'options';
-        _options?.build();
+        _$failedField = 'locale';
+        _locale?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'SkillRecord', _$failedField, e.toString());

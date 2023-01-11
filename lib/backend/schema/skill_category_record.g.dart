@@ -46,6 +46,14 @@ class _$SkillCategoryRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.locale;
+    if (value != null) {
+      result
+        ..add('locale')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(TranslatableStringStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -81,6 +89,12 @@ class _$SkillCategoryRecordSerializer
           result.icon = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'locale':
+          result.locale.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(TranslatableStringStruct)
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -102,13 +116,16 @@ class _$SkillCategoryRecord extends SkillCategoryRecord {
   @override
   final String? icon;
   @override
+  final BuiltList<TranslatableStringStruct>? locale;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$SkillCategoryRecord(
           [void Function(SkillCategoryRecordBuilder)? updates]) =>
       (new SkillCategoryRecordBuilder()..update(updates))._build();
 
-  _$SkillCategoryRecord._({this.name, this.displayName, this.icon, this.ffRef})
+  _$SkillCategoryRecord._(
+      {this.name, this.displayName, this.icon, this.locale, this.ffRef})
       : super._();
 
   @override
@@ -127,13 +144,17 @@ class _$SkillCategoryRecord extends SkillCategoryRecord {
         name == other.name &&
         displayName == other.displayName &&
         icon == other.icon &&
+        locale == other.locale &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, name.hashCode), displayName.hashCode), icon.hashCode),
+        $jc(
+            $jc($jc($jc(0, name.hashCode), displayName.hashCode),
+                icon.hashCode),
+            locale.hashCode),
         ffRef.hashCode));
   }
 
@@ -143,6 +164,7 @@ class _$SkillCategoryRecord extends SkillCategoryRecord {
           ..add('name', name)
           ..add('displayName', displayName)
           ..add('icon', icon)
+          ..add('locale', locale)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -164,6 +186,12 @@ class SkillCategoryRecordBuilder
   String? get icon => _$this._icon;
   set icon(String? icon) => _$this._icon = icon;
 
+  ListBuilder<TranslatableStringStruct>? _locale;
+  ListBuilder<TranslatableStringStruct> get locale =>
+      _$this._locale ??= new ListBuilder<TranslatableStringStruct>();
+  set locale(ListBuilder<TranslatableStringStruct>? locale) =>
+      _$this._locale = locale;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -178,6 +206,7 @@ class SkillCategoryRecordBuilder
       _name = $v.name;
       _displayName = $v.displayName;
       _icon = $v.icon;
+      _locale = $v.locale?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -199,9 +228,26 @@ class SkillCategoryRecordBuilder
   SkillCategoryRecord build() => _build();
 
   _$SkillCategoryRecord _build() {
-    final _$result = _$v ??
-        new _$SkillCategoryRecord._(
-            name: name, displayName: displayName, icon: icon, ffRef: ffRef);
+    _$SkillCategoryRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$SkillCategoryRecord._(
+              name: name,
+              displayName: displayName,
+              icon: icon,
+              locale: _locale?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'locale';
+        _locale?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'SkillCategoryRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

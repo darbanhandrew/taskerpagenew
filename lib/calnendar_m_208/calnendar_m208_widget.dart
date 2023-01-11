@@ -928,27 +928,32 @@ class _CalnendarM208WidgetState extends State<CalnendarM208Widget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'mf4490xk' /* <   Back */,
+                              InkWell(
+                                onTap: () async {
+                                  context.pop();
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        FFLocalizations.of(context).getText(
+                                          'mf4490xk' /* <   Back */,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF292929),
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                       ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF292929),
-                                            fontWeight: FontWeight.w500,
-                                          ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.max,

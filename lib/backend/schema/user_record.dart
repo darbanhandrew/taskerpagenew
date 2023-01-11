@@ -69,6 +69,38 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
 
   LatLng? get location;
 
+  @BuiltValueField(wireName: 'skill_category_refs')
+  BuiltList<DocumentReference>? get skillCategoryRefs;
+
+  @BuiltValueField(wireName: 'skill_refs')
+  BuiltList<DocumentReference>? get skillRefs;
+
+  @BuiltValueField(wireName: 'skill_level_refs')
+  BuiltList<DocumentReference>? get skillLevelRefs;
+
+  @BuiltValueField(wireName: 'field_skill')
+  FieldsSkillStruct get fieldSkill;
+
+  @BuiltValueField(wireName: 'max_chat_order')
+  int? get maxChatOrder;
+
+  @BuiltValueField(wireName: 'max_number_of_appointments')
+  int? get maxNumberOfAppointments;
+
+  @BuiltValueField(wireName: 'is_premium')
+  bool? get isPremium;
+
+  @BuiltValueField(wireName: 'role_type')
+  String? get roleType;
+
+  @BuiltValueField(wireName: 'compelted_profile')
+  double? get compeltedProfile;
+
+  @BuiltValueField(wireName: 'signUp_step_badg')
+  BuiltList<DocumentReference>? get signUpStepBadg;
+
+  double? get rate;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -90,7 +122,18 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..description = ''
     ..yearsOfExperience = 0
     ..languages = ListBuilder()
-    ..insurance = false;
+    ..insurance = false
+    ..skillCategoryRefs = ListBuilder()
+    ..skillRefs = ListBuilder()
+    ..skillLevelRefs = ListBuilder()
+    ..fieldSkill = FieldsSkillStructBuilder()
+    ..maxChatOrder = 0
+    ..maxNumberOfAppointments = 0
+    ..isPremium = false
+    ..roleType = ''
+    ..compeltedProfile = 0.0
+    ..signUpStepBadg = ListBuilder()
+    ..rate = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -149,6 +192,32 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
                 snapshot.data['_geoloc']['lat'],
                 snapshot.data['_geoloc']['lng'],
               ))
+          ..skillCategoryRefs = safeGet(() => ListBuilder(
+              snapshot.data['skill_category_refs'].map((s) => toRef(s))))
+          ..skillRefs = safeGet(() =>
+              ListBuilder(snapshot.data['skill_refs'].map((s) => toRef(s))))
+          ..skillLevelRefs = safeGet(() => ListBuilder(
+              snapshot.data['skill_level_refs'].map((s) => toRef(s))))
+          ..fieldSkill = createFieldsSkillStruct(
+            fieldRef: safeGet(
+                () => toRef((snapshot.data['field_skill'] ?? {})['field_ref'])),
+            skillRef: safeGet(
+                () => toRef((snapshot.data['field_skill'] ?? {})['skill_ref'])),
+            categoryRef: safeGet(() =>
+                toRef((snapshot.data['field_skill'] ?? {})['category_ref'])),
+            value: (snapshot.data['field_skill'] ?? {})['value'],
+            create: true,
+            clearUnsetFields: false,
+          ).toBuilder()
+          ..maxChatOrder = snapshot.data['max_chat_order']?.round()
+          ..maxNumberOfAppointments =
+              snapshot.data['max_number_of_appointments']?.round()
+          ..isPremium = snapshot.data['is_premium']
+          ..roleType = snapshot.data['role_type']
+          ..compeltedProfile = snapshot.data['compelted_profile']?.toDouble()
+          ..signUpStepBadg = safeGet(() => ListBuilder(
+              snapshot.data['signUp_step_badg'].map((s) => toRef(s))))
+          ..rate = snapshot.data['rate']?.toDouble()
           ..ffRef = UserRecord.collection.doc(snapshot.objectID),
       );
 
@@ -199,6 +268,13 @@ Map<String, dynamic> createUserRecordData({
   int? yearsOfExperience,
   bool? insurance,
   LatLng? location,
+  FieldsSkillStruct? fieldSkill,
+  int? maxChatOrder,
+  int? maxNumberOfAppointments,
+  bool? isPremium,
+  String? roleType,
+  double? compeltedProfile,
+  double? rate,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -226,12 +302,26 @@ Map<String, dynamic> createUserRecordData({
         ..yearsOfExperience = yearsOfExperience
         ..languages = null
         ..insurance = insurance
-        ..location = location,
+        ..location = location
+        ..skillCategoryRefs = null
+        ..skillRefs = null
+        ..skillLevelRefs = null
+        ..fieldSkill = FieldsSkillStructBuilder()
+        ..maxChatOrder = maxChatOrder
+        ..maxNumberOfAppointments = maxNumberOfAppointments
+        ..isPremium = isPremium
+        ..roleType = roleType
+        ..compeltedProfile = compeltedProfile
+        ..signUpStepBadg = null
+        ..rate = rate,
     ),
   );
 
   // Handle nested data for "company" field.
   addCompanyStructData(firestoreData, company, 'company');
+
+  // Handle nested data for "field_skill" field.
+  addFieldsSkillStructData(firestoreData, fieldSkill, 'field_skill');
 
   return firestoreData;
 }

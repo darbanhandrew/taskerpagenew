@@ -40,26 +40,6 @@ class _$FildRecordSerializer implements StructuredSerializer<FildRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.skillsRef;
-    if (value != null) {
-      result
-        ..add('skills_ref')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList, const [
-              const FullType(
-                  DocumentReference, const [const FullType.nullable(Object)])
-            ])));
-    }
-    value = object.skillsCategoryRef;
-    if (value != null) {
-      result
-        ..add('skills_category_ref')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList, const [
-              const FullType(
-                  DocumentReference, const [const FullType.nullable(Object)])
-            ])));
-    }
     value = object.value;
     if (value != null) {
       result
@@ -72,7 +52,24 @@ class _$FildRecordSerializer implements StructuredSerializer<FildRecord> {
       result
         ..add('values')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.skillCategoryRef;
+    if (value != null) {
+      result
+        ..add('skill_category_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.skillRef;
+    if (value != null) {
+      result
+        ..add('skill_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -108,27 +105,27 @@ class _$FildRecordSerializer implements StructuredSerializer<FildRecord> {
           result.type = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'skills_ref':
-          result.skillsRef.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    DocumentReference, const [const FullType.nullable(Object)])
-              ]))! as BuiltList<Object?>);
-          break;
-        case 'skills_category_ref':
-          result.skillsCategoryRef.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    DocumentReference, const [const FullType.nullable(Object)])
-              ]))! as BuiltList<Object?>);
-          break;
         case 'value':
           result.value = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
         case 'values':
-          result.values = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+          result.values.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'skill_category_ref':
+          result.skillCategoryRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'skill_ref':
+          result.skillRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -151,13 +148,13 @@ class _$FildRecord extends FildRecord {
   @override
   final String? type;
   @override
-  final BuiltList<DocumentReference<Object?>>? skillsRef;
-  @override
-  final BuiltList<DocumentReference<Object?>>? skillsCategoryRef;
-  @override
   final bool? value;
   @override
-  final String? values;
+  final BuiltList<String>? values;
+  @override
+  final DocumentReference<Object?>? skillCategoryRef;
+  @override
+  final DocumentReference<Object?>? skillRef;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -168,10 +165,10 @@ class _$FildRecord extends FildRecord {
       {this.name,
       this.displayName,
       this.type,
-      this.skillsRef,
-      this.skillsCategoryRef,
       this.value,
       this.values,
+      this.skillCategoryRef,
+      this.skillRef,
       this.ffRef})
       : super._();
 
@@ -189,10 +186,10 @@ class _$FildRecord extends FildRecord {
         name == other.name &&
         displayName == other.displayName &&
         type == other.type &&
-        skillsRef == other.skillsRef &&
-        skillsCategoryRef == other.skillsCategoryRef &&
         value == other.value &&
         values == other.values &&
+        skillCategoryRef == other.skillCategoryRef &&
+        skillRef == other.skillRef &&
         ffRef == other.ffRef;
   }
 
@@ -205,10 +202,10 @@ class _$FildRecord extends FildRecord {
                     $jc(
                         $jc($jc($jc(0, name.hashCode), displayName.hashCode),
                             type.hashCode),
-                        skillsRef.hashCode),
-                    skillsCategoryRef.hashCode),
-                value.hashCode),
-            values.hashCode),
+                        value.hashCode),
+                    values.hashCode),
+                skillCategoryRef.hashCode),
+            skillRef.hashCode),
         ffRef.hashCode));
   }
 
@@ -218,10 +215,10 @@ class _$FildRecord extends FildRecord {
           ..add('name', name)
           ..add('displayName', displayName)
           ..add('type', type)
-          ..add('skillsRef', skillsRef)
-          ..add('skillsCategoryRef', skillsCategoryRef)
           ..add('value', value)
           ..add('values', values)
+          ..add('skillCategoryRef', skillCategoryRef)
+          ..add('skillRef', skillRef)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -242,27 +239,24 @@ class FildRecordBuilder implements Builder<FildRecord, FildRecordBuilder> {
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  ListBuilder<DocumentReference<Object?>>? _skillsRef;
-  ListBuilder<DocumentReference<Object?>> get skillsRef =>
-      _$this._skillsRef ??= new ListBuilder<DocumentReference<Object?>>();
-  set skillsRef(ListBuilder<DocumentReference<Object?>>? skillsRef) =>
-      _$this._skillsRef = skillsRef;
-
-  ListBuilder<DocumentReference<Object?>>? _skillsCategoryRef;
-  ListBuilder<DocumentReference<Object?>> get skillsCategoryRef =>
-      _$this._skillsCategoryRef ??=
-          new ListBuilder<DocumentReference<Object?>>();
-  set skillsCategoryRef(
-          ListBuilder<DocumentReference<Object?>>? skillsCategoryRef) =>
-      _$this._skillsCategoryRef = skillsCategoryRef;
-
   bool? _value;
   bool? get value => _$this._value;
   set value(bool? value) => _$this._value = value;
 
-  String? _values;
-  String? get values => _$this._values;
-  set values(String? values) => _$this._values = values;
+  ListBuilder<String>? _values;
+  ListBuilder<String> get values =>
+      _$this._values ??= new ListBuilder<String>();
+  set values(ListBuilder<String>? values) => _$this._values = values;
+
+  DocumentReference<Object?>? _skillCategoryRef;
+  DocumentReference<Object?>? get skillCategoryRef => _$this._skillCategoryRef;
+  set skillCategoryRef(DocumentReference<Object?>? skillCategoryRef) =>
+      _$this._skillCategoryRef = skillCategoryRef;
+
+  DocumentReference<Object?>? _skillRef;
+  DocumentReference<Object?>? get skillRef => _$this._skillRef;
+  set skillRef(DocumentReference<Object?>? skillRef) =>
+      _$this._skillRef = skillRef;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -278,10 +272,10 @@ class FildRecordBuilder implements Builder<FildRecord, FildRecordBuilder> {
       _name = $v.name;
       _displayName = $v.displayName;
       _type = $v.type;
-      _skillsRef = $v.skillsRef?.toBuilder();
-      _skillsCategoryRef = $v.skillsCategoryRef?.toBuilder();
       _value = $v.value;
-      _values = $v.values;
+      _values = $v.values?.toBuilder();
+      _skillCategoryRef = $v.skillCategoryRef;
+      _skillRef = $v.skillRef;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -310,18 +304,16 @@ class FildRecordBuilder implements Builder<FildRecord, FildRecordBuilder> {
               name: name,
               displayName: displayName,
               type: type,
-              skillsRef: _skillsRef?.build(),
-              skillsCategoryRef: _skillsCategoryRef?.build(),
               value: value,
-              values: values,
+              values: _values?.build(),
+              skillCategoryRef: skillCategoryRef,
+              skillRef: skillRef,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'skillsRef';
-        _skillsRef?.build();
-        _$failedField = 'skillsCategoryRef';
-        _skillsCategoryRef?.build();
+        _$failedField = 'values';
+        _values?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'FildRecord', _$failedField, e.toString());

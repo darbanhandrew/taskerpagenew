@@ -12,7 +12,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class Contactdata2M145Widget extends StatefulWidget {
-  const Contactdata2M145Widget({Key? key}) : super(key: key);
+  const Contactdata2M145Widget({
+    Key? key,
+    this.edit,
+  }) : super(key: key);
+
+  final DocumentReference? edit;
 
   @override
   _Contactdata2M145WidgetState createState() => _Contactdata2M145WidgetState();
@@ -127,11 +132,6 @@ class _Contactdata2M145WidgetState extends State<Contactdata2M145Widget> {
                                   stream: queryUserAddressRecord(
                                     parent:
                                         contactdata2M145UserRecord.reference,
-                                    queryBuilder: (userAddressRecord) =>
-                                        userAddressRecord
-                                            .where('archived', isEqualTo: false)
-                                            .where('default_address',
-                                                isEqualTo: true),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -160,194 +160,217 @@ class _Contactdata2M145WidgetState extends State<Contactdata2M145Widget> {
                                         final listViewUserAddressRecord =
                                             listViewUserAddressRecordList[
                                                 listViewIndex];
-                                        return Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 10, 0, 5),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Expanded(
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Container(
-                                                    width: 360,
-                                                    height: 110,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryBtnText,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          blurRadius: 4,
-                                                          color:
-                                                              Color(0x33000000),
-                                                          spreadRadius: 1,
-                                                        )
-                                                      ],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              2),
-                                                      border: Border.all(
+                                        return Visibility(
+                                          visible: listViewUserAddressRecord
+                                                  .defaultAddress ==
+                                              true,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 10, 0, 5),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0, 0),
+                                                    child: Container(
+                                                      width: 360,
+                                                      height: 110,
+                                                      decoration: BoxDecoration(
                                                         color:
-                                                            Color(0x00F36121),
-                                                        width: 1,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 4,
+                                                            color: Color(
+                                                                0x33000000),
+                                                            spreadRadius: 1,
+                                                          )
+                                                        ],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        border: Border.all(
+                                                          color:
+                                                              Color(0x00F36121),
+                                                          width: 1,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15,
-                                                                      0,
-                                                                      15,
-                                                                      10),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 110,
-                                                                    height: 25,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFFD4D4D4),
-                                                                      borderRadius:
-                                                                          BorderRadius
-                                                                              .only(
-                                                                        bottomLeft:
-                                                                            Radius.circular(0),
-                                                                        bottomRight:
-                                                                            Radius.circular(0),
-                                                                        topLeft:
-                                                                            Radius.circular(2),
-                                                                        topRight:
-                                                                            Radius.circular(0),
-                                                                      ),
-                                                                    ),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Text(
-                                                                          FFLocalizations.of(context)
-                                                                              .getText(
-                                                                            'le5cl6g3' /* Main address */,
-                                                                          ),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontWeight: FontWeight.normal,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap:
-                                                                        () async {
-                                                                      final userUpdateData =
-                                                                          createUserRecordData();
-                                                                      await contactdata2M145UserRecord
-                                                                          .reference
-                                                                          .update(
-                                                                              userUpdateData);
-                                                                    },
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/Mask_Group_222.png',
-                                                                      width: 25,
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15,
+                                                                        0,
+                                                                        15,
+                                                                        10),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          110,
                                                                       height:
                                                                           25,
-                                                                      fit: BoxFit
-                                                                          .none,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 15, 0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                    AlignmentDirectional(
-                                                                        0, 0),
-                                                                child: Text(
-                                                                  '${listViewUserAddressRecord.address.street}  ${listViewUserAddressRecord.address.number?.toString()}-${listViewUserAddressRecord.address.postalCode}-${listViewUserAddressRecord.address.city}'
-                                                                      .maybeHandleOverflow(
-                                                                          maxChars:
-                                                                              20),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
+                                                                      decoration:
+                                                                          BoxDecoration(
                                                                         color: Color(
-                                                                            0xFF8A8A8A),
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
+                                                                            0xFFD4D4D4),
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          bottomLeft:
+                                                                              Radius.circular(0),
+                                                                          bottomRight:
+                                                                              Radius.circular(0),
+                                                                          topLeft:
+                                                                              Radius.circular(2),
+                                                                          topRight:
+                                                                              Radius.circular(0),
+                                                                        ),
                                                                       ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            FFLocalizations.of(context).getText(
+                                                                              'le5cl6g3' /* Main address */,
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  fontWeight: FontWeight.normal,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                              ),
-                                                            ],
+                                                                Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        final userAddressUpdateData =
+                                                                            createUserAddressRecordData(
+                                                                          defaultAddress:
+                                                                              false,
+                                                                        );
+                                                                        await listViewUserAddressRecord
+                                                                            .reference
+                                                                            .update(userAddressUpdateData);
+                                                                      },
+                                                                      child: Image
+                                                                          .asset(
+                                                                        'assets/images/Mask_Group_222.png',
+                                                                        width:
+                                                                            25,
+                                                                        height:
+                                                                            25,
+                                                                        fit: BoxFit
+                                                                            .none,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15,
+                                                                        0,
+                                                                        15,
+                                                                        0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Wrap(
+                                                                  spacing: 0,
+                                                                  runSpacing: 0,
+                                                                  alignment:
+                                                                      WrapAlignment
+                                                                          .start,
+                                                                  crossAxisAlignment:
+                                                                      WrapCrossAlignment
+                                                                          .start,
+                                                                  direction: Axis
+                                                                      .horizontal,
+                                                                  runAlignment:
+                                                                      WrapAlignment
+                                                                          .start,
+                                                                  verticalDirection:
+                                                                      VerticalDirection
+                                                                          .down,
+                                                                  clipBehavior:
+                                                                      Clip.none,
+                                                                  children: [
+                                                                    Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Text(
+                                                                        '${listViewUserAddressRecord.address.street}',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Poppins',
+                                                                              color: Color(0xFF8A8A8A),
+                                                                              fontSize: 14,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         );
                                       },
@@ -383,12 +406,6 @@ class _Contactdata2M145WidgetState extends State<Contactdata2M145Widget> {
                                     stream: queryUserAddressRecord(
                                       parent:
                                           contactdata2M145UserRecord.reference,
-                                      queryBuilder: (userAddressRecord) =>
-                                          userAddressRecord
-                                              .where('archived',
-                                                  isEqualTo: false)
-                                              .where('default_address',
-                                                  isEqualTo: false),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -418,190 +435,193 @@ class _Contactdata2M145WidgetState extends State<Contactdata2M145Widget> {
                                           final listViewUserAddressRecord =
                                               listViewUserAddressRecordList[
                                                   listViewIndex];
-                                          return Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    15, 0, 15, 10),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
-                                                    child: Container(
-                                                      width: 360,
-                                                      height: 110,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryBtnText,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                        border: Border.all(
-                                                          color:
-                                                              Color(0xFFD2D2D2),
+                                          return Visibility(
+                                            visible: (listViewUserAddressRecord
+                                                        .defaultAddress ==
+                                                    false) &&
+                                                (listViewUserAddressRecord
+                                                        .archived ==
+                                                    false),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(15, 0, 15, 10),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 0),
+                                                      child: Container(
+                                                        width: 360,
+                                                        height: 110,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBtnText,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(2),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0xFFD2D2D2),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Expanded(
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      0, 0),
-                                                              child: Container(
-                                                                width: 360,
-                                                                height: 110,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBtnText,
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      blurRadius:
-                                                                          4,
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        0, 0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 360,
+                                                                  height: 110,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBtnText,
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        blurRadius:
+                                                                            4,
+                                                                        color: Color(
+                                                                            0x33000000),
+                                                                        spreadRadius:
+                                                                            2,
+                                                                      )
+                                                                    ],
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(2),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
                                                                       color: Color(
-                                                                          0x33000000),
-                                                                      spreadRadius:
-                                                                          2,
-                                                                    )
-                                                                  ],
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              2),
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Color(
-                                                                        0x00F36121),
-                                                                    width: 1,
-                                                                  ),
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              15,
-                                                                              0,
-                                                                              15,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Align(
-                                                                            alignment:
-                                                                                AlignmentDirectional(0, 0),
-                                                                            child:
-                                                                                Text(
-                                                                              '${listViewUserAddressRecord.address.street}  ${listViewUserAddressRecord.address.number?.toString()}-${listViewUserAddressRecord.address.postalCode}-${listViewUserAddressRecord.address.city}'.maybeHandleOverflow(maxChars: 20),
-                                                                              textAlign: TextAlign.start,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: 'Poppins',
-                                                                                    color: Color(0xFF8A8A8A),
-                                                                                    fontSize: 14,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                  ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
+                                                                          0x00F36121),
+                                                                      width: 1,
                                                                     ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              15,
-                                                                              0,
-                                                                              15,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.end,
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0,
-                                                                                0,
-                                                                                20,
-                                                                                0),
-                                                                            child:
-                                                                                Column(
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            15,
+                                                                            0,
+                                                                            15,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Align(
+                                                                              alignment: AlignmentDirectional(0, 0),
+                                                                              child: Text(
+                                                                                '${listViewUserAddressRecord.address.street}  ${listViewUserAddressRecord.address.number?.toString()}-${listViewUserAddressRecord.address.postalCode}-${listViewUserAddressRecord.address.city}'.maybeHandleOverflow(maxChars: 20),
+                                                                                textAlign: TextAlign.start,
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      color: Color(0xFF8A8A8A),
+                                                                                      fontSize: 14,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            15,
+                                                                            0,
+                                                                            15,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.end,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                                                                              child: Column(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  InkWell(
+                                                                                    onTap: () async {
+                                                                                      final userAddressUpdateData = createUserAddressRecordData(
+                                                                                        defaultAddress: true,
+                                                                                      );
+                                                                                      await listViewUserAddressRecord.reference.update(userAddressUpdateData);
+
+                                                                                      final userUpdateData = createUserRecordData(
+                                                                                        location: listViewUserAddressRecord.address.location,
+                                                                                      );
+                                                                                      await contactdata2M145UserRecord.reference.update(userUpdateData);
+                                                                                    },
+                                                                                    child: Text(
+                                                                                      FFLocalizations.of(context).getText(
+                                                                                        'yil9lu03' /* Set to main */,
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                            fontFamily: 'Poppins',
+                                                                                            fontWeight: FontWeight.normal,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            Column(
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               children: [
                                                                                 InkWell(
                                                                                   onTap: () async {
                                                                                     final userAddressUpdateData = createUserAddressRecordData(
-                                                                                      defaultAddress: false,
+                                                                                      archived: true,
                                                                                     );
                                                                                     await listViewUserAddressRecord.reference.update(userAddressUpdateData);
                                                                                   },
-                                                                                  child: Text(
-                                                                                    FFLocalizations.of(context).getText(
-                                                                                      'yil9lu03' /* Set to main */,
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Poppins',
-                                                                                          fontWeight: FontWeight.normal,
-                                                                                        ),
+                                                                                  child: Image.asset(
+                                                                                    'assets/images/Mask_Group_222.png',
+                                                                                    width: 25,
+                                                                                    height: 25,
+                                                                                    fit: BoxFit.none,
                                                                                   ),
                                                                                 ),
                                                                               ],
                                                                             ),
-                                                                          ),
-                                                                          Column(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              InkWell(
-                                                                                onTap: () async {
-                                                                                  final userAddressUpdateData = createUserAddressRecordData(
-                                                                                    archived: true,
-                                                                                  );
-                                                                                  await listViewUserAddressRecord.reference.update(userAddressUpdateData);
-                                                                                },
-                                                                                child: Image.asset(
-                                                                                  'assets/images/Mask_Group_222.png',
-                                                                                  width: 25,
-                                                                                  height: 25,
-                                                                                  fit: BoxFit.none,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           );
                                         },
@@ -699,11 +719,15 @@ class _Contactdata2M145WidgetState extends State<Contactdata2M145Widget> {
                                   children: [
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        context.pushNamed('DescribeYourself');
+                                        if (widget.edit != null) {
+                                          context.pop();
+                                        } else {
+                                          context.pushNamed('DescribeYourself');
+                                        }
                                       },
-                                      text: FFLocalizations.of(context).getText(
-                                        'w7swi2of' /* Next   > */,
-                                      ),
+                                      text: widget.edit != null
+                                          ? 'Back'
+                                          : 'Next   >',
                                       options: FFButtonOptions(
                                         width: 96,
                                         height: 40,

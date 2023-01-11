@@ -10,7 +10,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class TaskM198Widget extends StatefulWidget {
-  const TaskM198Widget({Key? key}) : super(key: key);
+  const TaskM198Widget({
+    Key? key,
+    this.edit,
+  }) : super(key: key);
+
+  final DocumentReference? edit;
 
   @override
   _TaskM198WidgetState createState() => _TaskM198WidgetState();
@@ -229,25 +234,49 @@ class _TaskM198WidgetState extends State<TaskM198Widget> {
                                                     gridViewIndex];
                                             return InkWell(
                                               onTap: () async {
-                                                final taskCreateData =
-                                                    createTaskRecordData(
-                                                  category:
-                                                      gridViewSkillCategoryRecord
-                                                          .reference,
-                                                  owner: currentUserReference,
-                                                );
-                                                var taskRecordReference =
-                                                    TaskRecord.collection.doc();
-                                                await taskRecordReference
-                                                    .set(taskCreateData);
-                                                createdTask = TaskRecord
-                                                    .getDocumentFromData(
-                                                        taskCreateData,
-                                                        taskRecordReference);
-                                                FFAppState().update(() {
-                                                  FFAppState().createdTask =
-                                                      createdTask!.reference;
-                                                });
+                                                if (FFAppState().createdTask !=
+                                                    null) {
+                                                  final taskUpdateData =
+                                                      createTaskRecordData(
+                                                    category:
+                                                        gridViewSkillCategoryRecord
+                                                            .reference,
+                                                  );
+                                                  await FFAppState()
+                                                      .createdTask!
+                                                      .update(taskUpdateData);
+                                                } else {
+                                                  final taskCreateData = {
+                                                    ...createTaskRecordData(
+                                                      category:
+                                                          gridViewSkillCategoryRecord
+                                                              .reference,
+                                                      owner:
+                                                          currentUserReference,
+                                                      archived: false,
+                                                      createdTime:
+                                                          getCurrentTimestamp,
+                                                      modifiedTime:
+                                                          getCurrentTimestamp,
+                                                    ),
+                                                    'users': [
+                                                      currentUserReference
+                                                    ],
+                                                  };
+                                                  var taskRecordReference =
+                                                      TaskRecord.collection
+                                                          .doc();
+                                                  await taskRecordReference
+                                                      .set(taskCreateData);
+                                                  createdTask = TaskRecord
+                                                      .getDocumentFromData(
+                                                          taskCreateData,
+                                                          taskRecordReference);
+                                                  FFAppState().update(() {
+                                                    FFAppState().createdTask =
+                                                        createdTask!.reference;
+                                                  });
+                                                }
 
                                                 context.pushNamed('TASK-M-199');
 

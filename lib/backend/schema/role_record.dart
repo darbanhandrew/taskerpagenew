@@ -16,13 +16,16 @@ abstract class RoleRecord implements Built<RoleRecord, RoleRecordBuilder> {
   @BuiltValueField(wireName: 'display_message')
   String? get displayMessage;
 
+  BuiltList<TranslatableStringStruct>? get locale;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(RoleRecordBuilder builder) => builder
     ..name = ''
-    ..displayMessage = '';
+    ..displayMessage = ''
+    ..locale = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('role');
@@ -39,6 +42,14 @@ abstract class RoleRecord implements Built<RoleRecord, RoleRecordBuilder> {
         (c) => c
           ..name = snapshot.data['name']
           ..displayMessage = snapshot.data['display_message']
+          ..locale = safeGet(() => ListBuilder(snapshot.data['locale']
+              .map((data) => createTranslatableStringStruct(
+                    language: safeGet(() =>
+                        toRef((data as Map<String, dynamic>)['language'])),
+                    text: (data as Map<String, dynamic>)['text'],
+                    create: true,
+                    clearUnsetFields: false,
+                  ).toBuilder())))
           ..ffRef = RoleRecord.collection.doc(snapshot.objectID),
       );
 
@@ -75,7 +86,8 @@ Map<String, dynamic> createRoleRecordData({
     RoleRecord(
       (r) => r
         ..name = name
-        ..displayMessage = displayMessage,
+        ..displayMessage = displayMessage
+        ..locale = null,
     ),
   );
 

@@ -1,11 +1,16 @@
 import '../auth/auth_util.dart';
 import '../auth/firebase_user_provider.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../components/drawwerright_widget.dart';
+import '../components/view_photo_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +23,9 @@ class SignupM166Widget extends StatefulWidget {
 }
 
 class _SignupM166WidgetState extends State<SignupM166Widget> {
+  bool isMediaUploading = false;
+  String uploadedFileUrl = '';
+
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -281,7 +289,7 @@ class _SignupM166WidgetState extends State<SignupM166Widget> {
                                                                                 AlignmentDirectional(0, 0),
                                                                             child:
                                                                                 Text(
-                                                                              listViewIndex.toString(),
+                                                                              functions.getIndex(listViewIndex),
                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                     fontFamily: 'Poppins',
                                                                                     color: FlutterFlowTheme.of(context).primaryBtnText,
@@ -362,15 +370,29 @@ class _SignupM166WidgetState extends State<SignupM166Widget> {
                                                                           MainAxisSize
                                                                               .max,
                                                                       children: [
-                                                                        Image
-                                                                            .asset(
-                                                                          'assets/images/Mask_Group_140.png',
-                                                                          width:
-                                                                              25,
-                                                                          height:
-                                                                              25,
-                                                                          fit: BoxFit
-                                                                              .none,
+                                                                        InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            context.pushNamed(
+                                                                              'editEducation',
+                                                                              queryParams: {
+                                                                                'educationDocument': serializeParam(
+                                                                                  listViewEducationRecord.reference,
+                                                                                  ParamType.DocumentReference,
+                                                                                ),
+                                                                              }.withoutNulls,
+                                                                            );
+                                                                          },
+                                                                          child:
+                                                                              Image.asset(
+                                                                            'assets/images/Mask_Group_140.png',
+                                                                            width:
+                                                                                25,
+                                                                            height:
+                                                                                25,
+                                                                            fit:
+                                                                                BoxFit.none,
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -541,9 +563,106 @@ class _SignupM166WidgetState extends State<SignupM166Widget> {
                                                                         0),
                                                             child:
                                                                 FFButtonWidget(
-                                                              onPressed: () {
-                                                                print(
-                                                                    'Button pressed ...');
+                                                              onPressed:
+                                                                  () async {
+                                                                if (!(listViewEducationRecord
+                                                                            .certificate !=
+                                                                        null &&
+                                                                    listViewEducationRecord
+                                                                            .certificate !=
+                                                                        '')) {
+                                                                  final selectedMedia =
+                                                                      await selectMediaWithSourceBottomSheet(
+                                                                    context:
+                                                                        context,
+                                                                    allowPhoto:
+                                                                        true,
+                                                                  );
+                                                                  if (selectedMedia !=
+                                                                          null &&
+                                                                      selectedMedia.every((m) => validateFileFormat(
+                                                                          m.storagePath,
+                                                                          context))) {
+                                                                    setState(() =>
+                                                                        isMediaUploading =
+                                                                            true);
+                                                                    var downloadUrls =
+                                                                        <String>[];
+                                                                    try {
+                                                                      downloadUrls = (await Future
+                                                                              .wait(
+                                                                        selectedMedia
+                                                                            .map(
+                                                                          (m) async => await uploadData(
+                                                                              m.storagePath,
+                                                                              m.bytes),
+                                                                        ),
+                                                                      ))
+                                                                          .where((u) =>
+                                                                              u !=
+                                                                              null)
+                                                                          .map((u) =>
+                                                                              u!)
+                                                                          .toList();
+                                                                    } finally {
+                                                                      isMediaUploading =
+                                                                          false;
+                                                                    }
+                                                                    if (downloadUrls
+                                                                            .length ==
+                                                                        selectedMedia
+                                                                            .length) {
+                                                                      setState(() =>
+                                                                          uploadedFileUrl =
+                                                                              downloadUrls.first);
+                                                                    } else {
+                                                                      setState(
+                                                                          () {});
+                                                                      return;
+                                                                    }
+                                                                  }
+
+                                                                  final educationUpdateData =
+                                                                      createEducationRecordData(
+                                                                    certificate:
+                                                                        uploadedFileUrl,
+                                                                  );
+                                                                  await listViewEducationRecord
+                                                                      .reference
+                                                                      .update(
+                                                                          educationUpdateData);
+                                                                }
+                                                                await showModalBottomSheet(
+                                                                  isScrollControlled:
+                                                                      true,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  enableDrag:
+                                                                      false,
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return Padding(
+                                                                      padding: MediaQuery.of(
+                                                                              context)
+                                                                          .viewInsets,
+                                                                      child:
+                                                                          Container(
+                                                                        height: MediaQuery.of(context).size.height *
+                                                                            0.5,
+                                                                        child:
+                                                                            ViewPhotoWidget(
+                                                                          imagePath:
+                                                                              listViewEducationRecord.certificate,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ).then((value) =>
+                                                                    setState(
+                                                                        () {}));
                                                               },
                                                               text: listViewEducationRecord
                                                                               .certificate !=
@@ -679,11 +798,16 @@ class _SignupM166WidgetState extends State<SignupM166Widget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'b60en9zl' /* I'll do it later */,
+                            InkWell(
+                              onTap: () async {
+                                context.pushNamed('ProfileView');
+                              },
+                              child: Text(
+                                FFLocalizations.of(context).getText(
+                                  'b60en9zl' /* I'll do it later */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyText1,
                               ),
-                              style: FlutterFlowTheme.of(context).bodyText1,
                             ),
                             FFButtonWidget(
                               onPressed: () async {

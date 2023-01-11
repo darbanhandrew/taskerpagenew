@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -141,13 +142,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: StreamBuilder<List<TaskRecord>>(
-                                  stream: queryTaskRecord(
-                                    queryBuilder: (taskRecord) => taskRecord
-                                        .where('users',
-                                            arrayContains: currentUserReference)
-                                        .orderBy('modified_time',
-                                            descending: true),
-                                  ),
+                                  stream: queryTaskRecord(),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -173,175 +168,291 @@ class _TasksWidgetState extends State<TasksWidget> {
                                         final listViewTaskRecord =
                                             listViewTaskRecordList[
                                                 listViewIndex];
-                                        return Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 0, 16, 8),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'chats',
-                                                queryParams: {
-                                                  'task': serializeParam(
-                                                    listViewTaskRecord
-                                                        .reference,
-                                                    ParamType.DocumentReference,
-                                                  ),
-                                                }.withoutNulls,
-                                              );
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                border: Border.all(
-                                                  color: Color(0xFFF1F4F8),
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 8, 8, 8),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Container(
+                                        return Visibility(
+                                          visible: listViewTaskRecord.users!
+                                                  .toList()
+                                                  .contains(
+                                                      currentUserReference) &&
+                                              listViewTaskRecord.published!,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16, 0, 16, 8),
+                                            child: StreamBuilder<UserRecord>(
+                                              stream: UserRecord.getDocument(
+                                                  listViewTaskRecord.owner!),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
                                                       width: 50,
                                                       height: 50,
-                                                      decoration: BoxDecoration(
+                                                      child:
+                                                          CircularProgressIndicator(
                                                         color:
-                                                            Color(0xFFF1F4F8),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                      ),
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0, 0),
-                                                      child: Text(
-                                                        listViewTaskRecord
-                                                            .users!
-                                                            .toList()
-                                                            .length
-                                                            .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .title2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Outfit',
-                                                                  color: Color(
-                                                                      0xFF101213),
-                                                                  fontSize: 24,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
+                                                                .primaryColor,
                                                       ),
                                                     ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(12, 0,
-                                                                    0, 0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            StreamBuilder<
-                                                                SkillCategoryRecord>(
-                                                              stream: SkillCategoryRecord
-                                                                  .getDocument(
-                                                                      listViewTaskRecord
-                                                                          .category!),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                final textSkillCategoryRecord =
-                                                                    snapshot
-                                                                        .data!;
-                                                                return Text(
-                                                                  textSkillCategoryRecord
-                                                                      .displayName!,
+                                                  );
+                                                }
+                                                final containerUserRecord =
+                                                    snapshot.data!;
+                                                return InkWell(
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'chats',
+                                                      queryParams: {
+                                                        'task': serializeParam(
+                                                          listViewTaskRecord
+                                                              .reference,
+                                                          ParamType
+                                                              .DocumentReference,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                      border: Border.all(
+                                                        color:
+                                                            Color(0xFFF1F4F8),
+                                                        width: 2,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8, 8, 8, 8),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 50,
+                                                                  height: 50,
+                                                                  clipBehavior:
+                                                                      Clip.antiAlias,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Image
+                                                                      .network(
+                                                                    containerUserRecord
+                                                                        .photoUrl!,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 50,
+                                                                height: 50,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Color(
+                                                                      0xFFF1F4F8),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                ),
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        0, 0),
+                                                                child: Text(
+                                                                  listViewTaskRecord
+                                                                      .users!
+                                                                      .toList()
+                                                                      .length
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .subtitle1
+                                                                      .title2
                                                                       .override(
                                                                         fontFamily:
                                                                             'Outfit',
                                                                         color: Color(
                                                                             0xFF101213),
                                                                         fontSize:
-                                                                            18,
+                                                                            24,
                                                                         fontWeight:
-                                                                            FontWeight.normal,
+                                                                            FontWeight.w500,
                                                                       ),
-                                                                );
-                                                              },
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          4,
-                                                                          0,
-                                                                          0),
-                                                              child: Text(
-                                                                listViewTaskRecord
-                                                                    .description!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText2
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Outfit',
-                                                                      color: Color(
-                                                                          0xFF57636C),
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    StreamBuilder<
+                                                                        SkillCategoryRecord>(
+                                                                      stream: SkillCategoryRecord.getDocument(
+                                                                          listViewTaskRecord
+                                                                              .category!),
+                                                                      builder:
+                                                                          (context,
+                                                                              snapshot) {
+                                                                        // Customize what your widget looks like when it's loading.
+                                                                        if (!snapshot
+                                                                            .hasData) {
+                                                                          return Center(
+                                                                            child:
+                                                                                SizedBox(
+                                                                              width: 50,
+                                                                              height: 50,
+                                                                              child: CircularProgressIndicator(
+                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        final textSkillCategoryRecord =
+                                                                            snapshot.data!;
+                                                                        return Text(
+                                                                          textSkillCategoryRecord
+                                                                              .displayName!,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .subtitle1
+                                                                              .override(
+                                                                                fontFamily: 'Outfit',
+                                                                                color: Color(0xFF101213),
+                                                                                fontSize: 18,
+                                                                                fontWeight: FontWeight.normal,
+                                                                              ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              4,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Text(
+                                                                        '${containerUserRecord.nameTitle} ${containerUserRecord.lastName}',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText2
+                                                                            .override(
+                                                                              fontFamily: 'Outfit',
+                                                                              color: Color(0xFF57636C),
+                                                                              fontSize: 12,
+                                                                              fontWeight: FontWeight.normal,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    context
+                                                                        .pushNamed(
+                                                                      'TaskPublish',
+                                                                      queryParams:
+                                                                          {
+                                                                        'messagePoster':
+                                                                            serializeParam(
+                                                                          false,
+                                                                          ParamType
+                                                                              .bool,
+                                                                        ),
+                                                                        'task':
+                                                                            serializeParam(
+                                                                          listViewTaskRecord
+                                                                              .reference,
+                                                                          ParamType
+                                                                              .DocumentReference,
+                                                                        ),
+                                                                        'editTask':
+                                                                            serializeParam(
+                                                                          true,
+                                                                          ParamType
+                                                                              .bool,
+                                                                        ),
+                                                                      }.withoutNulls,
+                                                                    );
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .create_outlined,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    size: 24,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ),
                                         );

@@ -24,6 +24,9 @@ class _$TaskRecordSerializer implements StructuredSerializer<TaskRecord> {
       'tasker_type',
       serializers.serialize(object.taskerType,
           specifiedType: const FullType(TaskerTypeStruct)),
+      'address',
+      serializers.serialize(object.address,
+          specifiedType: const FullType(AddressStruct)),
     ];
     Object? value;
     value = object.category;
@@ -127,6 +130,21 @@ class _$TaskRecordSerializer implements StructuredSerializer<TaskRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.location;
+    if (value != null) {
+      result
+        ..add('location')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(LatLng)));
+    }
+    value = object.userAddressRef;
+    if (value != null) {
+      result
+        ..add('user_address_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -225,6 +243,20 @@ class _$TaskRecordSerializer implements StructuredSerializer<TaskRecord> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'location':
+          result.location = serializers.deserialize(value,
+              specifiedType: const FullType(LatLng)) as LatLng?;
+          break;
+        case 'address':
+          result.address.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AddressStruct))! as AddressStruct);
+          break;
+        case 'user_address_ref':
+          result.userAddressRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -270,6 +302,12 @@ class _$TaskRecord extends TaskRecord {
   @override
   final String? name;
   @override
+  final LatLng? location;
+  @override
+  final AddressStruct address;
+  @override
+  final DocumentReference<Object?>? userAddressRef;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TaskRecord([void Function(TaskRecordBuilder)? updates]) =>
@@ -291,11 +329,15 @@ class _$TaskRecord extends TaskRecord {
       required this.taskerType,
       this.users,
       this.name,
+      this.location,
+      required this.address,
+      this.userAddressRef,
       this.ffRef})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(taskTime, r'TaskRecord', 'taskTime');
     BuiltValueNullFieldError.checkNotNull(
         taskerType, r'TaskRecord', 'taskerType');
+    BuiltValueNullFieldError.checkNotNull(address, r'TaskRecord', 'address');
   }
 
   @override
@@ -324,6 +366,9 @@ class _$TaskRecord extends TaskRecord {
         taskerType == other.taskerType &&
         users == other.users &&
         name == other.name &&
+        location == other.location &&
+        address == other.address &&
+        userAddressRef == other.userAddressRef &&
         ffRef == other.ffRef;
   }
 
@@ -345,24 +390,33 @@ class _$TaskRecord extends TaskRecord {
                                                         $jc(
                                                             $jc(
                                                                 $jc(
-                                                                    0,
-                                                                    category
+                                                                    $jc(
+                                                                        $jc(
+                                                                            $jc(
+                                                                                0,
+                                                                                category
+                                                                                    .hashCode),
+                                                                            skill
+                                                                                .hashCode),
+                                                                        skillLevels
+                                                                            .hashCode),
+                                                                    languages
                                                                         .hashCode),
-                                                                skill.hashCode),
-                                                            skillLevels
-                                                                .hashCode),
-                                                        languages.hashCode),
-                                                    description.hashCode),
-                                                file.hashCode),
-                                            createdTime.hashCode),
-                                        modifiedTime.hashCode),
-                                    published.hashCode),
-                                archived.hashCode),
-                            owner.hashCode),
-                        taskTime.hashCode),
-                    taskerType.hashCode),
-                users.hashCode),
-            name.hashCode),
+                                                                description
+                                                                    .hashCode),
+                                                            file.hashCode),
+                                                        createdTime.hashCode),
+                                                    modifiedTime.hashCode),
+                                                published.hashCode),
+                                            archived.hashCode),
+                                        owner.hashCode),
+                                    taskTime.hashCode),
+                                taskerType.hashCode),
+                            users.hashCode),
+                        name.hashCode),
+                    location.hashCode),
+                address.hashCode),
+            userAddressRef.hashCode),
         ffRef.hashCode));
   }
 
@@ -384,6 +438,9 @@ class _$TaskRecord extends TaskRecord {
           ..add('taskerType', taskerType)
           ..add('users', users)
           ..add('name', name)
+          ..add('location', location)
+          ..add('address', address)
+          ..add('userAddressRef', userAddressRef)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -464,6 +521,20 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
+  LatLng? _location;
+  LatLng? get location => _$this._location;
+  set location(LatLng? location) => _$this._location = location;
+
+  AddressStructBuilder? _address;
+  AddressStructBuilder get address =>
+      _$this._address ??= new AddressStructBuilder();
+  set address(AddressStructBuilder? address) => _$this._address = address;
+
+  DocumentReference<Object?>? _userAddressRef;
+  DocumentReference<Object?>? get userAddressRef => _$this._userAddressRef;
+  set userAddressRef(DocumentReference<Object?>? userAddressRef) =>
+      _$this._userAddressRef = userAddressRef;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -490,6 +561,9 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
       _taskerType = $v.taskerType.toBuilder();
       _users = $v.users?.toBuilder();
       _name = $v.name;
+      _location = $v.location;
+      _address = $v.address.toBuilder();
+      _userAddressRef = $v.userAddressRef;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -530,6 +604,9 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
               taskerType: taskerType.build(),
               users: _users?.build(),
               name: name,
+              location: location,
+              address: address.build(),
+              userAddressRef: userAddressRef,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -545,6 +622,9 @@ class TaskRecordBuilder implements Builder<TaskRecord, TaskRecordBuilder> {
         taskerType.build();
         _$failedField = 'users';
         _users?.build();
+
+        _$failedField = 'address';
+        address.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'TaskRecord', _$failedField, e.toString());

@@ -2,8 +2,8 @@ import '../components/drawwerright_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +21,10 @@ class _IdentificationWidgetState extends State<IdentificationWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.pop();
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -51,6 +55,11 @@ class _IdentificationWidgetState extends State<IdentificationWidget> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
+            leading: Icon(
+              Icons.arrow_back_outlined,
+              color: FlutterFlowTheme.of(context).tertiaryColor,
+              size: 24,
+            ),
             title: Text(
               'tasker.page',
               style: FlutterFlowTheme.of(context).title2.override(
@@ -60,32 +69,6 @@ class _IdentificationWidgetState extends State<IdentificationWidget> {
                   ),
             ),
             actions: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 16),
-                child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
-                  },
-                  text: FFLocalizations.of(context).getText(
-                    '60facxq3' /* Post a task */,
-                  ),
-                  options: FFButtonOptions(
-                    height: 36,
-                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
-                    color: FlutterFlowTheme.of(context).primaryColor,
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                ),
-              ),
               FlutterFlowIconButton(
                 borderColor: Colors.transparent,
                 borderRadius: 30,

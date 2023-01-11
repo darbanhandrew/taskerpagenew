@@ -123,30 +123,6 @@ service cloud.firestore {
     }
 
 
-    match /task/{parent}/task_address/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /{path=**}/task_address/{document} {
-      allow read: if true;
-    }
-
-
-    match /appointment/{parent}/appointment_Address/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /{path=**}/appointment_Address/{document} {
-      allow read: if true;
-    }
-
-
     match /user/{parent}/user_skill/{document} {
       allow create: if true;
       allow read: if true;
@@ -160,6 +136,51 @@ service cloud.firestore {
 
 
     match /fild/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /user/{parent}/user_field/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/user_field/{document} {
+      allow read: if true;
+    }
+
+
+    match /plan/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /user/{parent}/transactions/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/transactions/{document} {
+      allow read: if true;
+    }
+
+
+    match /signUP_step_badg/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /Rate/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;

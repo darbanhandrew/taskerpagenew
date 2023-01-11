@@ -31,6 +31,8 @@ abstract class AppointmentRecord
 
   String? get phone;
 
+  AddressStruct get address;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -39,7 +41,8 @@ abstract class AppointmentRecord
     ..users = ListBuilder()
     ..accepted = false
     ..typeAppointment = ''
-    ..phone = '';
+    ..phone = ''
+    ..address = AddressStructBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('appointment');
@@ -70,6 +73,7 @@ Map<String, dynamic> createAppointmentRecordData({
   DocumentReference? invited,
   String? typeAppointment,
   String? phone,
+  AddressStruct? address,
 }) {
   final firestoreData = serializers.toFirestore(
     AppointmentRecord.serializer,
@@ -82,9 +86,13 @@ Map<String, dynamic> createAppointmentRecordData({
         ..createdBy = createdBy
         ..invited = invited
         ..typeAppointment = typeAppointment
-        ..phone = phone,
+        ..phone = phone
+        ..address = AddressStructBuilder(),
     ),
   );
+
+  // Handle nested data for "address" field.
+  addAddressStructData(firestoreData, address, 'address');
 
   return firestoreData;
 }

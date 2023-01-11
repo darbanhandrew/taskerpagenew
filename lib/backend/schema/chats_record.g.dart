@@ -93,6 +93,12 @@ class _$ChatsRecordSerializer implements StructuredSerializer<ChatsRecord> {
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.order;
+    if (value != null) {
+      result
+        ..add('order')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -167,6 +173,10 @@ class _$ChatsRecordSerializer implements StructuredSerializer<ChatsRecord> {
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'order':
+          result.order = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -200,6 +210,8 @@ class _$ChatsRecord extends ChatsRecord {
   @override
   final DocumentReference<Object?>? appointment;
   @override
+  final int? order;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ChatsRecord([void Function(ChatsRecordBuilder)? updates]) =>
@@ -215,6 +227,7 @@ class _$ChatsRecord extends ChatsRecord {
       this.lastMessageSeenBy,
       this.task,
       this.appointment,
+      this.order,
       this.ffRef})
       : super._();
 
@@ -238,6 +251,7 @@ class _$ChatsRecord extends ChatsRecord {
         lastMessageSeenBy == other.lastMessageSeenBy &&
         task == other.task &&
         appointment == other.appointment &&
+        order == other.order &&
         ffRef == other.ffRef;
   }
 
@@ -250,14 +264,18 @@ class _$ChatsRecord extends ChatsRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc($jc(0, users.hashCode), userA.hashCode),
-                                    userB.hashCode),
-                                lastMessage.hashCode),
-                            lastMessageTime.hashCode),
-                        lastMessageSentBy.hashCode),
-                    lastMessageSeenBy.hashCode),
-                task.hashCode),
-            appointment.hashCode),
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, users.hashCode),
+                                            userA.hashCode),
+                                        userB.hashCode),
+                                    lastMessage.hashCode),
+                                lastMessageTime.hashCode),
+                            lastMessageSentBy.hashCode),
+                        lastMessageSeenBy.hashCode),
+                    task.hashCode),
+                appointment.hashCode),
+            order.hashCode),
         ffRef.hashCode));
   }
 
@@ -273,6 +291,7 @@ class _$ChatsRecord extends ChatsRecord {
           ..add('lastMessageSeenBy', lastMessageSeenBy)
           ..add('task', task)
           ..add('appointment', appointment)
+          ..add('order', order)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -327,6 +346,10 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
   set appointment(DocumentReference<Object?>? appointment) =>
       _$this._appointment = appointment;
 
+  int? _order;
+  int? get order => _$this._order;
+  set order(int? order) => _$this._order = order;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -347,6 +370,7 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
       _lastMessageSeenBy = $v.lastMessageSeenBy?.toBuilder();
       _task = $v.task;
       _appointment = $v.appointment;
+      _order = $v.order;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -381,6 +405,7 @@ class ChatsRecordBuilder implements Builder<ChatsRecord, ChatsRecordBuilder> {
               lastMessageSeenBy: _lastMessageSeenBy?.build(),
               task: task,
               appointment: appointment,
+              order: order,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

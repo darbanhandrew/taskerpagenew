@@ -17,6 +17,9 @@ abstract class CountryRecord
 
   String? get flagIcon;
 
+  @BuiltValueField(wireName: 'currency_code')
+  String? get currencyCode;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -24,7 +27,8 @@ abstract class CountryRecord
   static void _initializeBuilder(CountryRecordBuilder builder) => builder
     ..code = ''
     ..phoneCode = ''
-    ..flagIcon = '';
+    ..flagIcon = ''
+    ..currencyCode = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('country');
@@ -51,6 +55,7 @@ Map<String, dynamic> createCountryRecordData({
   String? code,
   String? phoneCode,
   String? flagIcon,
+  String? currencyCode,
 }) {
   final firestoreData = serializers.toFirestore(
     CountryRecord.serializer,
@@ -58,7 +63,8 @@ Map<String, dynamic> createCountryRecordData({
       (c) => c
         ..code = code
         ..phoneCode = phoneCode
-        ..flagIcon = flagIcon,
+        ..flagIcon = flagIcon
+        ..currencyCode = currencyCode,
     ),
   );
 

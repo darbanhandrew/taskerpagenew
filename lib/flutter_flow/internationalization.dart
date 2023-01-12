@@ -2148,7 +2148,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'sv': 'Bli en tasker',
     },
     'ok8zboec': {
-      'en': 'Choose a categories to get Started:',
+      'en': 'Choose a categories to get Sta',
       'de': 'Wählen Sie eine Kategorie aus, um loszulegen:',
       'sv': 'Välj en kategori för att komma igång:',
     },

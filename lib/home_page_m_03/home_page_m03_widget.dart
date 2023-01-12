@@ -332,7 +332,7 @@ an... */
                             alignment: AlignmentDirectional(0, 0),
                             child: Text(
                               FFLocalizations.of(context).getText(
-                                'ok8zboec' /* Choose a categories to get Sta... */,
+                                'ok8zboec' /* Choose a categories to get Sta */,
                               ),
                               textAlign: TextAlign.center,
                               style:
